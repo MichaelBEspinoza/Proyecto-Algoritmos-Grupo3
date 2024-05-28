@@ -1,4 +1,8 @@
 package domain;
 
-public class Role {
+public enum Role {
+    ADMINISTRATOR,
+    INSTRUCTOR,
+    USER
 }
+
