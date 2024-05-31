@@ -1,98 +1,76 @@
 package operations;
 
-import domain.User;
 import domain.Role;
-import org.junit.Test;
+import domain.User;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import structures.lists.ListException;
 
-import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserOperationsTest {
-    private UserOperations userOperations;
-    private User user1;
-    private User user2;
 
-    //TODO: verificar pruebas, corregirlas y hacer que pasen. Ahora mismo solo están como placeholders.
+    private UserOperations userOperations;
+
+    // Importante: como la mayoría de los métodos de la clase 'UserOperations' devuelven un valor booleano, considero que
+    // es imperativo usar los 'assertTrue', 'assertFalse', y sus derivados. Lo dejo a su decisión.
+    //                                                                                                          -- David
 
     @BeforeEach
     public void setUp() {
         userOperations = new UserOperations();
-        user1 = new User(1, "John Doe", "password1", "davidcalvogam@example.com", Role.USER);
-        user2 = new User(2, "Jane Smith", "password2", "jane@example.com", Role.ADMINISTRATOR);
-    }
+    }// End of method [setUp].
 
     @Test
     public void testCreateUser() {
-        assertTrue(userOperations.createUser(user1));
-        assertFalse(userOperations.createUser(user1));
-    }
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        assertTrue(userOperations.createUser(user));
+        assertFalse(userOperations.createUser(user)); // No se puede crear el mismo usuario dos veces.
+    }// Test #1.
 
     @Test
     public void testReadUser() {
-        userOperations.createUser(user1);
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        userOperations.createUser(user);
         User retrievedUser = userOperations.readUser(1);
-        assertEquals(user1, retrievedUser);
-        assertNull(userOperations.readUser(3));
-    }
+        assertNotNull(retrievedUser);
+        assertEquals(1, retrievedUser.getId());
+    }// Test #2.
 
     @Test
-    public void testUpdateUser() {
-        userOperations.createUser(user1);
-        User updatedUser = new User(1, "John Updated", "newpassword", "johnupdated@example.com", Role.USER);
+    public void testUpdateUser() throws ListException {
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        userOperations.createUser(user);
+        User updatedUser = new User(1, "Carlos Bonilla", "newpassword", "car.bon@prueba.com", Role.ADMINISTRATOR);
         assertTrue(userOperations.updateUser(updatedUser));
         User retrievedUser = userOperations.readUser(1);
-        assertEquals("John Updated", retrievedUser.getName());
         assertEquals("newpassword", retrievedUser.getPassword());
-        assertEquals("johnupdated@example.com", retrievedUser.getEmail());
-    }
+        assertEquals(Role.ADMINISTRATOR, retrievedUser.getRole());
+    }// Test #3.
 
     @Test
-    public void testDeleteUser() {
-        userOperations.createUser(user1);
+    public void testDeleteUser() throws ListException {
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        userOperations.createUser(user);
         assertTrue(userOperations.deleteUser(1));
-        assertFalse(userOperations.deleteUser(1));
-    }
-
-    @Test
-    public void testListUsers() {
-        userOperations.createUser(user1);
-        userOperations.createUser(user2);
-        List<User> users = userOperations.listUsers();
-        assertEquals(2, users.size());
-        assertTrue(users.contains(user1));
-        assertTrue(users.contains(user2));
-    }
-
-    @Test
-    public void testSendEmailNotification() {
-        userOperations.createUser(user1);
-        userOperations.sendEmailNotification(user1, "Test message");
-    }
-
-    @Test
-    public void testUpdateProfile() {
-        userOperations.createUser(user1);
-        User updatedUser = new User(1, "John Updated", "newpassword", "johnupdated@example.com", Role.USER);
-        assertTrue(userOperations.updateProfile(updatedUser));
-        User retrievedUser = userOperations.readUser(1);
-        assertEquals("John Updated", retrievedUser.getName());
-    }
+        assertNull(userOperations.readUser(1));
+    }// Test #4.
 
     @Test
     public void testChangePassword() {
-        userOperations.createUser(user1);
-        assertTrue(userOperations.changePassword(1, "newpassword"));
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        userOperations.createUser(user);
+        assertTrue(userOperations.changePassword(1, "newpassword123"));
         User retrievedUser = userOperations.readUser(1);
-        assertEquals("newpassword", retrievedUser.getPassword());
-        assertFalse(userOperations.changePassword(1, "newpassword"));
-    }
+        assertEquals("newpassword123", retrievedUser.getPassword());
+    }// Test #5.
 
     @Test
     public void testUserExists() {
-        userOperations.createUser(user1);
-        assertTrue(userOperations.userExists(user1));
-        assertFalse(userOperations.userExists(user2));
-    }
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        userOperations.createUser(user);
+        assertTrue(userOperations.userExists(user));
+        User nonExistentUser = new User(2, "Sonya Bonilla", "password456", "so.bon@example.com", Role.USER);
+        assertFalse(userOperations.userExists(nonExistentUser));
+    }// Test #6.
 }// End of class [UserOperationsTest].

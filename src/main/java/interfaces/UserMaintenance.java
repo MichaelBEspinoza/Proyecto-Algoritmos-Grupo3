@@ -1,6 +1,8 @@
 package interfaces;
 
 import domain.User;
+import structures.lists.ListException;
+import structures.lists.SinglyLinkedList;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ public interface UserMaintenance {
 
     /**
     - readUser(int userId): User: Busca y devuelve un usuario por su ID.**/
-    public User readUser(int UserID);
+    public User readUser(int UserID) ;
 
     /**
     - updateUser(User user): boolean: Actualiza la información de un usuario existente y devuelve true si se actualiza con éxito.**/
@@ -27,7 +29,7 @@ public interface UserMaintenance {
 
     /**
     - listUsers(): List<User>: Devuelve una lista de todos los usuarios.**/
-    public List<User> listUsers();
+    public SinglyLinkedList listUsers();
 
     /**
     - *Notificaciones por correo electrónico:*
