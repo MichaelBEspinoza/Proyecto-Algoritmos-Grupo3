@@ -15,9 +15,9 @@ public interface CourseMaintenance {
     public boolean createCourse(Course course);
 
     /**
-     - readCourse(int courseId): Course: Busca y devuelve un curso por su ID.
+     - readCourse(int courseId): String: Busca y devuelve un curso por su ID.
     **/
-    public Course readCourse(int courseId);
+    public String readCourse(int courseId);
     /**-
      * updateCourse(Course course): boolean: Actualiza la información de un curso existente y devuelve true si se actualiza con éxito.
     **/

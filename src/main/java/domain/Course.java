@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Objects;
+
 public class Course {
     private int id; /**Identificador del curso**/
 
@@ -71,5 +73,30 @@ public class Course {
 
     public void setInstructorId(int instructorId) {
         this.instructorId = instructorId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return id == course.id && instructorId == course.instructorId && Objects.equals(name, course.name) && Objects.equals(description, course.description) && Objects.equals(courseLength, course.courseLength) && Objects.equals(level, course.level);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, courseLength, level, instructorId);
+    }
+
+    @Override
+    public String toString() {
+        return "Course Details{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", courseLength='" + courseLength + '\'' +
+                ", level='" + level + '\'' +
+                ", instructorId=" + instructorId +
+                '}';
     }
 }

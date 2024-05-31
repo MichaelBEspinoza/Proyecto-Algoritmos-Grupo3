@@ -1,5 +1,8 @@
 package util;
 
+import domain.Course;
+import operations.CourseOperations;
+
 import java.text.DecimalFormat;
 import java.util.Random;
 
@@ -44,6 +47,9 @@ public class Utility {
             case "Character":
                 Character c1 = (Character)a; Character c2 = (Character)b;
                 return c1.compareTo(c2)<0 ? -1 : c1.compareTo(c2)>0 ? 1 : 0;
+            case "Course":
+                Course co1 = (Course) a; Course co2 = (Course) b;
+                return co1.equals(co2) ? 0 : 1;
 
         }
         return 2; //Unknown
@@ -53,6 +59,7 @@ public class Utility {
         if(a instanceof Integer && b instanceof Integer) return "Integer";
         if(a instanceof String && b instanceof String) return "String";
         if(a instanceof Character && b instanceof Character) return "Character";
+        if(a instanceof Course && b instanceof Course) return "Course";
         return "Unknown";
     }
 }
