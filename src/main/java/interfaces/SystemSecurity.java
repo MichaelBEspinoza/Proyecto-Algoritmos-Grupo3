@@ -14,9 +14,11 @@ public interface SystemSecurity {
 
     /** - *Encriptación de contraseñas:*
      * encryptPassword(String password): String: Aplica un algoritmo de encriptación y devuelve la contraseña encriptada.**/
-    public void encryptPassword(String password);
+    public String encryptPassword(String password);
 
     /**- *Gestión de roles:*
      - assignRole(User user, Role role): void: Asigna un rol a un usuario (administrador, instructor, usuario).**/
-    public void assignRole(User user, Role role);
+    public void assignRole(User user, String rolePassword);
+
+    public boolean register(String username, String password, String rolePassword,String email);
 }
