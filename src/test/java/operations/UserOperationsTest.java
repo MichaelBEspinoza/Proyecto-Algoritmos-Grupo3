@@ -52,7 +52,9 @@ public class UserOperationsTest {
     public void testDeleteUser() throws ListException {
         User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
         userOperations.createUser(user);
+        System.out.println(userOperations.listUsers());
         assertTrue(userOperations.deleteUser(1));
+        System.out.println(userOperations.listUsers());
         assertNull(userOperations.readUser(1));
     }// Test #4.
 

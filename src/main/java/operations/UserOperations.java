@@ -2,6 +2,7 @@ package operations;
 
 import domain.User;
 import interfaces.UserMaintenance;
+import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
 import structures.lists.SinglyLinkedList;
 
@@ -22,7 +23,7 @@ public class UserOperations implements UserMaintenance {
     // Implementación de librería Logger para manejar excepciones de una forma más robusta, siguiendo recomendaciones de IntelliJ.
     private static final Logger logger = Logger.getLogger(UserOperations.class.getName());
     // Instancia de la clase de 'SinglyLinkedList' que va a mantener todos los usuarios.
-    private final SinglyLinkedList users = new SinglyLinkedList();
+    private final CircularDoublyLinkedList users = new CircularDoublyLinkedList();
 
     static { // Bloque estático asegura que se pueda llamar a lo largo de la clase.
         try {
@@ -53,6 +54,7 @@ public class UserOperations implements UserMaintenance {
         /* Método que retorna al usuario correspondiente al ID que recibe por parámetro. De no encontrarlo, retorna 'null'
            @param userID ID del usuario a buscar y retornar.
            @return check Que corresponde al usuario encontrado.*/
+
         try {
             for (int i = 1; i <= users.size(); i++) {
                 User user = (User) users.getNode(i).data;
@@ -90,21 +92,33 @@ public class UserOperations implements UserMaintenance {
            @param userID ID del usuario a buscar y borrar.
            @return true Si se borra exitosamente, false si no se suprime nada.*/
         try {
+            if (users.isEmpty()) return false; // La lista está vacía, no hay usuarios que borrar.
+
+            // Buscar el usuario con el ID proporcionado.
             for (int i = 1; i <= users.size(); i++) {
                 User user = (User) users.getNode(i).data;
-                if (user.getId() == userId) {
-                    users.remove(user);
+
+                if (user == users.getNode(1).data) { // Si es el primer elemento en la lista.
+                    users.removeFirst();
                     return true;
+                }// End of 'if'.
+                else if (user == users.getNode(users.size()).data) { // Si es el último elemento en la lista.
+                    users.removeLast();
+                    return true;
+                }// End of 'if'
+                else if (user.getId() == userId) { // Si no es ninguno de los dos escenarios anteriores.
+                    users.remove(user);
+                    return true; // Usuario borrado exitosamente.
                 }// End of 'if'.
             }// End of 'for' loop.
         } catch (ListException e) {
             logger.log(Level.SEVERE, "Error while deleting user.", e);
         }// End of 'catch'.
-        return false;
+        return false; // No se encontró el usuario a borrar
     }// End of method [deleteUser].
 
     @Override
-    public SinglyLinkedList listUsers() {
+    public CircularDoublyLinkedList listUsers() {
         /* Método que retorna la lista que contiene todos los usuarios ingresados hasta un momento en particular.
            @return List<User> Lista con los usuarios agregados. */
         return users;
@@ -181,4 +195,9 @@ public class UserOperations implements UserMaintenance {
         }// End of 'catch'.
         return false;
     }// End of method [userExists].
+
+    public void clearList() {
+        users.clear();
+    }
+
 }// End of class [UserOperations].

@@ -1,6 +1,7 @@
 package interfaces;
 
 import domain.User;
+import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
 import structures.lists.SinglyLinkedList;
 
@@ -29,7 +30,7 @@ public interface UserMaintenance {
 
     /**
     - listUsers(): List<User>: Devuelve una lista de todos los usuarios.**/
-    public SinglyLinkedList listUsers();
+    public CircularDoublyLinkedList listUsers();
 
     /**
     - *Notificaciones por correo electrónico:*
