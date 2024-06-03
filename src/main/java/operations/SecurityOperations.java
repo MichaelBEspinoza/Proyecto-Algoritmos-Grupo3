@@ -139,7 +139,7 @@ public class SecurityOperations implements SystemSecurity  {
 
     public void saveUserInformationinFile(){
 
-        PrintWriter writer = null;
+        PrintWriter writer;
 
         try {
             writer = new PrintWriter(file);
