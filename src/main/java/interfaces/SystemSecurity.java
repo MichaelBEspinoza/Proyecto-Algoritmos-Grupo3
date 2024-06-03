@@ -18,7 +18,7 @@ public interface SystemSecurity {
 
     /**- *Gestión de roles:*
      - assignRole(User user, Role role): void: Asigna un rol a un usuario (administrador, instructor, usuario).**/
-    public void assignRole(User user, String rolePassword);
+    public void assignRole(User user, Role role);
 
-    public boolean register(String username, String password, String rolePassword,String email);
+    public boolean register(String username, String password, String email, Role userRole);
 }

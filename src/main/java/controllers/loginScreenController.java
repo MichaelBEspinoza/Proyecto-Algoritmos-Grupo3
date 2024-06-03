@@ -7,12 +7,11 @@ import javafx.scene.layout.Pane;
 public class loginScreenController {
     @javafx.fxml.FXML
     private Pane pane1;
-    @javafx.fxml.FXML
-    private TextField txf_user;
-    @javafx.fxml.FXML
-    private TextField txf_password;
 
-    @javafx.fxml.FXML
+
+    @Deprecated
     public void accessOnAction(ActionEvent actionEvent) {
     }
+
+
 }
