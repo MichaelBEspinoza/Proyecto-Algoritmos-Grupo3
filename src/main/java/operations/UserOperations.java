@@ -4,15 +4,14 @@ import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
-import structures.lists.SinglyLinkedList;
+import structures.lists.Node;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -23,7 +22,7 @@ public class UserOperations implements UserMaintenance {
     // Implementación de librería Logger para manejar excepciones de una forma más robusta, siguiendo recomendaciones de IntelliJ.
     private static final Logger logger = Logger.getLogger(UserOperations.class.getName());
     // Instancia de la clase de 'SinglyLinkedList' que va a mantener todos los usuarios.
-    private final CircularDoublyLinkedList users = new CircularDoublyLinkedList();
+    private CircularDoublyLinkedList users = new CircularDoublyLinkedList();
 
     static { // Bloque estático asegura que se pueda llamar a lo largo de la clase.
         try {
@@ -45,7 +44,25 @@ public class UserOperations implements UserMaintenance {
           @param user Usuario a insertar en la lista.
           @return true si el usuario se inserta efectivamente, de otro modo @return false*/
         if (user == null || userExists(user)) return false;
+        String longMessage = "Dear " + user.getName() +",\n" +
+                "\n" +
+                "We are thrilled to welcome you to MyOnlineLearning! Thank you for creating an account with us. We are excited to have you as a part of our community and look forward to supporting you on your learning journey.\n" +
+                "\n" +
+                "MyOnlineLearning provides a wide range of courses designed to help you develop new skills and advance your career. Whether you're looking to learn a new language, improve your coding skills, or gain knowledge in business management, we have the right course for you.\n" +
+                "\n" +
+                "To get started, simply log in to your account and explore the various courses available. You can also customize your learning experience by setting goals and tracking your progress through our user-friendly dashboard.\n" +
+                "\n" +
+                "If you have any questions or need assistance, our support team is here to help. Feel free to reach out to us at support@myonlinelearning.com.\n" +
+                "\n" +
+                "We are committed to providing you with the best learning experience possible and can't wait to see you succeed.\n" +
+                "\n" +
+                "Welcome aboard!\n" +
+                "\n" +
+                "Best regards,\n" +
+                "\n" +
+                "The MyOnlineLearning Team";
         users.add(new User(user.getId(), user.getName(), user.getPassword(), user.getEmail(), user.getRole()));
+        sendEmailNotification(user,longMessage);
         return true;
     }// End of method [createUser].
 
@@ -130,24 +147,28 @@ public class UserOperations implements UserMaintenance {
            @param user Usuario al que se le enviará la notificación, por medio de su correo electrónico.
            @param message Mensaje incluido en el correo enviado al usuario.*/
 
-        // Tomado de: ! https://www.geeksforgeeks.org/send-email-using-java-program/ !
-        String recipient = user.getEmail();
-        String sender = "myonlinelearning@gmail.com";
-        String host = "127.0.0.1";
+        System.out.println("TLSEmail Start");
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
+        props.put("mail.smtp.port", "587"); //TLS Port
+        props.put("mail.smtp.auth", "true"); //enable authentication
+        props.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
 
-        Properties properties = System.getProperties();
-        properties.setProperty("mail.smtp.host", host);
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("myonlinelearning229@gmail.com", "rdrf zmfa szrk ifiy"); // No compartan esta info. porfa.
+            }// End of 'PasswordAuthentication'.
+        });
 
-        Session session = Session.getDefaultInstance(properties);
-        try {
+        try{
             MimeMessage mimeMessage = new MimeMessage(session);
-            mimeMessage.setFrom(new InternetAddress(sender));
-            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            mimeMessage.setSubject("MyOnlineLearning Notification System");
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), true));
+            mimeMessage.setSubject("MyOnlineLearning Authentication");
             mimeMessage.setText(message);
+            System.out.println("sending...");
             Transport.send(mimeMessage);
-        } catch (MessagingException mex) {
-            logger.log(Level.SEVERE, "Error sending e-mail.", mex);
+            System.out.println("Sent message successfully....");
+        }catch (MessagingException me){logger.log(Level.SEVERE, "Error while sending e-mail.", me);
         }// End of 'catch'.
     }// End of method [sendEmailNotifications].
 
@@ -196,8 +217,24 @@ public class UserOperations implements UserMaintenance {
         return false;
     }// End of method [userExists].
 
-    public void clearList() {
-        users.clear();
-    }
+    public void saveUsersToFile(String filename) {
+        /* Método que guarda los usuarios registrados en un archivo para asegurar la persistencia de datos.
+        *  @param filename Nombre del archivo al que se le escribirán los datos.*/
+        try (FileOutputStream fileOut = new FileOutputStream(filename);
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(users);
+        } catch (IOException e) {logger.log(Level.SEVERE, "Error while writing user to file.", e);
+        }// End of 'catch'.
+    }// End of method [saveUsersToFile].
 
+    public void loadUsersFromFile(String filename) {
+        try (FileInputStream fileIn = new FileInputStream(filename);
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            users = (CircularDoublyLinkedList) in.readObject();
+        } catch (FileNotFoundException e) {
+            logger.log(Level.WARNING, "File not found. Starting with an empty user list.", e);
+            users = new CircularDoublyLinkedList();
+        } catch (IOException | ClassNotFoundException e) {logger.log(Level.SEVERE, "Error while loading user from file.", e);
+        }// End of 'catch'.
+    }// End of method [loadUsersFromFile].
 }// End of class [UserOperations].

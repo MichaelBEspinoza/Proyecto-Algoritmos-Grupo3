@@ -1,6 +1,8 @@
 package structures.lists;
 
-public class CircularDoublyLinkedList implements List{
+import java.io.Serializable;
+
+public class CircularDoublyLinkedList implements List, Serializable {
     private Node first; //Apuntador al inicio de la lista
     private Node last; //Apuntador al final de la lista
 
@@ -109,9 +111,10 @@ public class CircularDoublyLinkedList implements List{
 
     @Override
     public void remove(Object element) throws ListException {
-        if (isEmpty()) throw new ListException("Circularly Linked List is empty.");
+        if (isEmpty())
+            throw new ListException("Circularly Linked List is empty.");
 
-        // Caso #1: el elemento a suprimir esta al inicio.
+        // Caso #1: el elemento a suprimir está al inicio.
         if (util.Utility.compare(first.data, element) == 0)
             first = first.next;
             // Caso #2: el elemento a suprimir puede estar al medio o al final.
@@ -122,7 +125,7 @@ public class CircularDoublyLinkedList implements List{
                 prev = aux;
                 aux = aux.next;
             }// End of 'while'.
-            // Se sale cuando alcanza bulo o cuando encuentra el elemento.
+            // Se sale cuando alcanza nulo o cuando encuentra el elemento.
             if (util.Utility.compare(aux.data, element) == 0)
                 // Ya lo encontro, procedemos a desenlazar el nodo.
                 prev.next = aux.next;
