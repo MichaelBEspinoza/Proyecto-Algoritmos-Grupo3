@@ -1,6 +1,7 @@
 package interfaces;
 
 import domain.Course;
+import structures.trees.TreeException;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface CourseMaintenance {
     public boolean updateCourse(Course course);
     /** - deleteCourse(int courseId): boolean: Elimina un curso por su ID y devuelve true si se elimina con éxito.
      **/
-    public boolean deleteCourse(int courseId);
+    public boolean deleteCourse(int courseId) throws TreeException;
     /**
      - listCourses(): List<Course>: Devuelve una lista de todos los cursos.
      **/

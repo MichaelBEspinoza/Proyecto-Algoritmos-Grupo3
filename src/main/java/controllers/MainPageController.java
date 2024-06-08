@@ -9,7 +9,7 @@ import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
 
-public class mainPageController {
+public class MainPageController {
     @javafx.fxml.FXML
     private Menu menuPaginaPrincipal;
     @javafx.fxml.FXML
@@ -40,26 +40,26 @@ public class mainPageController {
 
 
     @javafx.fxml.FXML
-    public void perfilOnAction(ActionEvent actionEvent) {
+    public void perfilOnAction(ActionEvent actionEvent) {loadPage("userProfile.fxml");
     }
 
     @javafx.fxml.FXML
-    public void ayudaOnAction(ActionEvent actionEvent) {
+    public void ayudaOnAction(ActionEvent actionEvent) {loadPage("");
     }
 
     @javafx.fxml.FXML
-    public void pagePrincipalOnAction(ActionEvent actionEvent) {
+    public void pagePrincipalOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");
     }
 
     @javafx.fxml.FXML
-    public void cursosOnAction(ActionEvent actionEvent) {
+    public void cursosOnAction(ActionEvent actionEvent) {loadPage("courses.fxml");
     }
 
     @javafx.fxml.FXML
-    public void cerrarSesionOnAction(ActionEvent actionEvent) {
+    public void cerrarSesionOnAction(ActionEvent actionEvent) {loadPage("loginScreen.fxml");
     }
 
     @javafx.fxml.FXML
-    public void userMaintenenceOnAction(ActionEvent actionEvent) {
+    public void userMaintenenceOnAction(ActionEvent actionEvent) {loadPage("userMaintenance.fxml");
     }
 }

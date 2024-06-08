@@ -56,11 +56,15 @@ public class AVL implements Tree {
     
     private BTreeNode add(BTreeNode node, Object element, String sequence) {
         if (node == null) node = new BTreeNode(element, "Added as " + sequence + ".");
+
         else{
+
             if (util.Utility.compare(element,node.data) < 0)
                 node.left = add(node.left,element, sequence + "/left");
+
             else if (util.Utility.compare(element, node.data) > 0)
                 node.right = add(node.right,element, sequence+"/right");
+
         }
         node = reBalance(node, element); // Se determina si se necesita rebalanceo.
         return node;

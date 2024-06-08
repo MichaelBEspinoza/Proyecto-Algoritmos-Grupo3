@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import structures.lists.ListException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
@@ -43,11 +44,14 @@ public class UserProfileController {
     @javafx.fxml.FXML
     private Menu menuPaginaPrincipal;
 
-    public void initialize() {
+    RegisterScreenController RSC = new RegisterScreenController();
+
+
+    public void initialize() throws ListException {
         setInfo();
     }
 
-    private void setInfo() {
+    private void setInfo() throws ListException {
         User loggedUser = UserSession.getInstance().getLoggedUser();
 
         if (loggedUser != null) {
@@ -55,7 +59,35 @@ public class UserProfileController {
             id.setText(String.valueOf(loggedUser.getId()));
             email.setText(loggedUser.getEmail());
             role.setText(loggedUser.roleToString());
+            courses.setText(String.valueOf(loggedUser.coursesToString()));
+            country.setText(RSC.getCountryInput());
+            city.setText(RSC.getCityInput());
+            place.setText(RSC.getPlaceInput());
         }
+    }
+
+    public String getCountryInput() {
+        return country.getText();
+    }
+
+    public void setCountryInput(String country) {
+        this.country.setText(country);
+    }
+
+    public String getCityInput() {
+        return city.getText();
+    }
+
+    public void setCityInput(String city) {
+        this.city.setText(city);
+    }
+
+    public String getPlaceInput() {
+        return place.getText();
+    }
+
+    public void setPlaceInput(String place) {
+        this.place.setText(place);
     }
 
     private void loadPage(String page){

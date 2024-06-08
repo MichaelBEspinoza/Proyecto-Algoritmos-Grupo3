@@ -1,17 +1,15 @@
 package operations;
 
+import domain.Course;
 import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
-import structures.lists.Node;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -190,7 +188,7 @@ public class UserOperations implements UserMaintenance {
             for (int i = 1; i <= users.size(); i++) {
                 User user = (User) users.getNode(i).data;
                 if (user.getId() == userId && !user.getPassword().equals(newPassword)) {
-                    users.getNode(i).data = new User(user.getId(), user.getName(), newPassword, user.getEmail(), user.getRole());
+                    user.setPassword(newPassword);
                     return true;
                 }// End of 'if'.
             }// End of 'for' loop.
@@ -237,4 +235,29 @@ public class UserOperations implements UserMaintenance {
         } catch (IOException | ClassNotFoundException e) {logger.log(Level.SEVERE, "Error while loading user from file.", e);
         }// End of 'catch'.
     }// End of method [loadUsersFromFile].
+
+    public User getUserByUsername(String username) throws ListException {
+        for (int i = 0; i < users.size(); i++) {
+            User user = (User) users.getNode(i).data;
+            if (user.getName().equals(username))
+                return user;
+        }
+        return null;
+    }
+
+    public boolean assignCourseToUser(int userId, Course course) {
+        try {
+            for (int i = 1; i <= users.size(); i++) {
+                User user = (User) users.getNode(i).data;
+                if (user.getId() == userId) {
+                    user.addCourse(course);
+                    return true;
+                }
+            }
+        } catch (ListException e) {
+            logger.log(Level.SEVERE, "Error while assigning course to user.", e);
+        }
+        return false;
+    }
+
 }// End of class [UserOperations].
