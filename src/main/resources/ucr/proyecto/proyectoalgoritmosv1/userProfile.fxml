@@ -6,81 +6,61 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-
-<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserProfileController">
-   <center>
-      <AnchorPane prefHeight="462.0" prefWidth="665.0" style="-fx-background-color: #457d97;">
+<AnchorPane prefHeight="462.0" prefWidth="665.0" style="-fx-background-color: #457d97;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserProfileController">
+   <children>
+      <Pane layoutX="24.0" layoutY="20.0" prefHeight="420.0" prefWidth="621.0" style="-fx-background-color: #faf0e7;">
          <children>
-            <Pane layoutX="24.0" layoutY="20.0" prefHeight="420.0" prefWidth="621.0" style="-fx-background-color: #faf0e7;">
+            <Circle fx:id="circleImage" centerX="75.0" centerY="75.0" fill="WHITE" layoutX="-11.0" layoutY="-11.0" radius="53.0" stroke="BLACK" strokeType="INSIDE" />
+            <ImageView fx:id="imageView" fitHeight="91.0" fitWidth="101.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@ucr.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="146.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perfil de usuario:">
+               <font>
+                  <Font name="System Italic" size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="146.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+               <font>
+                  <Font name="System Italic" size="14.0" />
+               </font>
+            </Text>
+            <Pane layoutX="56.0" layoutY="142.0" prefHeight="219.0" prefWidth="232.0" style="-fx-background-color: #efeba9;">
                <children>
-                  <Circle fx:id="circleImage" centerX="75.0" centerY="75.0" fill="WHITE" layoutX="-11.0" layoutY="-11.0" radius="53.0" stroke="BLACK" strokeType="INSIDE" />
-                  <ImageView fx:id="imageView" fitHeight="91.0" fitWidth="101.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@ucr.png" />
-                     </image>
-                  </ImageView>
-                  <Text layoutX="146.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perfil de usuario:">
-                     <font>
-                        <Font name="System Italic" size="24.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="146.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+                  <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles de usuario: ">
                      <font>
                         <Font name="System Italic" size="14.0" />
                      </font>
                   </Text>
-                  <Pane layoutX="56.0" layoutY="142.0" prefHeight="219.0" prefWidth="232.0" style="-fx-background-color: #efeba9;">
-                     <children>
-                        <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles de usuario: ">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección de correo:">
-                           <font>
-                              <Font name="Arial" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="12.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol de usuario">
-                           <font>
-                              <Font name="Arial" size="12.0" />
-                           </font>
-                        </Text>
-                        <Button layoutX="76.0" layoutY="180.0" mnemonicParsing="false" onAction="#editProfileOnAction" style="-fx-background-color: transparent;" text="Editar Perfil" />
-                        <Text layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificación:">
-                           <font>
-                              <Font name="Arial" size="12.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="email" fill="#4d94ff" layoutX="18.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum Dolor Sit Amet" wrappingWidth="205.3984375" />
-                        <Text fx:id="id" layoutX="18.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum Dolor Sit Amet" wrappingWidth="205.3984375" />
-                        <Text fx:id="role" layoutX="18.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum Dolor Sit Amet" wrappingWidth="205.3984375" />
-                     </children>
-                  </Pane>
-                  <Pane layoutX="337.0" layoutY="142.0" prefHeight="219.0" prefWidth="232.0" style="-fx-background-color: #dee8be;">
-                     <children>
-                        <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles del curso: ">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perfiles de curso: " />
-                        <Text fx:id="courses" layoutX="24.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum Dolor Sit Amet" wrappingWidth="205.3984375" />
-                     </children>
-                  </Pane>
-                  <Button layoutX="476.0" layoutY="375.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
+                  <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección de correo:">
                      <font>
-                        <Font name="Bell MT" size="16.0" />
-                     </font>
-                  </Button>
-                  <Text fx:id="name" layoutX="205.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum Dolor Sit Amet" wrappingWidth="263.6796875">
-                     <font>
-                        <Font name="System Italic" size="14.0" />
+                        <Font name="Arial" size="12.0" />
                      </font>
                   </Text>
+                  <Text layoutX="14.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol de usuario">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font></Text>
+                  <Button layoutX="76.0" layoutY="180.0" mnemonicParsing="false" onAction="#editProfileOnAction" style="-fx-background-color: transparent;" text="Editar Perfil" />
                </children>
             </Pane>
+            <Pane layoutX="337.0" layoutY="142.0" prefHeight="219.0" prefWidth="232.0" style="-fx-background-color: #dee8be;">
+               <children>
+                  <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles del curso: ">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perfiles de curso: " />
+               </children>
+            </Pane>
+            <Button layoutX="476.0" layoutY="375.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
+               <font>
+                  <Font name="Bell MT" size="16.0" />
+               </font>
+            </Button>
          </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+      </Pane>
+   </children>
+</AnchorPane>
