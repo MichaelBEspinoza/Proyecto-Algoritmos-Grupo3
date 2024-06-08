@@ -29,6 +29,8 @@ public class UserEditProfileController {
     private TextField txf_city;
     @javafx.fxml.FXML
     private TextField txf_place;
+    @javafx.fxml.FXML
+    private TextField txf_id;
 
     private void loadPage(String page){
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));

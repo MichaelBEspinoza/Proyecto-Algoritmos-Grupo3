@@ -15,18 +15,18 @@
    <center>
       <BorderPane>
           <center>
-              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="674.0" style="-fx-background-color: #457d97;">
+              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="691.0" style="-fx-background-color: #457d97;">
                   <children>
-                      <Pane fx:id="pane1" layoutX="27.0" layoutY="20.0" prefHeight="448.0" prefWidth="623.0" style="-fx-background-color: #faf0e7;">
+                      <Pane fx:id="pane1" layoutX="27.0" layoutY="20.0" prefHeight="465.0" prefWidth="641.0" style="-fx-background-color: #faf0e7;">
                           <children>
-                              <Pane layoutX="15.0" layoutY="14.0" prefHeight="80.0" prefWidth="590.0" style="-fx-background-color: #edd5c5;">
+                              <Pane layoutX="15.0" layoutY="14.0" prefHeight="80.0" prefWidth="609.0" style="-fx-background-color: #edd5c5;">
                                   <children>
-                                      <Text layoutX="133.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIVERSIDAD DE COSTA RICA" textAlignment="CENTER" wrappingWidth="324.03515625">
+                                      <Text layoutX="142.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIVERSIDAD DE COSTA RICA" textAlignment="CENTER" wrappingWidth="324.03515625">
                                           <font>
                                               <Font size="21.0" />
                                           </font>
                                       </Text>
-                                      <Text layoutX="172.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro de nuevo usuario">
+                                      <Text layoutX="181.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro de nuevo usuario">
                                           <font>
                                               <Font name="System Italic" size="22.0" />
                                           </font>
@@ -36,7 +36,7 @@
                                               <Image url="@ucr.png" />
                                           </image>
                                       </ImageView>
-                              <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="507.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="526.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@ucr.png" />
                                  </image>
@@ -49,30 +49,30 @@
                                   </font>
                               </Text>
                               <TextField fx:id="txf_user" layoutX="180.0" layoutY="114.0" />
-                              <Button layoutX="60.0" layoutY="360.0" mnemonicParsing="false" onAction="#registerOnAction" style="-fx-background-color: #00b4fc;" text="Registrarse">
+                              <Button layoutX="67.0" layoutY="370.0" mnemonicParsing="false" onAction="#registerOnAction" style="-fx-background-color: #00b4fc;" text="Registrarse">
                                   <font>
                                       <Font name="Century Gothic" size="16.0" />
                                   </font>
                               </Button>
-                        <Label layoutX="13.0" layoutY="162.0" text="Contraseña:">
+                        <Label layoutX="13.0" layoutY="212.0" text="Contraseña:">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txf_password" layoutX="180.0" layoutY="162.0" />
-                        <TextField fx:id="txf_email" layoutX="440.0" layoutY="211.0" />
-                        <Label layoutX="361.0" layoutY="211.0" text="Email:">
+                        <TextField fx:id="txf_password" layoutX="180.0" layoutY="211.0" />
+                        <TextField fx:id="txf_email" layoutX="475.0" layoutY="211.0" />
+                        <Label layoutX="350.0" layoutY="212.0" text="Email:">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label layoutX="18.0" layoutY="309.0" text="Rol de Usuario:">
+                        <Label layoutX="13.0" layoutY="309.0" text="Rol de Usuario:">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
                         <TextField fx:id="txf_role" layoutX="180.0" layoutY="309.0" />
-                        <Button layoutX="329.0" layoutY="390.0" mnemonicParsing="false" onAction="#passwordRequerimentsOnAction" prefHeight="34.0" prefWidth="267.0" style="-fx-background-color: transparent;" text="Requerimientos para la constraseña">
+                        <Button layoutX="371.0" layoutY="417.0" mnemonicParsing="false" onAction="#passwordRequerimentsOnAction" prefHeight="34.0" prefWidth="267.0" style="-fx-background-color: transparent;" text="Requerimientos para la constraseña">
                            <font>
                               <Font name="Century Gothic" size="12.0" />
                            </font>
@@ -82,25 +82,31 @@
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <Text layoutX="361.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="País:">
+                        <Text layoutX="355.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="País:">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <Text layoutX="15.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sede/Recinto:">
+                        <Text layoutX="353.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sede/Recinto:">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <Text layoutX="13.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmar contraseña:">
+                        <Text layoutX="13.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmar contraseña:">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <TextField layoutX="180.0" layoutY="212.0" />
-                        <TextField fx:id="txf_city" layoutX="440.0" layoutY="111.0" />
-                        <TextField fx:id="txf_place" layoutX="180.0" layoutY="258.0" />
-                        <TextField fx:id="txf_country" layoutX="440.0" layoutY="162.0" />
+                        <TextField layoutX="180.0" layoutY="257.0" />
+                        <TextField fx:id="txf_city" layoutX="475.0" layoutY="111.0" />
+                        <TextField fx:id="txf_place" layoutX="475.0" layoutY="257.0" />
+                        <TextField fx:id="txf_country" layoutX="475.0" layoutY="161.0" />
+                        <Text layoutX="14.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cédula:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="txf_id" layoutX="180.0" layoutY="161.0" />
                           </children>
                       </Pane>
                   </children>

@@ -12,9 +12,9 @@
 
 <BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserProfileController">
    <center>
-      <AnchorPane prefHeight="462.0" prefWidth="665.0" style="-fx-background-color: #457d97;">
+      <AnchorPane prefHeight="588.0" prefWidth="775.0" style="-fx-background-color: #457d97;">
          <children>
-            <Pane layoutX="24.0" layoutY="20.0" prefHeight="420.0" prefWidth="621.0" style="-fx-background-color: #faf0e7;">
+            <Pane layoutX="24.0" layoutY="20.0" prefHeight="547.0" prefWidth="729.0" style="-fx-background-color: #faf0e7;">
                <children>
                   <Circle fx:id="circleImage" centerX="75.0" centerY="75.0" fill="WHITE" layoutX="-11.0" layoutY="-11.0" radius="53.0" stroke="BLACK" strokeType="INSIDE" />
                   <ImageView fx:id="imageView" fitHeight="91.0" fitWidth="101.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
@@ -32,7 +32,7 @@
                         <Font name="System Italic" size="14.0" />
                      </font>
                   </Text>
-                  <Pane layoutX="56.0" layoutY="142.0" prefHeight="219.0" prefWidth="232.0" style="-fx-background-color: #efeba9;">
+                  <Pane layoutX="56.0" layoutY="142.0" prefHeight="337.0" prefWidth="292.0" style="-fx-background-color: #efeba9;">
                      <children>
                         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles de usuario: ">
                            <font>
@@ -49,8 +49,8 @@
                               <Font name="Arial" size="12.0" />
                            </font>
                         </Text>
-                        <Button layoutX="76.0" layoutY="180.0" mnemonicParsing="false" onAction="#editProfileOnAction" style="-fx-background-color: transparent;" text="Editar Perfil" />
-                        <Text layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificación:">
+                        <Button layoutX="118.0" layoutY="311.0" mnemonicParsing="false" onAction="#editProfileOnAction" style="-fx-background-color: transparent;" text="Editar Perfil" />
+                        <Text layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cédula:">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
@@ -70,9 +70,27 @@
                               <Font name="Arial" size="12.0" />
                            </font>
                         </Text>
+                        <Text layoutX="10.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad:" />
+                        <Text fx:id="city" layoutX="21.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum Dolor Sit Amet">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="País:" />
+                        <Text fx:id="country" layoutX="21.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum Dolor Sit Amet">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="11.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sede/Recinto:" />
+                        <Text fx:id="place" layoutX="21.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lorem Ipsum Dolor Sit Amet">
+                           <font>
+                              <Font name="Arial" size="12.0" />
+                           </font>
+                        </Text>
                      </children>
                   </Pane>
-                  <Pane layoutX="337.0" layoutY="142.0" prefHeight="219.0" prefWidth="232.0" style="-fx-background-color: #dee8be;">
+                  <Pane layoutX="402.0" layoutY="142.0" prefHeight="338.0" prefWidth="278.0" style="-fx-background-color: #dee8be;">
                      <children>
                         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles del curso: ">
                            <font>
@@ -87,7 +105,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <Button layoutX="476.0" layoutY="375.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
+                  <Button layoutX="584.0" layoutY="502.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
                      <font>
                         <Font name="Bell MT" size="16.0" />
                      </font>
@@ -97,6 +115,35 @@
                         <Font name="System Italic" size="14.0" />
                      </font>
                   </Text>
+                  <Pane layoutX="513.0" layoutY="15.0" prefHeight="45.0" prefWidth="202.0" style="-fx-background-color: #edd5c5;">
+                     <children>
+                        <Text layoutX="54.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIVERSIDAD DE COSTA RICA" wrappingWidth="139.03515625">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="61.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Campus" wrappingWidth="46.673828125">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="106.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Virtual">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#4598d3" layoutX="143.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EstudiaU">
+                           <font>
+                              <Font name="System Italic" size="11.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="8.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@ucr.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
          </children>

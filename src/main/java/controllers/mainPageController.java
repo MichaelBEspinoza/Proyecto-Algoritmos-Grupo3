@@ -58,4 +58,8 @@ public class mainPageController {
     @javafx.fxml.FXML
     public void cerrarSesionOnAction(ActionEvent actionEvent) {
     }
+
+    @javafx.fxml.FXML
+    public void userMaintenenceOnAction(ActionEvent actionEvent) {
+    }
 }

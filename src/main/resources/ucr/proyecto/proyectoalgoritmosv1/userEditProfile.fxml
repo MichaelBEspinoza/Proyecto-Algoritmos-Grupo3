@@ -42,18 +42,20 @@
                         </Text>
                         <Text layoutX="18.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
                         <Text layoutX="19.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol de usuario: " />
-                        <TextField fx:id="txf_email" layoutX="132.0" layoutY="81.0" />
+                        <TextField fx:id="txf_email" layoutX="132.0" layoutY="127.0" />
                         <TextField fx:id="txf_name" layoutX="132.0" layoutY="38.0" />
                         <TextField fx:id="txf_role" layoutX="132.0" layoutY="170.0" />
-                        <Button layoutX="432.0" layoutY="127.0" mnemonicParsing="false" onAction="#changePasswordOnAction" style="-fx-background-color: transparent;" text="Cambiar Contraseña" />
-                        <Text layoutX="18.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sede/Recinto:" />
-                        <TextField fx:id="txf_place" layoutX="132.0" layoutY="127.0" />
-                        <Text layoutX="360.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad:" />
-                        <TextField fx:id="txf_city" layoutX="420.0" layoutY="38.0" />
-                        <Text layoutX="360.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="País:" />
-                        <TextField fx:id="txf_country" layoutX="420.0" layoutY="81.0" />
-                        <Text layoutX="19.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
+                        <Button layoutX="432.0" layoutY="158.0" mnemonicParsing="false" onAction="#changePasswordOnAction" style="-fx-background-color: transparent;" text="Cambiar Contraseña" />
+                        <Text layoutX="332.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sede/Recinto:" />
+                        <TextField fx:id="txf_place" layoutX="432.0" layoutY="127.0" />
+                        <Text layoutX="335.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad:" />
+                        <TextField fx:id="txf_city" layoutX="432.0" layoutY="38.0" />
+                        <Text layoutX="332.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="País:" />
+                        <TextField fx:id="txf_country" layoutX="432.0" layoutY="81.0" />
+                        <Text layoutX="19.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
                         <Button layoutX="255.0" layoutY="224.0" mnemonicParsing="false" onAction="#saveChangesOnAction" text="Guardar Cambios" />
+                        <Text layoutX="21.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cédula:" />
+                        <TextField fx:id="txf_id" layoutX="132.0" layoutY="81.0" />
                      </children>
                   </Pane>
                   <Button layoutX="520.0" layoutY="424.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
