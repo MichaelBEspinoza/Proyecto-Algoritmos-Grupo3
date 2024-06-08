@@ -29,6 +29,12 @@ public class UserProfileController {
     private Text id;
     @javafx.fxml.FXML
     private Text email;
+    @javafx.fxml.FXML
+    private Text country;
+    @javafx.fxml.FXML
+    private Text city;
+    @javafx.fxml.FXML
+    private Text place;
 
     public void initialize() {
         setInfo();
