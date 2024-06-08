@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Menu;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 public class mainPageController {
@@ -21,6 +22,9 @@ public class mainPageController {
     private Pane p_course2;
     @javafx.fxml.FXML
     private Pane p_course1;
+    @javafx.fxml.FXML
+    private BorderPane bp;
+
 
     @javafx.fxml.FXML
     public void perfilOnAction(ActionEvent actionEvent) {

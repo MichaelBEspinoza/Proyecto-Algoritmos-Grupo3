@@ -12,6 +12,8 @@ public class User implements Serializable {
     private String email; /**Correo electronico del usuario**/
 
     private Role role; /**Rol del usuario (Administrador,Instructor, usuario**/
+
+
     public User() {
     }
 
@@ -68,5 +70,16 @@ public class User implements Serializable {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String roleToString() {
+        String roleStr;
+        switch (getRole()) {
+            case USER -> roleStr = "Usuario";
+            case ADMINISTRATOR -> roleStr = "Administrador";
+            case INSTRUCTOR -> roleStr = "Instructor";
+            case null, default -> roleStr = "N/A";
+        }
+        return roleStr;
     }
 }
