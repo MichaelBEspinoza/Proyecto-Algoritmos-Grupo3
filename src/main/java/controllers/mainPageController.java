@@ -60,6 +60,6 @@ public class mainPageController {
     }
 
     @javafx.fxml.FXML
-    public void userMaintenenceOnAction(ActionEvent actionEvent) {
+    public void userMaintenenceOnAction(ActionEvent actionEvent) {loadPage("userMaintenance.fxml");
     }
 }

@@ -1,5 +1,8 @@
 package domain;
 
+import structures.lists.ListException;
+import structures.lists.SinglyLinkedList;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -13,6 +16,7 @@ public class User implements Serializable {
 
     private Role role; /**Rol del usuario (Administrador,Instructor, usuario**/
 
+    private SinglyLinkedList courses;
 
     public User() {
     }
@@ -72,6 +76,28 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public SinglyLinkedList getCourses() {
+        return courses;
+    }
+
+    public void setCourses(SinglyLinkedList courses) {
+        this.courses = courses;
+    }
+
+    public void addCourse(Course course) {
+        this.courses.add(course);
+    }
+
+    public StringBuilder coursesToString() throws ListException {
+        StringBuilder list = new StringBuilder();
+        for (int i = 0; i < courses.size(); i++) {
+            Course check = (Course) courses.getNode(i).data;
+            if (check != null)
+                list.append(check.getId()).append(" - ").append(check.getName());
+        }
+        return list;
+    }
+
     public String roleToString() {
         String roleStr;
         switch (getRole()) {
@@ -82,4 +108,12 @@ public class User implements Serializable {
         }
         return roleStr;
     }
+
+    public Role stringToRole(String useThis) {
+        if (useThis.trim().equalsIgnoreCase("Usuario")) return Role.USER;
+        else if (useThis.trim().equalsIgnoreCase("Administrador")) return Role.ADMINISTRATOR;
+        else if (useThis.trim().equalsIgnoreCase("Instructor")) return Role.INSTRUCTOR;
+        else return null;
+    }
+
 }

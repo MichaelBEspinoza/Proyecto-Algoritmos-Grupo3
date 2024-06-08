@@ -1,5 +1,6 @@
 package operations;
 
+import domain.Course;
 import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
@@ -187,7 +188,7 @@ public class UserOperations implements UserMaintenance {
             for (int i = 1; i <= users.size(); i++) {
                 User user = (User) users.getNode(i).data;
                 if (user.getId() == userId && !user.getPassword().equals(newPassword)) {
-                    users.getNode(i).data = new User(user.getId(), user.getName(), newPassword, user.getEmail(), user.getRole());
+                    user.setPassword(newPassword);
                     return true;
                 }// End of 'if'.
             }// End of 'for' loop.
@@ -242,6 +243,21 @@ public class UserOperations implements UserMaintenance {
                 return user;
         }
         return null;
+    }
+
+    public boolean assignCourseToUser(int userId, Course course) {
+        try {
+            for (int i = 1; i <= users.size(); i++) {
+                User user = (User) users.getNode(i).data;
+                if (user.getId() == userId) {
+                    user.addCourse(course);
+                    return true;
+                }
+            }
+        } catch (ListException e) {
+            logger.log(Level.SEVERE, "Error while assigning course to user.", e);
+        }
+        return false;
     }
 
 }// End of class [UserOperations].
