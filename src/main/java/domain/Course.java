@@ -1,8 +1,11 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Course {
+public class Course implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int id; /**Identificador del curso**/
 
     private String name; /**Nombre del curso**/
