@@ -4,14 +4,11 @@ import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
-import structures.lists.Node;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -237,4 +234,14 @@ public class UserOperations implements UserMaintenance {
         } catch (IOException | ClassNotFoundException e) {logger.log(Level.SEVERE, "Error while loading user from file.", e);
         }// End of 'catch'.
     }// End of method [loadUsersFromFile].
+
+    public User getUserByUsername(String username) throws ListException {
+        for (int i = 0; i < users.size(); i++) {
+            User user = (User) users.getNode(i).data;
+            if (user.getName().equals(username))
+                return user;
+        }
+        return null;
+    }
+
 }// End of class [UserOperations].

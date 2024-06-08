@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserEditProfileController">
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserEditProfileController">
    <center>
       <AnchorPane prefHeight="445.0" prefWidth="666.0" style="-fx-background-color: #457d97;">
          <children>
@@ -45,7 +49,7 @@
                         <Button layoutX="395.0" layoutY="81.0" mnemonicParsing="false" onAction="#changePasswordOnAction" style="-fx-background-color: transparent;" text="Cambiar Contraseña" />
                      </children>
                   </Pane>
-                  <Button layoutX="476.0" layoutY="348.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
+                  <Button layoutX="370.0" layoutY="341.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
                      <font>
                         <Font name="Bell MT" size="16.0" />
                      </font>
@@ -79,6 +83,11 @@
                         </ImageView>
                      </children>
                   </Pane>
+                  <Button layoutX="117.0" layoutY="341.0" mnemonicParsing="false" onAction="#saveChangesOnAction" text="Guardar cambios">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
          </children>

@@ -42,6 +42,7 @@ public class UserProfileController {
             id.setText(String.valueOf(loggedUser.getId()));
             email.setText(loggedUser.getEmail());
             role.setText(loggedUser.roleToString());
+            //courses.setText(loggedUser.coursesToString());
         }
     }
 

@@ -34,10 +34,14 @@ public class UserEditProfileController {
     }
 
     @javafx.fxml.FXML
-    public void mainPageOnAction(ActionEvent actionEvent) {
+    public void mainPageOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");
     }
 
     @javafx.fxml.FXML
-    public void changePasswordOnAction(ActionEvent actionEvent) {
+    public void changePasswordOnAction(ActionEvent actionEvent) {loadPage("changePassword.fxml");
+    }
+
+    @javafx.fxml.FXML
+    public void saveChangesOnAction(ActionEvent actionEvent) {
     }
 }
