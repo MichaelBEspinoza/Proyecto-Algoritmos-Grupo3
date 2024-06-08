@@ -44,6 +44,31 @@ public class UserEditProfileController {
         textFieldSetUp();
     }
 
+    @javafx.fxml.FXML
+    public void mainPageOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");}
+
+    @javafx.fxml.FXML
+    public void changePasswordOnAction(ActionEvent actionEvent) {loadPage("changePassword.fxml");}
+
+    @javafx.fxml.FXML
+    public void saveChangesOnAction(ActionEvent actionEvent) {
+        if (txf_name.getText().isEmpty() || txf_id.getText().isEmpty() ||
+            txf_email.getText().isEmpty() || txf_role.getText().isEmpty() ||
+            txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty()) {
+            util.UtilityFX.alert("Error: cambios no aplicables",
+                    "Uno o más campos están vacíos. Todos los campos deben contener información.\nInténtelo de nuevo.");
+        } else {
+            loggedUser.setName(txf_name.getText());
+            loggedUser.setId(Integer.parseInt(txf_id.getText()));
+            loggedUser.setEmail(txf_email.getText());
+            loggedUser.setRole(loggedUser.stringToRole(txf_role.getText()));
+            UPC.setCountryInput(txf_country.getText());
+            UPC.setCityInput(txf_city.getText());
+            UPC.setPlaceInput(txf_place.getText());
+            UO.updateProfile(loggedUser);
+        }
+    }
+
     private void textFieldSetUp() {
         if (loggedUser.getRole() != Role.ADMINISTRATOR){
             txf_name.disabledProperty();
@@ -67,31 +92,6 @@ public class UserEditProfileController {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    @javafx.fxml.FXML
-    public void mainPageOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");}
-
-    @javafx.fxml.FXML
-    public void changePasswordOnAction(ActionEvent actionEvent) {loadPage("changePassword.fxml");}
-
-    @javafx.fxml.FXML
-    public void saveChangesOnAction(ActionEvent actionEvent) {
-        if (txf_name.getText().isEmpty() || txf_id.getText().isEmpty() ||
-            txf_email.getText().isEmpty() || txf_role.getText().isEmpty() ||
-            txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty()) {
-            util.UtilityFX.alert("Error: cambios no aplicables",
-                    "Uno o más campos están vacíos. Todos los campos deben contener información.\nInténtelo de nuevo.");
-        } else {
-            loggedUser.setName(txf_name.getText());
-            loggedUser.setId(Integer.parseInt(txf_id.getText()));
-            loggedUser.setEmail(txf_email.getText());
-            loggedUser.setRole(loggedUser.stringToRole(txf_role.getText()));
-            UPC.setCountryInput(txf_country.getText());
-            UPC.setCityInput(txf_city.getText());
-            UPC.setPlaceInput(txf_place.getText());
-            UO.updateProfile(loggedUser);
         }
     }
 }

@@ -11,7 +11,7 @@ import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
 
-public class registerScreenController {
+public class RegisterScreenController {
     @javafx.fxml.FXML
     private Pane pane1;
     @javafx.fxml.FXML
@@ -101,6 +101,30 @@ public class registerScreenController {
 
                 3. Un signo especial ('*', '!', '$', etc.).""");
     }
+
+    public String getCountryInput() {
+        return txf_country.getText();
+    }
+
+//    public void setCountryInput(String country) {
+//        this.txf_country.setText(country);
+//    }
+
+    public String getCityInput() {
+        return txf_city.getText();
+    }
+
+//    public void setCityInput(String city) {
+//        this.txf_city.setText(city);
+//    }
+
+    public String getPlaceInput() {
+        return txf_place.getText();
+    }
+
+//    public void setPlaceInput(String place) {
+//        this.txf_place.setText(place);
+//    }
 
     private void clearAllFields() {
         txf_id.clear();

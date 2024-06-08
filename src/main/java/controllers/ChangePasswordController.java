@@ -27,6 +27,7 @@ public class ChangePasswordController {
     private BorderPane bp;
 
     User loggedUser = UserSession.getInstance().getLoggedUser();
+    RegisterScreenController RSC = new RegisterScreenController();
     UserOperations UO = new UserOperations();
 
     private void loadPage(String page){
@@ -45,12 +46,33 @@ public class ChangePasswordController {
     public void saveChangesOnAction(ActionEvent actionEvent) {
         if (Objects.equals(txf_newPassword.getText(), loggedUser.getPassword())) {
             util.UtilityFX.alert("Error al cambiar contraseña", "La contraseña nueva no puede ser la misma que la actual.\nInténtelo de nuevo.");
-        } else if (!Objects.equals(txf_newPassword.getText(), txf_confirmPassword.getText()))
-            util.UtilityFX.alert("Error al cambiar contraseña","La nueva contraseña debe ser la misma en ambos campos para actualizar.\nInténtelo de nuevo.");
-         else {
+        } else if (!Objects.equals(txf_newPassword.getText(), txf_confirmPassword.getText())) {
+            util.UtilityFX.alert("Error al cambiar contraseña", "La nueva contraseña debe ser la misma en ambos campos para actualizar.\nInténtelo de nuevo.");
+        } else if (!isValidPassword(txf_newPassword.getText())) {
+            util.UtilityFX.alert("Error al cambiar contraseña", "La contraseña no cumple con uno o más parámetros.\n" + """
+                La contraseña debe tener:\
+
+                1. Al menos 8 carácteres.\
+
+                2. Letras mayúsculas y minúsculas.\
+
+                3. Un signo especial ('*', '!', '$', etc.).""");
+        } else {
             UO.changePassword(loggedUser.getId(), txf_newPassword.getText());
             UO.updateUser(loggedUser);
             util.UtilityFX.alert("Contraseña cambiada", "La contraseña del usuario '" + loggedUser.getName() + "' ha sido modificada exitosamente.");
         }
     }
+
+    private boolean isValidPassword(String password) {
+        if (password == null) return false;
+        if (password.length() < 8) return false;
+        if (!password.matches(".*[A-Z].*")) return false;
+        if (!password.matches(".*[a-z].*")) return false;
+        if (!password.matches(".*[!@#$%^&*()_+=\\-\\[\\]{};':\"\\\\|,.<>/?].*")) return false;
+
+        return true;
+    }
+
+
 }

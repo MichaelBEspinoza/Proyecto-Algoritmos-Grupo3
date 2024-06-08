@@ -51,10 +51,10 @@
                   </Pane>
                   <Pane fx:id="p_anunciosInteres" layoutX="16.0" layoutY="72.0" prefHeight="433.0" prefWidth="679.0" style="-fx-background-color: #efeba9;">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="364.0" prefWidth="647.0">
+                        <TableView fx:id="tv" layoutX="14.0" layoutY="14.0" prefHeight="364.0" prefWidth="647.0">
                           <columns>
                             <TableColumn fx:id="tc_name" prefWidth="89.0" text="Nombre:" />
-                            <TableColumn fx:id="tc_cédula" prefWidth="77.0" text="Cédula:" />
+                            <TableColumn fx:id="tc_cedula" prefWidth="77.0" text="Cédula:" />
                               <TableColumn fx:id="tc_rol" prefWidth="114.0" text="Rol de Usuario:" />
                               <TableColumn fx:id="tc_email" prefWidth="121.0" text="Correo Electrónico:" />
                               <TableColumn fx:id="tc_city" prefWidth="79.0" text="Ciudad:" />
@@ -62,7 +62,7 @@
                               <TableColumn fx:id="tc_place" prefWidth="95.0" text="Sede/Recinto:" />
                           </columns>
                         </TableView>
-                        <Button layoutX="166.0" layoutY="388.0" mnemonicParsing="false" onAction="#editInformationOnAction" text="Actualización de datos:">
+                        <Button layoutX="166.0" layoutY="388.0" mnemonicParsing="false" onAction="#editInformationOnAction" text="Actualización de datos">
                            <font>
                               <Font name="Bell MT" size="16.0" />
                            </font>

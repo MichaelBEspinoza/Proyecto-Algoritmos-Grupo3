@@ -9,7 +9,7 @@ import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
 
-public class mainPageController {
+public class MainPageController {
     @javafx.fxml.FXML
     private Menu menuPaginaPrincipal;
     @javafx.fxml.FXML

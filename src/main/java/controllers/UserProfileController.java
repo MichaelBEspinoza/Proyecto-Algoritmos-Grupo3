@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import operations.UserOperations;
 import structures.lists.ListException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
@@ -38,6 +37,9 @@ public class UserProfileController {
     @javafx.fxml.FXML
     private Text place;
 
+    RegisterScreenController RSC = new RegisterScreenController();
+
+
     public void initialize() throws ListException {
         setInfo();
     }
@@ -51,6 +53,9 @@ public class UserProfileController {
             email.setText(loggedUser.getEmail());
             role.setText(loggedUser.roleToString());
             courses.setText(String.valueOf(loggedUser.coursesToString()));
+            country.setText(RSC.getCountryInput());
+            city.setText(RSC.getCityInput());
+            place.setText(RSC.getPlaceInput());
         }
     }
 
