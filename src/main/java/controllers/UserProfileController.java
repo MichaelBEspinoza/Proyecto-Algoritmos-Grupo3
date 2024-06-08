@@ -4,6 +4,7 @@ import domain.User;
 import domain.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Menu;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
@@ -35,6 +36,12 @@ public class UserProfileController {
     private Text city;
     @javafx.fxml.FXML
     private Text place;
+    @javafx.fxml.FXML
+    private Menu menuAyuda;
+    @javafx.fxml.FXML
+    private Menu menuCursos;
+    @javafx.fxml.FXML
+    private Menu menuPaginaPrincipal;
 
     public void initialize() {
         setInfo();
@@ -65,4 +72,16 @@ public class UserProfileController {
 
     @javafx.fxml.FXML
     public void editProfileOnAction(ActionEvent actionEvent) {loadPage("userEditProfile.fxml");}
+
+    @javafx.fxml.FXML
+    public void ayudaOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void pagePrincipalOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void cursosOnAction(ActionEvent actionEvent) {
+    }
 }
