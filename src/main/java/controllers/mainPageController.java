@@ -1,9 +1,13 @@
 package controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
+
+import java.io.IOException;
 
 public class mainPageController {
     @javafx.fxml.FXML
@@ -24,6 +28,15 @@ public class mainPageController {
     private Pane p_course1;
     @javafx.fxml.FXML
     private BorderPane bp;
+
+    private void loadPage(String page){
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        try {
+            this.bp.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     @javafx.fxml.FXML
