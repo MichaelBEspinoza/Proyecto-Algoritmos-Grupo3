@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="462.0" prefWidth="665.0" style="-fx-background-color: #457d97;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserProfileController">
+<AnchorPane prefHeight="445.0" prefWidth="666.0" style="-fx-background-color: #457d97;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserEditProfileController">
    <children>
-      <Pane layoutX="24.0" layoutY="20.0" prefHeight="420.0" prefWidth="621.0" style="-fx-background-color: #faf0e7;">
+      <Pane layoutX="24.0" layoutY="20.0" prefHeight="405.0" prefWidth="621.0" style="-fx-background-color: #faf0e7;">
          <children>
             <Circle fx:id="circleImage" centerX="75.0" centerY="75.0" fill="WHITE" layoutX="-11.0" layoutY="-11.0" radius="53.0" stroke="BLACK" strokeType="INSIDE" />
             <ImageView fx:id="imageView" fitHeight="91.0" fitWidth="101.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
@@ -19,7 +20,7 @@
                   <Image url="@ucr.png" />
                </image>
             </ImageView>
-            <Text layoutX="146.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perfil de usuario:">
+            <Text layoutX="146.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar perfil:">
                <font>
                   <Font name="System Italic" size="24.0" />
                </font>
@@ -29,36 +30,23 @@
                   <Font name="System Italic" size="14.0" />
                </font>
             </Text>
-            <Pane layoutX="56.0" layoutY="142.0" prefHeight="219.0" prefWidth="232.0" style="-fx-background-color: #efeba9;">
+            <Pane layoutX="30.0" layoutY="138.0" prefHeight="186.0" prefWidth="563.0" style="-fx-background-color: #efeba9;">
                <children>
-                  <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles de usuario: ">
+                  <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="General:">
                      <font>
-                        <Font name="System Italic" size="14.0" />
+                        <Font name="System Italic" size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección de correo:">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="14.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol de usuario">
-                     <font>
-                        <Font name="Arial" size="12.0" />
-                     </font></Text>
-                  <Button layoutX="76.0" layoutY="180.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Editar Perfil" />
+                  <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
+                  <Text layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección de correo:" />
+                  <Text layoutX="14.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rol de usuario: " />
+                  <TextField fx:id="txf_email" layoutX="132.0" layoutY="81.0" />
+                  <TextField fx:id="txf_name" layoutX="132.0" layoutY="38.0" />
+                  <TextField fx:id="txf_role" layoutX="132.0" layoutY="123.0" />
+                  <Button layoutX="395.0" layoutY="81.0" mnemonicParsing="false" onAction="#changePasswordOnAction" style="-fx-background-color: transparent;" text="Cambiar Contraseña" />
                </children>
             </Pane>
-            <Pane layoutX="337.0" layoutY="142.0" prefHeight="219.0" prefWidth="232.0" style="-fx-background-color: #dee8be;">
-               <children>
-                  <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles del curso: ">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perfiles de curso: " />
-               </children>
-            </Pane>
-            <Button layoutX="476.0" layoutY="375.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
+            <Button layoutX="476.0" layoutY="348.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
                <font>
                   <Font name="Bell MT" size="16.0" />
                </font>
