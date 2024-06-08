@@ -23,6 +23,12 @@ public class UserEditProfileController {
     private TextField txf_name;
     @javafx.fxml.FXML
     private BorderPane bp;
+    @javafx.fxml.FXML
+    private TextField txf_country;
+    @javafx.fxml.FXML
+    private TextField txf_city;
+    @javafx.fxml.FXML
+    private TextField txf_place;
 
     private void loadPage(String page){
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
@@ -39,5 +45,9 @@ public class UserEditProfileController {
 
     @javafx.fxml.FXML
     public void changePasswordOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void saveChangesOnAction(ActionEvent actionEvent) {
     }
 }
