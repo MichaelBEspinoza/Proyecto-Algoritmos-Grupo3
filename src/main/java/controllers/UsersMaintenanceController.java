@@ -89,7 +89,7 @@ public class UsersMaintenanceController {
         ObservableList<User> usersList = FXCollections.observableArrayList();
 
         // Cargar usuarios desde el archivo
-        userOperations.loadUsersFromFile("users.dat");
+        userOperations.loadUsersFromFile("users.txt");
 
         try {
             for (int i = 1; i <= userOperations.listUsers().size(); i++) {
@@ -104,4 +104,3 @@ public class UsersMaintenanceController {
         tv.setItems(usersList);
     }
 }
-
