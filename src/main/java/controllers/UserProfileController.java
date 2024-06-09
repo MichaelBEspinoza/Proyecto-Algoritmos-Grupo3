@@ -68,7 +68,6 @@ public class UserProfileController {
 
     public String getCountryInput() {
         return country.getText();
-        //
     }
 
     public void setCountryInput(String country) {
@@ -111,7 +110,7 @@ public class UserProfileController {
     }
 
     @javafx.fxml.FXML
-    public void pagePrincipalOnAction(ActionEvent actionEvent) {
+    public void pagePrincipalOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");
     }
 
     @javafx.fxml.FXML

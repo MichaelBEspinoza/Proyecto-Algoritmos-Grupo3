@@ -9,7 +9,6 @@ import operations.UserOperations;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    private UserOperations UO = new UserOperations();
 
     @Override
     public void start(Stage stage) throws IOException {

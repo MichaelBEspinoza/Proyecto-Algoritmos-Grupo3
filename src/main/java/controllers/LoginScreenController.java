@@ -20,14 +20,6 @@ public class LoginScreenController {
     @FXML
     private Pane pane1;
 
-    public TextField getTxf_user() {
-        return txf_user;
-    }
-
-    public void setTxf_user(TextField txf_user) {
-        this.txf_user = txf_user;
-    }
-
     @FXML
     private TextField txf_user;
     @FXML
@@ -43,7 +35,7 @@ public class LoginScreenController {
     }
 
     @FXML
-    public void accessOnAction(ActionEvent actionEvent) throws ListException {
+    public void accessOnAction(ActionEvent actionEvent) {
         String username = txf_user.getText();
         String password = txf_password.getText();
 
@@ -52,16 +44,16 @@ public class LoginScreenController {
             return;
         }
 
-        if (authenticate(username, password)) {
-            try {
+        try {
+            if (authenticate(username, password)) {
                 User loggedInUser = securityOperations.getUserByUsername(username);
                 UserSession.getInstance().setLoggedUser(loggedInUser);
                 loadPage("mainPage.fxml");
-            } catch (ListException e) {
-                util.UtilityFX.alert("Error", "Ocurrió un error al acceder a la lista de usuarios.");
+            } else {
+                util.UtilityFX.alert("Error", "Nombre de usuario o contraseña incorrectos.");
             }
-        } else {
-            util.UtilityFX.alert("Error", "Nombre de usuario o contraseña incorrectos.");
+        } catch (ListException e) {
+            util.UtilityFX.alert("Error", "Ocurrió un error al acceder a la lista de usuarios.");
         }
     }
 

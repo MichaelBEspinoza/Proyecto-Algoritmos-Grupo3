@@ -31,13 +31,13 @@ public class MainPageController {
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
             util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
         }
     }
-
 
     @javafx.fxml.FXML
     public void perfilOnAction(ActionEvent actionEvent) {loadPage("userProfile.fxml");
@@ -60,6 +60,7 @@ public class MainPageController {
     }
 
     @javafx.fxml.FXML
-    public void userMaintenenceOnAction(ActionEvent actionEvent) {loadPage("userMaintenance.fxml");
+    public void userMaintenenceOnAction(ActionEvent actionEvent) {
+        loadPage("usersMaintenance.fxml");
     }
 }

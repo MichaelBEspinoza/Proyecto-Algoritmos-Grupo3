@@ -43,8 +43,6 @@ public class UsersMaintenanceController {
     @FXML
     private TableColumn<User, String> tc_name;
     @FXML
-    private TableColumn<User, String> tc_role;
-    @FXML
     private TableColumn<User, String> tc_place;
     @FXML
     private BorderPane bp;
@@ -52,6 +50,8 @@ public class UsersMaintenanceController {
     private TableView<User> tv;
 
     private final UserOperations userOperations;
+    @FXML
+    private TableColumn<User, String> tc_rol;
 
     public UsersMaintenanceController() {
         userOperations = new UserOperations();
@@ -64,7 +64,7 @@ public class UsersMaintenanceController {
         tc_city.setCellValueFactory(new PropertyValueFactory<>("city"));
         tc_country.setCellValueFactory(new PropertyValueFactory<>("country"));
         tc_cedula.setCellValueFactory(new PropertyValueFactory<>("cedula"));
-        tc_role.setCellValueFactory(new PropertyValueFactory<>("role"));
+        tc_rol.setCellValueFactory(new PropertyValueFactory<>("role"));
         tc_place.setCellValueFactory(new PropertyValueFactory<>("place"));
 
         loadUsersIntoTableView();
