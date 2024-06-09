@@ -25,14 +25,14 @@ public class UserOperationsTest {
     }// End of method [setUp].
 
     @Test
-    public void testCreateUser() {
+    public void testCreateUser() throws ListException {
         User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
         assertTrue(userOperations.createUser(user));
         assertFalse(userOperations.createUser(user)); // No se puede crear el mismo usuario dos veces.
     }// Test #1.
 
     @Test
-    public void testReadUser() {
+    public void testReadUser() throws ListException {
         User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
         userOperations.createUser(user);
         User retrievedUser = userOperations.readUser(1);
@@ -62,7 +62,7 @@ public class UserOperationsTest {
     }// Test #4.
 
     @Test
-    public void testChangePassword() {
+    public void testChangePassword() throws ListException {
         User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
         userOperations.createUser(user);
         assertTrue(userOperations.changePassword(1, "newpassword123"));
@@ -71,7 +71,7 @@ public class UserOperationsTest {
     }// Test #5.
 
     @Test
-    public void testUserExists() {
+    public void testUserExists() throws ListException {
         User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
         userOperations.createUser(user);
         assertTrue(userOperations.userExists(user));

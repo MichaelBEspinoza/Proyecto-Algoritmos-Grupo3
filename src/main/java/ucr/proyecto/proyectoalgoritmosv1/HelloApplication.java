@@ -17,8 +17,8 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Proyecto de Algoritmos - Grupo #3");
         stage.setScene(scene);
-        //UO = new UserOperations();
-        //UO.loadUsersFromFile("users.txt");
+//        UO = new UserOperations();
+//        UO.loadUsersFromFile("users.txt");
         stage.show();
         stage.setResizable(true);
     }

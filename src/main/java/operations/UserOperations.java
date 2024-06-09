@@ -19,8 +19,10 @@ import java.util.logging.SimpleFormatter;
 public class UserOperations implements UserMaintenance {
     // Implementación de librería Logger para manejar excepciones de una forma más robusta, siguiendo recomendaciones de IntelliJ.
     private static final Logger logger = Logger.getLogger(UserOperations.class.getName());
-    // Instancia de la clase de 'SinglyLinkedList' que va a mantener todos los usuarios.
+    // Instancia de la clase de 'CircularDoublyLinkedList' que va a mantener todos los usuarios.
     private CircularDoublyLinkedList users = new CircularDoublyLinkedList();
+    // Instancia de la clase de 'SecurityOperations' para encriptar la contraseña del usuario.
+    private final SecurityOperations encrypt = new SecurityOperations();
 
     static { // Bloque estático asegura que se pueda llamar a lo largo de la clase.
         try {
@@ -37,11 +39,25 @@ public class UserOperations implements UserMaintenance {
     }// End of static block.
 
     @Override
-    public boolean createUser(User user) {
+    public boolean createUser(User user) throws ListException {
         /* Método que verifica si un usuario es nulo o ya existe en la lista antes de crearlo según el parámetro recibido.
           @param user Usuario a insertar en la lista.
           @return true si el usuario se inserta efectivamente, de otro modo @return false*/
-        if (user == null || userExists(user)) return false;
+
+        loadUsersFromFile("users.txt");
+
+        for (int i = 1; i < users.size(); i++) {
+            User u = (User) users.getNode(i).data;
+            if (u.getId() == user.getId()) {
+                System.out.println("El usuario con este ID ya existe");
+                return false; // El curso con este ID ya existe
+            }
+        }
+
+        users.add(user);
+        saveUsersToFile("users.txt"); // Guarda los cursos en un archivo
+        System.out.println("El usuario fue agregado");
+
         String longMessage = "Dear " + user.getName() +",\n" +
                 "\n" +
                 "We are thrilled to welcome you to MyOnlineLearning! Thank you for creating an account with us. We are excited to have you as a part of our community and look forward to supporting you on your learning journey.\n" +
@@ -59,9 +75,7 @@ public class UserOperations implements UserMaintenance {
                 "Best regards,\n" +
                 "\n" +
                 "The MyOnlineLearning Team";
-        users.add(new User(user.getId(), user.getName(), user.getPassword(), user.getEmail(), user.getRole()));
         sendEmailNotification(user,longMessage);
-        saveUsersToFile("users.txt");
         return true;
     }// End of method [createUser].
 
@@ -232,6 +246,7 @@ public class UserOperations implements UserMaintenance {
     }
 
     public void loadUsersFromFile(String filename) {
+        users.clear();
         File file = new File(filename);
         if (!file.exists()) {
             try {
@@ -273,6 +288,14 @@ public class UserOperations implements UserMaintenance {
                 return user;
         }
         return null;
+    }
+
+    public void viewAllUsers(String filename) throws ListException {
+        loadUsersFromFile(filename); // Cargar los cursos desde el archivo
+        for (int i = 0; i < users.size(); i++) {
+            User user = (User) users.getNode(i).data;
+            System.out.println(user); // Imprimir cada curso
+        }
     }
 
     public boolean assignCourseToUser(int userId, Course course) {

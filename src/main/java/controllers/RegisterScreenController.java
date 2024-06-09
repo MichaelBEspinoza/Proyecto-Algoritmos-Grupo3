@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import operations.UserOperations;
+import structures.lists.ListException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class RegisterScreenController {
     }
 
     @javafx.fxml.FXML
-    public void registerOnAction(ActionEvent actionEvent) {
+    public void registerOnAction(ActionEvent actionEvent) throws ListException {
 
         if (areEmpty()) {
             util.UtilityFX.alert("Campos vacíos", "Todos los campos deben estar llenos al crear una cuenta. Verifique que todos los campos estén llenos antes de proseguir.");

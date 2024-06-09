@@ -14,7 +14,7 @@ public interface UserMaintenance {
     /**
     - *CRUD de usuarios:*
     - createUser(User user): boolean: Agrega un nuevo usuario a la lista doblemente enlazada circular y devuelve true si se crea con éxito.**/
-    public boolean createUser(User user);
+    public boolean createUser(User user) throws ListException;
 
     /**
     - readUser(int userId): User: Busca y devuelve un usuario por su ID.**/

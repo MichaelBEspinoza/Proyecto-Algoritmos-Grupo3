@@ -2,3 +2,5 @@ jun 09, 2024 9:56:43 A. M. operations.UserOperations loadUsersFromFile
 INFO: File created: users.dat
 jun 09, 2024 9:57:19 A. M. operations.UserOperations saveUsersToFile
 INFO: Users saved to file successfully.
+jun 09, 2024 12:10:29 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
