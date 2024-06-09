@@ -43,7 +43,7 @@ public class LoginScreenController {
     }
 
     @FXML
-    public void accessOnAction(ActionEvent actionEvent) {
+    public void accessOnAction(ActionEvent actionEvent) throws ListException {
         String username = txf_user.getText();
         String password = txf_password.getText();
 
@@ -65,7 +65,7 @@ public class LoginScreenController {
         }
     }
 
-    private boolean authenticate(String username, String password) {
+    private boolean authenticate(String username, String password) throws ListException {
         return securityOperations.login(username, password);
     }
 

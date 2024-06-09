@@ -16,7 +16,7 @@ public class CircularLinkedList implements List{
         int size = 1; // Se declara la variable en uno porque si se sabe que el primer nodo no es nuo, ya se tiene un nodo
         Node aux = first; // Se declara un nodo para la verificación de que el primer nodo siempre va a ser el first.
 
-        while (aux.next != last){ // Se le dice que mientras que el próximo nodo sea diferente de null, va a entrar en el ciclo
+        while (aux != last){ // Se le dice que mientras que el próximo nodo sea diferente de null, va a entrar en el ciclo
             size++; //Si ese nodo es diferente de null, va a ir incrementando el contador de size para contar los espacios.
             aux = aux.next; //Luego el nodo va a pasar al siguiente nodo para seguir con el ciclo
         }// End of 'while'.

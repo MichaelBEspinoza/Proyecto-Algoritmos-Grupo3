@@ -21,6 +21,8 @@ public class HelloApplication extends Application {
 //        UO.loadUsersFromFile("users.txt");
         stage.show();
         stage.setResizable(true);
+
+
     }
 
     public static void main(String[] args) {

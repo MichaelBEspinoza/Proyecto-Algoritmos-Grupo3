@@ -21,6 +21,7 @@ public interface List {
     public void sortbyName() throws ListException;
     public int indexOf(Object element) throws ListException; //devuelve la posicion del elemento en la lista
     public Object getFirst() throws ListException; //Devuelve el primer elemento de la lista
+    //private Node getFirst throws ListException()
     public Object getLast() throws ListException; //Devuelve el último elemento de la lista
     public Object getPrev(Object element) throws ListException; //Devuelve el elemento anterior al actual en la lista
     public Object getNext(Object element) throws ListException; //Devuelve el elemento posterior al actual en la lista

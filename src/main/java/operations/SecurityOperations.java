@@ -19,46 +19,56 @@ public class SecurityOperations implements SystemSecurity {
         loadUsertoFile();
     }
 
+
     @Override
     public boolean login(String username, String password) {
-        // Verificar si la lista está vacía
+        System.out.println("Intentando iniciar sesión con el usuario: " + username);
+
         if (list.isEmpty()) {
             System.out.println("La lista de usuarios está vacía.");
             return false;
         }
 
         try {
-            Node aux = list.getNode(0);  // Obtener el primer nodo
+            Node aux = list.getNode(1);  // Obtener el primer nodo
+            if (aux == null) {
+                System.out.println("El nodo inicial es null.");
+                return false;
+            }
 
-            for (int i = 0; i < list.size(); i++) {
-                if (aux == null) {
-                    System.out.println("El nodo es null en la iteración " + i);
-                    return false;
-                }
+            Node firstNode = aux;  // Guardar referencia al primer nodo
+            int index = 1;
 
+            do {
                 User user = (User) aux.data;
-
                 if (user == null) {
-                    System.out.println("El usuario es null en la iteración " + i);
+                    System.out.println("El usuario es null en la iteración " + index);
                     return false;
                 }
+
+                System.out.println("Verificando usuario en índice " + index + ": " + user.getName());
 
                 if (user.getName().equals(username)) {
-                    String passwordDes = desencryptedPassword(user.getPassword());
+                    //String passwordDes = desencryptedPassword(user.getPassword());
+                    System.out.println("Contraseña para encriptar: " + user.getPassword());
 
-                    if (passwordDes.equals(password))
+                    if (user.getPassword().equals(password)) {
+                        System.out.println("Inicio de sesión exitoso para el usuario: " + username);
                         return true;
+                    }
                 }
+
                 aux = aux.next;  // Ir al siguiente nodo
-            }
+                index++;
+            } while (aux != firstNode);  // Continuar hasta volver al primer nodo
         } catch (ListException e) {
             e.printStackTrace();
             return false;
         }
 
+        System.out.println("Nombre de usuario o contraseña incorrectos para el usuario: " + username);
         return false;
     }
-
 
 
     @Override
@@ -82,36 +92,39 @@ public class SecurityOperations implements SystemSecurity {
         return String.valueOf(desencryptedPassword); // Se retorna la contraseña desencriptada
     }
 
-    @Override
-    public void assignRole(User user, Role role) {
-        user.setRole(role);
-        saveUserInformationinFile();
-    } // Método que asigna los roles al usuario
-
-    @Override
-    public boolean register(String username, String password, String email, Role userRole) {
-        String encryptedPassword = encryptPassword(password);
-
-        User user = new User(idCounter++, username, encryptedPassword, email);
-        user.setRole(userRole);
-
-        list.add(user);
-        saveUserInformationinFile();
-
-        return true;
-    }
 
     public User getUserByUsername(String username) throws ListException {
-        Node aux = list.getNode(0);
-        for (int i = 0; i < list.size(); i++) {
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        Node aux = list.getNode(1); // Comenzar desde el primer nodo
+        if (aux == null) {
+            System.out.println("El primer nodo es null.");
+            return null;
+        }
+
+        Node firstNode = aux;
+        int index = 1;
+
+        do {
             User user = (User) aux.data;
+            if (user == null) {
+                System.out.println("Usuario es null en el índice " + index);
+                return null;
+            }
+
             if (user.getName().equals(username)) {
                 return user;
             }
+
             aux = aux.next;
-        }
+            index++;
+        } while (aux != firstNode); // Continuar hasta volver al primer nodo
+
         return null;
     }
+
 
     public BufferedReader getBufferedReader() {
         BufferedReader br = null;
@@ -132,10 +145,10 @@ public class SecurityOperations implements SystemSecurity {
     }
 
     public void loadUsertoFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
+
+        try (BufferedReader br = getBufferedReader()) {
             String line;
             while ((line = br.readLine()) != null) {
-                // Suponiendo que el formato de cada línea es "id,username,password,email,role"
                 String[] userDetails = line.split(",");
                 if (userDetails.length == 5) {
                     int id = Integer.parseInt(userDetails[0]);
@@ -144,37 +157,19 @@ public class SecurityOperations implements SystemSecurity {
                     String email = userDetails[3];
                     Role role = Role.valueOf(userDetails[4]);
 
-                    User user = new User(id, username, password, email);
-                    user.setRole(role);
+                    User user = new User(id, username, password, email, role);
+
                     list.add(user);  // Agregar el usuario a la lista
+                    System.out.println("Usuario añadido: " + line);
                 } else {
                     System.out.println("Formato de línea incorrecto: " + line);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveUserInformationinFile() {
-        PrintWriter writer;
-
-        try {
-            writer = new PrintWriter(file);
-            Node currentNode = list.getNode(0);
-
-            for (int i = 0; i < list.size(); i++) {
-                User user = (User) currentNode.data;
-                writer.println(user.getId() + "," + user.getName() + "," + user.getPassword() + "," + user.getEmail() + "," + user.getRole());
-                currentNode = currentNode.next;
-            }
-            writer.close(); // Cerrar el writer para asegurarse de que los datos se guarden correctamente
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (ListException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
