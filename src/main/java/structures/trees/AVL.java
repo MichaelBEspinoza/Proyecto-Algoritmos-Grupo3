@@ -1,5 +1,10 @@
 package structures.trees;
 
+import domain.Course;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AVL implements Tree {
     private BTreeNode root; // única entrada al árbol
 
@@ -53,17 +58,17 @@ public class AVL implements Tree {
     public void add(Object element) {
         this.root = add(root, element, "root");
     }
-    
+
     private BTreeNode add(BTreeNode node, Object element, String sequence) {
         if (node == null) node = new BTreeNode(element, "Added as " + sequence + ".");
 
-        else{
+        else {
 
-            if (util.Utility.compare(element,node.data) < 0)
-                node.left = add(node.left,element, sequence + "/left");
+            if (util.Utility.compare(element, node.data) < 0)
+                node.left = add(node.left, element, sequence + "/left");
 
             else if (util.Utility.compare(element, node.data) > 0)
-                node.right = add(node.right,element, sequence+"/right");
+                node.right = add(node.right, element, sequence + "/right");
 
         }
         node = reBalance(node, element); // Se determina si se necesita rebalanceo.
@@ -72,7 +77,7 @@ public class AVL implements Tree {
 
     private BTreeNode reBalance(BTreeNode node, Object element) {
         int balance = getBalanceFactor(node);
-        
+
         // Left-Left Case
         if (balance > 1 && util.Utility.compare(element, node.data) < 0) {
             node.path += ". Simple Right Rotation";
@@ -109,6 +114,7 @@ public class AVL implements Tree {
         node.right = node2;
         return node1;
     }
+
     private BTreeNode rightRotate(BTreeNode node) {
         BTreeNode node1 = node.left;
         BTreeNode node2 = node1.right;
@@ -131,7 +137,7 @@ public class AVL implements Tree {
     }
 
     private BTreeNode remove(BTreeNode node, Object element) {
-        if (node != null){
+        if (node != null) {
             if (util.Utility.compare(element, node.data) < 0)
                 node.left = remove(node.left, element);
             else if (util.Utility.compare(element, node.data) > 0)
@@ -151,7 +157,7 @@ public class AVL implements Tree {
                     node.data = value;
                     node.right = remove(node.right, value);
                 }
-                // Luego de suprimir se determina si requiere o no un rebalanceo.
+            // Luego de suprimir se determina si requiere o no un rebalanceo.
             node = reBalance(node, element);
         }
         return node;
@@ -185,20 +191,20 @@ public class AVL implements Tree {
 
     @Override
     public Object min() throws TreeException {
-        if (isEmpty()) throw  new TreeException("AVL Binary Search Tree is empty.");
+        if (isEmpty()) throw new TreeException("AVL Binary Search Tree is empty.");
         return min(root);
     }
-    
+
     private Object min(BTreeNode node) {
         // Método interno.
         if (node.left != null) return min(node.left);
         return node.data;
-        
+
     }
 
     @Override
     public Object max() throws TreeException {
-        if (isEmpty()) throw  new TreeException("AVL Binary Search Tree is empty.");
+        if (isEmpty()) throw new TreeException("AVL Binary Search Tree is empty.");
         return max(root);
     }
 
@@ -239,6 +245,21 @@ public class AVL implements Tree {
             result += inOrder(node.right);
         }
         return result;
+    }
+
+    public List<Course> inOrderUsage() throws TreeException {
+        if (isEmpty()) throw new TreeException("AVL Binary Search Tree is empty.");
+        List<Course> courses = new ArrayList<>();
+        inOrder(root, courses);
+        return courses;
+    }
+
+    private void inOrder(BTreeNode node, List<Course> courses) {
+        if (node != null) {
+            inOrder(node.left, courses);
+            courses.add((Course) node.data);
+            inOrder(node.right, courses);
+        }
     }
 
     @Override
