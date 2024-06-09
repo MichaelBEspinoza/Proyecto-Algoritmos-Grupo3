@@ -17,14 +17,14 @@ public class HelloApplication extends Application {
         stage.setTitle("Proyecto de Algoritmos - Grupo #3");
         stage.setScene(scene);
         UO = new UserOperations();
-        UO.loadUsersFromFile("users.dat");
+        UO.loadUsersFromFile("users.txt");
         stage.show();
         stage.setResizable(true);
     }
 
     @Override
     public void stop() throws Exception {
-        UO.saveUsersToFile("users.dat");
+        UO.saveUsersToFile("users.txt");
     }
 
     public static void main(String[] args) {
