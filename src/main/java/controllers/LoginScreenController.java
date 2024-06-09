@@ -3,6 +3,7 @@ package controllers;
 import domain.User;
 import domain.UserSession;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -65,15 +66,21 @@ public class LoginScreenController {
 
     private boolean authenticate(String username, String password) throws ListException {
         User user = userOperations.getUserByUsername(username);
-        return user != null && user.getPassword().equals(password);
+        if (userOperations.userExists(user))
+            return user != null && user.getPassword().equals(password);
+        return false;
     }
 
     private void loadPage(String page) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(page));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
             util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
         }
+    }
+
+    @FXML
+    public void registerOnAction(Event event) {loadPage("registerScreen.fxml");
     }
 }

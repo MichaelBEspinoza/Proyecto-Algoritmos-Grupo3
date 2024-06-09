@@ -1,10 +1,14 @@
 package structures.lists;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class CircularDoublyLinkedList implements List, Serializable {
     private Node first; //Apuntador al inicio de la lista
     private Node last; //Apuntador al final de la lista
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public CircularDoublyLinkedList() {
         this.first = this.last = null; // La lista no existe.

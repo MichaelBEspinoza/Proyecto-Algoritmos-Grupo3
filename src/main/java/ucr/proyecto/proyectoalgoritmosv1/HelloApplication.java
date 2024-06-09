@@ -4,18 +4,27 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import operations.UserOperations;
 
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+    private UserOperations UO = new UserOperations();
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Proyecto de Algoritmos - Grupo #3");
         stage.setScene(scene);
+        UO = new UserOperations();
+        UO.loadUsersFromFile("users.dat");
         stage.show();
-        stage.setResizable(false);
+        stage.setResizable(true);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        UO.saveUsersToFile("users.dat");
     }
 
     public static void main(String[] args) {

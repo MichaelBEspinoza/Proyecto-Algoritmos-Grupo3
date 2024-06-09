@@ -3,6 +3,7 @@ package domain;
 import structures.lists.ListException;
 import structures.lists.SinglyLinkedList;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class User implements Serializable {
@@ -17,6 +18,9 @@ public class User implements Serializable {
     private Role role; /**Rol del usuario (Administrador,Instructor, usuario**/
 
     private SinglyLinkedList courses;
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public User() {
     }

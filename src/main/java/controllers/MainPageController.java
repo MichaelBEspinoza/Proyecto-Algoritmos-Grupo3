@@ -29,12 +29,12 @@ public class MainPageController {
     @javafx.fxml.FXML
     private BorderPane bp;
 
-    private void loadPage(String page){
+    private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
         }
     }
 
