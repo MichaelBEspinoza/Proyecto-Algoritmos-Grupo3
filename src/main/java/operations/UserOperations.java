@@ -61,6 +61,7 @@ public class UserOperations implements UserMaintenance {
                 "The MyOnlineLearning Team";
         users.add(new User(user.getId(), user.getName(), user.getPassword(), user.getEmail(), user.getRole()));
         sendEmailNotification(user,longMessage);
+        saveUsersToFile("users.txt");
         return true;
     }// End of method [createUser].
 
@@ -216,12 +217,17 @@ public class UserOperations implements UserMaintenance {
     }// End of method [userExists].
 
     public void saveUsersToFile(String filename) {
-        try (FileOutputStream fileOut = new FileOutputStream(filename);
-             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            out.writeObject(users);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (int i = 1; i <= users.size(); i++) {
+                User user = (User) users.getNode(i).data;
+                writer.write(user.toString());
+                writer.newLine();
+            }
             logger.log(Level.INFO, "Users saved to file successfully.");
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error while writing users to file.", e);
+        } catch (ListException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -244,17 +250,15 @@ public class UserOperations implements UserMaintenance {
                 users = new CircularDoublyLinkedList();
                 return;
             }
-            try (FileInputStream fileIn = new FileInputStream(filename);
-                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
-                users = (CircularDoublyLinkedList) in.readObject();
+            try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+                users = new CircularDoublyLinkedList();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    User user = User.fromString(line);
+                    users.add(user);
+                }
                 logger.log(Level.INFO, "Users loaded from file successfully.");
-            } catch (EOFException e) {
-                logger.log(Level.WARNING, "File is empty. Starting with an empty user list.");
-                users = new CircularDoublyLinkedList();
-            } catch (FileNotFoundException e) {
-                logger.log(Level.WARNING, "File not found. Starting with an empty user list.", e);
-                users = new CircularDoublyLinkedList();
-            } catch (IOException | ClassNotFoundException e) {
+            } catch (IOException e) {
                 logger.log(Level.SEVERE, "Error while loading users from file.", e);
                 users = new CircularDoublyLinkedList();
             }

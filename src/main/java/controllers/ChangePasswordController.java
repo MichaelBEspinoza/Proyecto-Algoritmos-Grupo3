@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import operations.UserOperations;
+import structures.lists.ListException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
@@ -27,8 +28,10 @@ public class ChangePasswordController {
     private BorderPane bp;
 
     User loggedUser = UserSession.getInstance().getLoggedUser();
-    RegisterScreenController RSC = new RegisterScreenController();
     UserOperations UO = new UserOperations();
+
+    public ChangePasswordController() throws ListException {
+    }
 
     private void loadPage(String page){
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));

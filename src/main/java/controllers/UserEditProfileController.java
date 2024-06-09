@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import operations.UserOperations;
+import structures.lists.ListException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
@@ -39,6 +40,9 @@ public class UserEditProfileController {
     User loggedUser = UserSession.getInstance().getLoggedUser();
     UserProfileController UPC = new UserProfileController();
     UserOperations UO = new UserOperations();
+
+    public UserEditProfileController() throws ListException {
+    }
 
     public void initialize() {
         textFieldSetUp();

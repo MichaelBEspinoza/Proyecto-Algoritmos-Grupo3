@@ -22,11 +22,6 @@ public class HelloApplication extends Application {
         stage.setResizable(true);
     }
 
-    @Override
-    public void stop() throws Exception {
-        UO.saveUsersToFile("users.txt");
-    }
-
     public static void main(String[] args) {
         launch();
     }
