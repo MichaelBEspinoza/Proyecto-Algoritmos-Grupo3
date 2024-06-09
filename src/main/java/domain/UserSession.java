@@ -11,7 +11,7 @@ public class UserSession {
 
     private static UserSession instance;
 
-    private User loggedUser = UO.getUserByUsername(LSC.getTxf_user());
+    private User loggedUser = UO.getUserByUsername(String.valueOf(LSC.getTxf_user()));
 
     private UserSession() throws ListException {}
 

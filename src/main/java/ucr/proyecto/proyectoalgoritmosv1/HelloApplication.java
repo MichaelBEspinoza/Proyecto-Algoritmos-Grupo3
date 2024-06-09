@@ -10,14 +10,15 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     private UserOperations UO = new UserOperations();
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("loginScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Proyecto de Algoritmos - Grupo #3");
         stage.setScene(scene);
-        UO = new UserOperations();
-        UO.loadUsersFromFile("users.txt");
+        //UO = new UserOperations();
+        //UO.loadUsersFromFile("users.txt");
         stage.show();
         stage.setResizable(true);
     }

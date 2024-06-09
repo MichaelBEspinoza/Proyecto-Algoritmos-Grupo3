@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -78,13 +80,16 @@
                            </font>
                         </Text>
                         <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vista general de curso:" />
-                        <Pane fx:id="p_course1" layoutX="14.0" layoutY="68.0" prefHeight="106.0" prefWidth="179.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course2" layoutX="220.0" layoutY="69.0" prefHeight="104.0" prefWidth="181.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course3" layoutX="424.0" layoutY="68.0" prefHeight="106.0" prefWidth="192.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course4" layoutX="14.0" layoutY="195.0" prefHeight="106.0" prefWidth="179.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course5" layoutX="226.0" layoutY="196.0" prefHeight="104.0" prefWidth="181.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course6" layoutX="427.0" layoutY="195.0" prefHeight="106.0" prefWidth="192.0" style="-fx-background-color: #dee8be;" />
                         <Button layoutX="509.0" layoutY="332.0" mnemonicParsing="false" onAction="#editCoursesOnAction" style="-fx-background-color: transparent;" text="Edición de Cursos" />
+                        <TableView layoutX="14.0" layoutY="86.0" prefHeight="224.0" prefWidth="605.0">
+                          <columns>
+                            <TableColumn fx:id="tc_id" prefWidth="109.0" text="ID:" />
+                            <TableColumn fx:id="tc_name" prefWidth="122.0" text="Nombre:" />
+                              <TableColumn fx:id="tc_descripcion" prefWidth="106.0" text="Descripción:" />
+                              <TableColumn fx:id="tc_duration" prefWidth="121.0" text="Duración:" />
+                              <TableColumn fx:id="tc_dificultyLevel" prefWidth="128.0" text="ID de Instructor:" />
+                          </columns>
+                        </TableView>
                      </children>
                   </Pane>
                     </children>
