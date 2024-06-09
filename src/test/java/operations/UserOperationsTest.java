@@ -135,5 +135,4 @@ public class UserOperationsTest {
         assertNotNull(users);
         assertEquals(0, users.size());
     }
-
 }// End of class [UserOperationsTest].

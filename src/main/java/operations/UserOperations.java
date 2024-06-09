@@ -76,6 +76,7 @@ public class UserOperations implements UserMaintenance {
                 "\n" +
                 "The MyOnlineLearning Team";
         sendEmailNotification(user,longMessage);
+        viewAllUsers("users.txt");
         return true;
     }// End of method [createUser].
 
@@ -292,7 +293,7 @@ public class UserOperations implements UserMaintenance {
 
     public void viewAllUsers(String filename) throws ListException {
         loadUsersFromFile(filename); // Cargar los cursos desde el archivo
-        for (int i = 0; i < users.size(); i++) {
+        for (int i = 1; i < users.size(); i++) {
             User user = (User) users.getNode(i).data;
             System.out.println(user); // Imprimir cada curso
         }
