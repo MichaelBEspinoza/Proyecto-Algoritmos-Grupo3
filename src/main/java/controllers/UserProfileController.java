@@ -68,6 +68,7 @@ public class UserProfileController {
 
     public String getCountryInput() {
         return country.getText();
+        //
     }
 
     public void setCountryInput(String country) {
