@@ -7,6 +7,7 @@ import structures.trees.TreeException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CourseOperationsTest {
+
     CourseOperations operations = new CourseOperations();
 
     @Test
@@ -99,6 +100,7 @@ class CourseOperationsTest {
         System.out.println("\n\n ReadListCourseTest:");
 
 
+
         // Crear y agregar cursos
         Course course1 = new Course(1, "Matematicas", "Curso de matematicas", "3 meses", "Dificil", 101);
         Course course2 = new Course(2, "Español", "Curso de Español", "2 meses", "Facil", 102);
@@ -108,6 +110,7 @@ class CourseOperationsTest {
 
         // Guardar cursos en el archivo
         operations.saveCoursesToFile("cursos.dat");
+
 
         // Cargar y visualizar cursos desde el archivo
         operations.viewAllCourses("cursos.dat");
@@ -128,6 +131,5 @@ class CourseOperationsTest {
         System.out.println("\n");
 
     }// todo funcional
-
 
 }
