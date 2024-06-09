@@ -16,6 +16,9 @@ public class CourseOperations implements CourseMaintenance {
 
     @Override
     public boolean createCourse(Course course) {
+        // Cargar cursos desde el archivo para asegurar que la verificación sea completa
+        loadCoursesFromFile("cursos.txt");
+
         // Verifica si el curso con el mismo ID ya existe
         for (Course c : cursos) {
             if (c.getId() == course.getId()) {
@@ -27,24 +30,25 @@ public class CourseOperations implements CourseMaintenance {
         // Si el curso no existe, se agrega
         avlTree.add(course);
         cursos.add(course);
-        saveCoursesToFile("cursos.dat"); // Guarda los cursos en un archivo
+        saveCoursesToFile("cursos.txt"); // Guarda los cursos en un archivo
         System.out.println("El curso fue agregado");
         return true;
-
-    }//todo funcional
+    } //todo funcional
 
     @Override
     public String readCourse(int courseId) { //Busca y devuelve un curso por su ID.
-        for (int i = 0; i < cursos.size(); i++) {
-           if( util.Utility.compare(cursos.get(i).getId(),courseId)==0){
-                return "The course has been found \n" +  cursos.get(i).toString(); // el curso existe
-           }
+        loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
+        for (Course c : cursos) {
+            if (c.getId() == courseId) {
+                return "The course has been found \n" + c.toString(); // el curso existe
+            }
         }
-        return "The course doesn`t exists";// no existe el curso
+        return "The course doesn’t exist"; // no existe el curso
     }//todo funcional
 
     @Override
     public boolean updateCourse(Course updatedCourse) { //recibe una instancia nueva de un curso para eliminar y reemplazar el existe con ese id
+        loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
         try {
             for (int i = 0; i < cursos.size(); i++) {
                 Course course = cursos.get(i);
@@ -52,6 +56,7 @@ public class CourseOperations implements CourseMaintenance {
                     cursos.set(i, updatedCourse);
                     avlTree.remove(course);
                     avlTree.add(updatedCourse);
+                    saveCoursesToFile("cursos.txt"); // Guarda los cursos en un archivo
                     System.out.println("El curso fue actualizado");
                     return true;
                 }
@@ -65,63 +70,83 @@ public class CourseOperations implements CourseMaintenance {
 
     @Override
     public boolean deleteCourse(int courseId) throws TreeException {
-
+        loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
         for (int i = 0; i < cursos.size(); i++) {
-
-            if( util.Utility.compare(cursos.get(i).getId(),courseId)==0){
-
-                cursos.remove(cursos.get(i));
-                avlTree.remove(cursos.get(i));
+            if (cursos.get(i).getId() == courseId) {
+                Course courseToRemove = cursos.get(i);
+                avlTree.remove(courseToRemove);
+                cursos.remove(i);
+                saveCoursesToFile("cursos.txt"); // Guarda los cursos en un archivo
+                System.out.println("El curso fue eliminado");
                 return true; // el curso existe
-
             }
-
         }
-
+        System.out.println("El curso no se encontró");
         return false;
-
-    }//todo funcional
+    }
 
     @Override
     public List<Course> listCourse() {
+        loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
         return new ArrayList<>(cursos); // Devolver una copia de la lista de cursos
-    }//todo funcional
+    }
 
     public void saveCoursesToFile(String filename) {
-        try {
-            File file = new File(filename);
-            if (!file.exists()) {
-                file.createNewFile(); // Crea el archivo si no existe
-            }
-            try (FileOutputStream fileOut = new FileOutputStream(filename);
-                 ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-                out.writeObject(cursos);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (Course course : cursos) {
+                writer.write(courseToString(course));
+                writer.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }//todo funcional
+    }
 
     public void loadCoursesFromFile(String filename) {
-        try (FileInputStream fileIn = new FileInputStream(filename);
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            cursos = (ArrayList<Course>) in.readObject();
-            avlTree.clear(); // Limpiar el árbol AVL antes de recargar los cursos
-            for (Course course : cursos) {
+        cursos.clear();
+        avlTree.clear();
+        File file = new File(filename);
+        if (!file.exists()) {
+            try {
+                file.createNewFile(); // Crea el archivo si no existe
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return; // Si el archivo no existía, no hay nada más que hacer
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Course course = stringToCourse(line);
+                cursos.add(course);
                 avlTree.add(course);
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }//todo funcional
+    }
 
     public void viewAllCourses(String filename) {
         loadCoursesFromFile(filename); // Cargar los cursos desde el archivo
         for (Course course : cursos) {
             System.out.println(course); // Imprimir cada curso
-
         }
-    }//todo funcional
+    }
 
+    private String courseToString(Course course) {
+        return course.getId() + "," + course.getName() + "," + course.getDescription() + ","
+                + course.getCourseLength() + "," + course.getLevel() + "," + course.getInstructorId();
+    }
+
+    private Course stringToCourse(String str) {
+        String[] parts = str.split(",");
+        int id = Integer.parseInt(parts[0]);
+        String name = parts[1];
+        String description = parts[2];
+        String courseLength = parts[3];
+        String level = parts[4];
+        int instructorId = Integer.parseInt(parts[5]);
+        return new Course(id, name, description, courseLength, level, instructorId);
+    }
 }
-

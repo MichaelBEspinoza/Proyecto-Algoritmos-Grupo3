@@ -3,47 +3,60 @@ package controllers;
 import domain.Course;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import operations.CourseOperations;
+import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
+import java.io.IOException;
 import java.util.List;
 
 public class EditCoursesController {
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuPaginaPrincipal;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuAyuda;
-    @javafx.fxml.FXML
-    private Pane p_course3;
-    @javafx.fxml.FXML
+    @FXML
+    private Button p_course3;
+    @FXML
     private Pane pane1;
-    @javafx.fxml.FXML
-    private Pane p_course2;
-    @javafx.fxml.FXML
-    private Pane p_course5;
-    @javafx.fxml.FXML
-    private Pane p_course4;
-    @javafx.fxml.FXML
-    private Pane p_course6;
-    @javafx.fxml.FXML
+    @FXML
+    private Button p_course2;
+    @FXML
+    private Button p_course5;
+    @FXML
+    private Button p_course4;
+    @FXML
+    private Button p_course6;
+    @FXML
     private Menu menuCursos;
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane bp;
-    @javafx.fxml.FXML
-    private Pane p_course1;
-
+    @FXML
+    private Button p_course1;
 
     private CourseOperations courseOperations;
 
+    private void loadPage(String page) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        try {
+            this.bp.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     public void initialize() {
         courseOperations = new CourseOperations();
         courseOperations.loadCoursesFromFile("cursos.dat");
         loadCourses();
     }
+
+    /****************************************************************************************/
 
     private void loadCourses() {
         List<Course> courses = courseOperations.listCourse();
@@ -67,38 +80,45 @@ public class EditCoursesController {
         }
     }
 
-    private void displayCourse(Pane coursePane, Course course) {
-        coursePane.getChildren().clear();
-        Text idText = new Text("ID: " + course.getId());
-        Text nameText = new Text("Name: " + course.getName());
-        Text descriptionText = new Text("Description: " + course.getDescription());
-        Text lengthText = new Text("Length: " + course.getCourseLength());
-        Text levelText = new Text("Level: " + course.getLevel());
-        Text instructorIdText = new Text("Instructor ID: " + course.getInstructorId());
-
-        coursePane.getChildren().addAll(idText, nameText, descriptionText, lengthText, levelText, instructorIdText);
+    private void displayCourse(Button courseButton, Course course) {
+        courseButton.setText("ID: " + course.getId() + "\nName: " + course.getName());
+        courseButton.setOnAction(event -> {
+            /**Se define lo que ocurre si se toca el boton**/
+        });
     }
-    @javafx.fxml.FXML
+
+    /****************************************************************************************/
+
+    @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("helpScreen.fxml");
+
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void pagePrincipalOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("mainPage.fxml");
+
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void editOnAction(ActionEvent actionEvent) {
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void deleteOnAction(ActionEvent actionEvent) {
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void addCourseOnAction(ActionEvent actionEvent) {
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void cursosOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("userCourses.fxml");
+
     }
 }

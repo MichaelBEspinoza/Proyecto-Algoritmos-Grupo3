@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
@@ -47,52 +48,52 @@
                                 </ImageView>
                             </children>
                         </Pane>
-                  <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
-                     <children>
-                        <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
-                          <menus>
-                            <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                              </items>
-                            </Menu>
-                            <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                              </items>
-                            </Menu>
-                            <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                              </items>
-                            </Menu>
-                          </menus>
-                        </MenuBar>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
-                     <children>
-                        <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edición de Cursos:">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vista general de curso:" />
-                        <Pane fx:id="p_course1" layoutX="14.0" layoutY="104.0" prefHeight="106.0" prefWidth="179.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course2" layoutX="226.0" layoutY="105.0" prefHeight="104.0" prefWidth="181.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course3" layoutX="424.0" layoutY="104.0" prefHeight="106.0" prefWidth="192.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course4" layoutX="14.0" layoutY="233.0" prefHeight="106.0" prefWidth="179.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course5" layoutX="226.0" layoutY="234.0" prefHeight="104.0" prefWidth="181.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_course6" layoutX="424.0" layoutY="233.0" prefHeight="106.0" prefWidth="192.0" style="-fx-background-color: #dee8be;" />
-                        <MenuButton layoutX="13.0" layoutY="66.0" mnemonicParsing="false" text="Opciones de Edición:">
-                           <items>
-                              <MenuItem mnemonicParsing="false" onAction="#addCourseOnAction" text="Agregar un Curso" />
-                              <MenuItem mnemonicParsing="false" onAction="#editOnAction" text="Edición de Curso" />
-                              <MenuItem mnemonicParsing="false" onAction="#deleteOnAction" text="Eliminación de Curso" />
-                           </items>
-                        </MenuButton>
-                     </children>
-                  </Pane>
+                        <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
+                            <children>
+                                <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
+                                    <menus>
+                                        <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="Close" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="About" />
+                                            </items>
+                                        </Menu>
+                                    </menus>
+                                </MenuBar>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
+                            <children>
+                                <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edición de Cursos:">
+                                    <font>
+                                        <Font name="Bell MT" size="18.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vista general de curso:" />
+                                <Button fx:id="p_course1" layoutX="14.0" layoutY="104.0" prefHeight="106.0" prefWidth="179.0" style="-fx-background-color: #dee8be;" />
+                                <Button fx:id="p_course2" layoutX="226.0" layoutY="105.0" prefHeight="104.0" prefWidth="181.0" style="-fx-background-color: #dee8be;" />
+                                <Button fx:id="p_course3" layoutX="424.0" layoutY="104.0" prefHeight="106.0" prefWidth="192.0" style="-fx-background-color: #dee8be;" />
+                                <Button fx:id="p_course4" layoutX="14.0" layoutY="233.0" prefHeight="106.0" prefWidth="179.0" style="-fx-background-color: #dee8be;" />
+                                <Button fx:id="p_course5" layoutX="226.0" layoutY="234.0" prefHeight="104.0" prefWidth="181.0" style="-fx-background-color: #dee8be;" />
+                                <Button fx:id="p_course6" layoutX="424.0" layoutY="233.0" prefHeight="106.0" prefWidth="192.0" style="-fx-background-color: #dee8be;" />
+                                <MenuButton layoutX="13.0" layoutY="66.0" mnemonicParsing="false" text="Opciones de Edición:">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#addCourseOnAction" text="Agregar un Curso" />
+                                        <MenuItem mnemonicParsing="false" onAction="#editOnAction" text="Edición de Curso" />
+                                        <MenuItem mnemonicParsing="false" onAction="#deleteOnAction" text="Eliminación de Curso" />
+                                    </items>
+                                </MenuButton>
+                            </children>
+                        </Pane>
                     </children>
                 </Pane>
             </children>
