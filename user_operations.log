@@ -2,3 +2,31 @@ jun 09, 2024 9:56:43 A. M. operations.UserOperations loadUsersFromFile
 INFO: File created: users.dat
 jun 09, 2024 9:57:19 A. M. operations.UserOperations saveUsersToFile
 INFO: Users saved to file successfully.
+jun 09, 2024 10:08:58 A. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 10:09:01 A. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 10:18:15 A. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 10:18:57 A. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 11:03:30 A. M. operations.UserOperations loadUsersFromFile
+INFO: File is empty. Starting with an empty user list.
+jun 09, 2024 11:06:25 A. M. operations.UserOperations loadUsersFromFile
+INFO: File is empty. Starting with an empty user list.
+jun 09, 2024 11:07:07 A. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 11:08:52 A. M. operations.UserOperations loadUsersFromFile
+INFO: File is empty. Starting with an empty user list.
+jun 09, 2024 11:09:15 A. M. operations.UserOperations loadUsersFromFile
+INFO: File is empty. Starting with an empty user list.
+jun 09, 2024 11:10:11 A. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 11:11:53 A. M. operations.UserOperations loadUsersFromFile
+INFO: File is empty. Starting with an empty user list.
+jun 09, 2024 11:15:43 A. M. operations.UserOperations loadUsersFromFile
+INFO: File is empty. Starting with an empty user list.
+jun 09, 2024 11:16:24 A. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 11:16:51 A. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.

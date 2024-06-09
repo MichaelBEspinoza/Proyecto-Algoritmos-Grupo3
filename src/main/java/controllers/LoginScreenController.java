@@ -81,6 +81,10 @@ public class LoginScreenController {
     }
 
     @FXML
-    public void registerOnAction(Event event) {loadPage("registerScreen.fxml");
+    public void registerOnAction(Event event) {loadPage("registerScreen.fxml");}
+
+    public String getTxf_user() {
+        return txf_user.getText();
     }
+
 }

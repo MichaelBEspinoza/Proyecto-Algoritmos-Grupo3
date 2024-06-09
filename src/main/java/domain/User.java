@@ -120,4 +120,19 @@ public class User implements Serializable {
         else return null;
     }
 
+    @Override
+    public String toString() {
+        return id + "," + name + "," + password + "," + email + "," + role;
+    }
+
+    public static User fromString(String userString) {
+        String[] parts = userString.split(",");
+        int id = Integer.parseInt(parts[0]);
+        String name = parts[1];
+        String password = parts[2];
+        String email = parts[3];
+        Role role = Role.valueOf(parts[4]);
+        return new User(id, name, password, email, role);
+    }
+
 }
