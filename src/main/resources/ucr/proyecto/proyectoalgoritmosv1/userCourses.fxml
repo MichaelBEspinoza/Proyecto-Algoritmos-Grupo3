@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserCoursesController">
+    <center>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="719.0" style="-fx-background-color: #457d97;">
+            <children>
+                <Pane fx:id="pane1" layoutX="28.0" layoutY="23.0" prefHeight="486.0" prefWidth="669.0" style="-fx-background-color: #faf0e7;">
+                    <children>
+                        <Pane layoutX="15.0" layoutY="14.0" prefHeight="45.0" prefWidth="202.0" style="-fx-background-color: #edd5c5;">
+                            <children>
+                                <Text layoutX="54.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIVERSIDAD DE COSTA RICA" wrappingWidth="139.03515625">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="61.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Campus" wrappingWidth="46.673828125">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="106.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Virtual">
+                                    <font>
+                                        <Font name="System Bold" size="11.0" />
+                                    </font>
+                                </Text>
+                                <Text fill="#4598d3" layoutX="143.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EstudiaU">
+                                    <font>
+                                        <Font name="System Italic" size="11.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="8.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@ucr.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                  <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
+                     <children>
+                        <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
+                          <menus>
+                            <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
+                              <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                              </items>
+                            </Menu>
+                            <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
+                              <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                              </items>
+                            </Menu>
+                            <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
+                              <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                              </items>
+                            </Menu>
+                          </menus>
+                        </MenuBar>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
+                     <children>
+                        <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mis Cursos:">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vista general de curso:" />
+                        <Pane fx:id="p_course1" layoutX="14.0" layoutY="68.0" prefHeight="106.0" prefWidth="179.0" style="-fx-background-color: #dee8be;" />
+                        <Pane fx:id="p_course2" layoutX="220.0" layoutY="69.0" prefHeight="104.0" prefWidth="181.0" style="-fx-background-color: #dee8be;" />
+                        <Pane fx:id="p_course3" layoutX="424.0" layoutY="68.0" prefHeight="106.0" prefWidth="192.0" style="-fx-background-color: #dee8be;" />
+                        <Pane fx:id="p_course4" layoutX="14.0" layoutY="195.0" prefHeight="106.0" prefWidth="179.0" style="-fx-background-color: #dee8be;" />
+                        <Pane fx:id="p_course5" layoutX="226.0" layoutY="196.0" prefHeight="104.0" prefWidth="181.0" style="-fx-background-color: #dee8be;" />
+                        <Pane fx:id="p_course6" layoutX="427.0" layoutY="195.0" prefHeight="106.0" prefWidth="192.0" style="-fx-background-color: #dee8be;" />
+                        <Button layoutX="509.0" layoutY="332.0" mnemonicParsing="false" onAction="#editCoursesOnAction" style="-fx-background-color: transparent;" text="Edición de Cursos" />
+                     </children>
+                  </Pane>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
