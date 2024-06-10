@@ -7,9 +7,15 @@ import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
 import structures.lists.SinglyLinkedList;
 
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Properties;
@@ -164,9 +170,9 @@ public class UserOperations implements UserMaintenance {
 
     @Override
     public void sendEmailNotification(User user, String message) {
-        /* Método que envía una notificación por correo electrónico a la dirección del usuario pasado como parámetro.
-           @param user Usuario al que se le enviará la notificación, por medio de su correo electrónico.
-           @param message Mensaje incluido en el correo enviado al usuario.*/
+    /* Método que envía una notificación por correo electrónico a la dirección del usuario pasado como parámetro.
+       @param user Usuario al que se le enviará la notificación, por medio de su correo electrónico.
+       @param message Mensaje incluido en el correo enviado al usuario.*/
 
         System.out.println("TLSEmail Start");
         Properties props = new Properties();
@@ -181,15 +187,32 @@ public class UserOperations implements UserMaintenance {
             }// End of 'PasswordAuthentication'.
         });
 
-        try{
+        try {
             MimeMessage mimeMessage = new MimeMessage(session);
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), true));
             mimeMessage.setSubject("MyOnlineLearning Authentication");
-            mimeMessage.setText(message);
+
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(message);
+
+            MimeBodyPart imagePart = new MimeBodyPart();
+            String imagePath = "src/main/resources/ucr/proyecto/proyectoalgoritmosv1/ucr.png";
+            DataSource source = new FileDataSource(imagePath);
+            imagePart.setDataHandler(new DataHandler(source));
+            imagePart.setFileName(imagePath);
+            imagePart.setHeader("Content-ID", "<image>");
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+            multipart.addBodyPart(imagePart);
+
+            mimeMessage.setContent(multipart);
+
             System.out.println("sending...");
             Transport.send(mimeMessage);
             System.out.println("Sent message successfully....");
-        }catch (MessagingException me){logger.log(Level.SEVERE, "Error while sending e-mail.", me);
+        } catch (MessagingException me) {
+            logger.log(Level.SEVERE, "Error while sending e-mail.", me);
         }// End of 'catch'.
     }// End of method [sendEmailNotifications].
 

@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import operations.SecurityOperations;
 import operations.UserOperations;
 import structures.lists.ListException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
@@ -39,6 +40,7 @@ public class RegisterScreenController {
 
     UserOperations UO = new UserOperations();
     User forStringToRoleOnly = new User();
+    SecurityOperations SO = new SecurityOperations();
 
     public void initialize() {
         cb_role.getItems().addAll("Usuario","Instructor","Administrador");
@@ -78,7 +80,7 @@ public class RegisterScreenController {
         } else {
             UO.createUser(new User(Integer.parseInt(txf_id.getText()),
                     txf_user.getText(),
-                    txf_password.getText(),
+                    SO.encryptPassword(txf_password.getText()),
                     txf_email.getText(),
                     forStringToRoleOnly.stringToRole(cb_role.getValue()),
                     txf_country.getText(),

@@ -48,10 +48,10 @@ public class SecurityOperations implements SystemSecurity {
                 System.out.println("Verificando usuario en índice " + index + ": " + user.getName());
 
                 if (user.getName().equals(username)) {
-                    //String passwordDes = desencryptedPassword(user.getPassword());
+                    String passwordDes = decryptPassword(user.getPassword());
                     System.out.println("Contraseña para encriptar: " + user.getPassword());
 
-                    if (user.getPassword().equals(password)) {
+                    if (passwordDes.equals(password)) {
                         System.out.println("Inicio de sesión exitoso para el usuario: " + username);
                         return true;
                     }
@@ -68,7 +68,6 @@ public class SecurityOperations implements SystemSecurity {
         System.out.println("Nombre de usuario o contraseña incorrectos para el usuario: " + username);
         return false;
     }
-
 
     @Override
     public String encryptPassword(String password) {
@@ -105,8 +104,6 @@ public class SecurityOperations implements SystemSecurity {
 
         return String.valueOf(decryptedPassword); // Se retorna la contraseña desencriptada
     }
-
-
 
     public User getUserByUsername(String username) throws ListException {
         if (list.isEmpty()) {

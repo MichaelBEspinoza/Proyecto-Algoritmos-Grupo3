@@ -1,4 +1,6 @@
 2222,David Dos,Nueva!123,davidcalvogam@gmail.com,USER,Costa Rica,Cartago,Paraíso
 3333,David Tres,NewOne!123,davidcalvogam@gmail.com,USER,Costa Rica,Cartago,Paraíso
 212121,Nueva Cuenta,NewPass!123,davidcalvogam@gmail.com,ADMINISTRATOR,Panamá,Cartago,Paraíso
+9999,Kath,KntwjqqE69,kathybrenes14@gmail.com,USER,CR,Cartago,Paraíso
+6247,David,IE{ni678,davidcalvogam@gmail.com,USER,CR,Cartago,Paraiso
 305530305,Kerlon,Kerlon123/,kerlon.gomez@ucr.ac.cr,USER,Sudamerica,New York,Puntarenas

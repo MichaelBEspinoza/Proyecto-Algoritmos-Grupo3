@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserSupportController">
+    <center>
+        <AnchorPane prefHeight="445.0" prefWidth="666.0" style="-fx-background-color: #457d97;">
+            <children>
+                <Pane layoutX="24.0" layoutY="20.0" prefHeight="405.0" prefWidth="621.0" style="-fx-background-color: #faf0e7;">
+                    <children>
+                        <Circle fx:id="circleImage" centerX="75.0" centerY="75.0" fill="WHITE" layoutX="-30.0" layoutY="-30.0" radius="34.0" stroke="BLACK" strokeType="INSIDE" />
+                        <ImageView fx:id="imageView" fitHeight="60.0" fitWidth="50.0" layoutX="20.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@ucr.png" />
+                            </image>
+                        </ImageView>
+                        <Text layoutX="100.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soporte al Usuario">
+                            <font>
+                                <Font name="System Italic" size="24.0" />
+                            </font>
+                        </Text>
+                        <Pane layoutX="23.0" layoutY="86.0" prefHeight="268.0" prefWidth="581.0" style="-fx-background-color: #dee8be;">
+                            <children>
+                                <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Soporte al usuario:">
+                                    <font>
+                                        <Font name="System Italic" size="18.0" />
+                                    </font>
+                                </Text>
+                                <TextArea fx:id="txa_userSuport" layoutX="14.0" layoutY="34.0" prefHeight="221.0" prefWidth="553.0" text="Inicio de sesión y registro de usuarios:&#10;&#10;Iniciar sesión: Introduce tu nombre de usuario y contraseña para acceder a la aplicación. Puedes elegir entre los roles de administrador, instructor o usuario.&#10;&#10;Crear nuevo usuario: Si eres nuevo, puedes crear una cuenta seleccionando esta opción en la pantalla de inicio de sesión.&#10;Página principal:&#10;&#10;Una vez iniciado sesión, llegarás a la página principal. Aquí encontrarás acceso a las siguientes funciones:&#10;Administración de cursos: Gestiona y organiza cursos disponibles.&#10;Administración de usuarios: Administra cuentas de usuarios y sus roles.&#10;Perfil del usuario: Visualiza y edita tu información personal.&#10;Ayuda: Accede a esta página para encontrar orientación adicional sobre el uso de la aplicación y sus funciones.&#10;&#10;Edición del perfil:&#10;&#10;Dentro de tu perfil, podrás actualizar información como tu nombre, correo electrónico y contraseña.&#10;Soporte y ayuda adicional:&#10;&#10;Si necesitas ayuda en cualquier momento, visita la página de ayuda desde la página principal o contacta con nuestro equipo de soporte técnico.&#10;¡Esperamos que disfrutes utilizando nuestra aplicación y que encuentres todas las herramientas necesarias para gestionar tus cursos y usuarios de manera eficiente!" />
+                            </children>
+                        </Pane>
+                        <Button layoutX="474.0" layoutY="359.0" mnemonicParsing="false" onAction="#mainPageOnAction" text="Página Principal">
+                            <font>
+                                <Font name="Bell MT" size="16.0" />
+                            </font>
+                        </Button>
+                        <Pane layoutX="402.0" layoutY="23.0" prefHeight="45.0" prefWidth="202.0" style="-fx-background-color: #edd5c5;">
+                            <children>
+                                <Text layoutX="54.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIVERSIDAD DE COSTA RICA" wrappingWidth="139.03515625">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="61.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Campus" wrappingWidth="46.673828125">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="106.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Virtual">
+                                    <font>
+                                        <Font name="System Bold" size="11.0" />
+                                    </font>
+                                </Text>
+                                <Text fill="#4598d3" layoutX="143.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EstudiaU">
+                                    <font>
+                                        <Font name="System Italic" size="11.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="8.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@ucr.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Hyperlink layoutX="23.0" layoutY="363.0" onAction="#mailSuportOnAction" text="Para una ayuda más directa contacte con nuestro soporte tecnico" underline="true" />
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>
