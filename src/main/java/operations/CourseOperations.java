@@ -12,7 +12,6 @@ import java.util.List;
 public class CourseOperations implements CourseMaintenance {
 
     AVL avlTree = new AVL();
-    ArrayList<Course> cursos = new ArrayList<>();
 
     @Override
     public boolean createCourse(Course course) {
@@ -20,40 +19,43 @@ public class CourseOperations implements CourseMaintenance {
         loadCoursesFromFile("cursos.txt");
 
         // Verifica si el curso con el mismo ID ya existe
-        for (Course c : cursos) {
-            if (c.getId() == course.getId()) {
+        try {
+            if (avlTree.contains(course)) {
                 System.out.println("El curso con este ID ya existe");
                 return false; // El curso con este ID ya existe
             }
+        } catch (TreeException e) {
+            e.printStackTrace();
         }
 
         // Si el curso no existe, se agrega
         avlTree.add(course);
-        cursos.add(course);
         saveCoursesToFile("cursos.txt"); // Guarda los cursos en un archivo
         System.out.println("El curso fue agregado");
         return true;
-    } //todo funcional
+    }
 
     @Override
     public String readCourse(int courseId) { //Busca y devuelve un curso por su ID.
         loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
-        for (Course c : cursos) {
-            if (c.getId() == courseId) {
-                return "The course has been found \n" + c.toString(); // el curso existe
+        try {
+            for (Course c : avlTree.inOrderUsage()) {
+                if (c.getId() == courseId) {
+                    return "The course has been found \n" + c.toString(); // el curso existe
+                }
             }
+        } catch (TreeException e) {
+            e.printStackTrace();
         }
         return "The course doesn’t exist"; // no existe el curso
-    }//todo funcional
+    }
 
     @Override
     public boolean updateCourse(Course updatedCourse) { //recibe una instancia nueva de un curso para eliminar y reemplazar el existe con ese id
         loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
         try {
-            for (int i = 0; i < cursos.size(); i++) {
-                Course course = cursos.get(i);
+            for (Course course : avlTree.inOrderUsage()) {
                 if (course.getId() == updatedCourse.getId()) {
-                    cursos.set(i, updatedCourse);
                     avlTree.remove(course);
                     avlTree.add(updatedCourse);
                     saveCoursesToFile("cursos.txt"); // Guarda los cursos en un archivo
@@ -63,23 +65,25 @@ public class CourseOperations implements CourseMaintenance {
             }
             System.out.println("El curso no se encontró");
         } catch (TreeException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return false;
-    }//todo funcional
+    }
 
     @Override
     public boolean deleteCourse(int courseId) throws TreeException {
         loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
-        for (int i = 0; i < cursos.size(); i++) {
-            if (cursos.get(i).getId() == courseId) {
-                Course courseToRemove = cursos.get(i);
-                avlTree.remove(courseToRemove);
-                cursos.remove(i);
-                saveCoursesToFile("cursos.txt"); // Guarda los cursos en un archivo
-                System.out.println("El curso fue eliminado");
-                return true; // el curso existe
+        try {
+            for (Course course : avlTree.inOrderUsage()) {
+                if (course.getId() == courseId) {
+                    avlTree.remove(course);
+                    saveCoursesToFile("cursos.txt"); // Guarda los cursos en un archivo
+                    System.out.println("El curso fue eliminado");
+                    return true; // el curso existe
+                }
             }
+        } catch (TreeException e) {
+            e.printStackTrace();
         }
         System.out.println("El curso no se encontró");
         return false;
@@ -88,38 +92,31 @@ public class CourseOperations implements CourseMaintenance {
     @Override
     public List<Course> listCourse() {
         loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
-        return new ArrayList<>(cursos); // Devolver una copia de la lista de cursos
+        try {
+            return avlTree.inOrderUsage(); // Devolver una lista de los cursos en orden
+        } catch (TreeException e) {
+            e.printStackTrace();
+            return new ArrayList<>(); // Devolver una lista vacía en caso de error
+        }
     }
 
     public void saveCoursesToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (Course course : cursos) {
+            for (Course course : avlTree.inOrderUsage()) {
                 writer.write(courseToString(course));
                 writer.newLine();
             }
-        } catch (IOException e) {
+        } catch (IOException | TreeException e) {
             e.printStackTrace();
         }
     }
 
     public void loadCoursesFromFile(String filename) {
-        cursos.clear();
         avlTree.clear();
-        File file = new File(filename);
-        if (!file.exists()) {
-            try {
-                file.createNewFile(); // Crea el archivo si no existe
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return; // Si el archivo no existía, no hay nada más que hacer
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 Course course = stringToCourse(line);
-                cursos.add(course);
                 avlTree.add(course);
             }
         } catch (IOException e) {
@@ -129,8 +126,12 @@ public class CourseOperations implements CourseMaintenance {
 
     public void viewAllCourses(String filename) {
         loadCoursesFromFile(filename); // Cargar los cursos desde el archivo
-        for (Course course : cursos) {
-            System.out.println(course); // Imprimir cada curso
+        try {
+            for (Course course : avlTree.inOrderUsage()) {
+                System.out.println(course); // Imprimir cada curso
+            }
+        } catch (TreeException e) {
+            e.printStackTrace();
         }
     }
 
