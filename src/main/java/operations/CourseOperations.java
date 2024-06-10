@@ -15,6 +15,7 @@ public class CourseOperations implements CourseMaintenance {
 
     @Override
     public boolean createCourse(Course course) {
+
         // Cargar cursos desde el archivo para asegurar que la verificación sea completa
         loadCoursesFromFile("cursos.txt");
 
@@ -93,6 +94,9 @@ public class CourseOperations implements CourseMaintenance {
     public List<Course> listCourse() {
         loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
         try {
+            if (avlTree.isEmpty()) {
+                throw new TreeException("El árbol de cursos está vacío.");
+            }
             return avlTree.inOrderUsage(); // Devolver una lista de los cursos en orden
         } catch (TreeException e) {
             e.printStackTrace();
@@ -150,4 +154,6 @@ public class CourseOperations implements CourseMaintenance {
         int instructorId = Integer.parseInt(parts[5]);
         return new Course(id, name, description, courseLength, level, instructorId);
     }
+
+
 }

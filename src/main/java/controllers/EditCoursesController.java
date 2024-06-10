@@ -52,7 +52,7 @@ public class EditCoursesController {
     @FXML
     public void initialize() {
         courseOperations = new CourseOperations();
-        courseOperations.loadCoursesFromFile("cursos.dat");
+        courseOperations.loadCoursesFromFile("cursos.txt");
         loadCourses();
     }
 
@@ -81,9 +81,9 @@ public class EditCoursesController {
     }
 
     private void displayCourse(Button courseButton, Course course) {
-        courseButton.setText("ID: " + course.getId() + "\nName: " + course.getName());
+        courseButton.setText("ID: " + course.getId() + "\nName: " + course.getName() + "\nDescription: " + course.getDescription());
         courseButton.setOnAction(event -> {
-            /**Se define lo que ocurre si se toca el boton**/
+            /**Se define lo que ocurre si se toca el boton, mas aun no se sabe si existe**/
         });
     }
 

@@ -1,3 +1,7 @@
 1111,David Calvo,HolaMicha!123,davidcalvogam@gmail. com,USER
 2222,Prueba,HiMicha!567,davidcalvogam@gmail.com,USER
 3333,Prueba2,HelloHello123!,davidcalvogam@gmail.com,USER
+1,Carlos Bonilla,password123,car.bon@prueba.com,USER
+1,Carlos Bonilla,password123,car.bon@prueba.com,USER
+2,Katherine Brenes,password456,katharin@test.com,INSTRUCTOR
+2,Katherine Brenes,password456,katharin@test.com,INSTRUCTOR

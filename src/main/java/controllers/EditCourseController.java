@@ -1,11 +1,16 @@
 package controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
+
+import java.io.IOException;
 
 public class EditCourseController {
+
     @javafx.fxml.FXML
     private Menu menuPaginaPrincipal;
     @javafx.fxml.FXML
@@ -27,8 +32,11 @@ public class EditCourseController {
     @javafx.fxml.FXML
     private MenuItem mn_courses;
 
+
     @javafx.fxml.FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
+
+
     }
 
     @javafx.fxml.FXML

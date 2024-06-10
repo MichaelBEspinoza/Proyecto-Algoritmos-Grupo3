@@ -53,7 +53,7 @@ public class MainPageController {
     }
 
     @javafx.fxml.FXML
-    public void cursosOnAction(ActionEvent actionEvent) {loadPage("courses.fxml");
+    public void cursosOnAction(ActionEvent actionEvent) {loadPage("userCourses.fxml");
     }
 
     @javafx.fxml.FXML

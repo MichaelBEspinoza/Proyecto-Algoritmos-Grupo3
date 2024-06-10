@@ -5,6 +5,7 @@ import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
+import structures.lists.SinglyLinkedList;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -312,6 +313,24 @@ public class UserOperations implements UserMaintenance {
             logger.log(Level.SEVERE, "Error while assigning course to user.", e);
         }
         return false;
+    }
+    public CircularDoublyLinkedList listAllCourses() {
+        CircularDoublyLinkedList allCourses = new CircularDoublyLinkedList();
+        try {
+            for (int i = 1; i <= users.size(); i++) {
+                User user = (User) users.getNode(i).data;
+                SinglyLinkedList userCourses = user.getCourses();
+                if (userCourses != null) {
+                    for (int j = 1; j <= userCourses.size(); j++) {
+                        Course course = (Course) userCourses.getNode(j).data;
+                        allCourses.add(course);
+                    }
+                }
+            }
+        } catch (ListException e) {
+            logger.log(Level.SEVERE, "Error while listing all courses.", e);
+        }
+        return allCourses;
     }
 
 }// End of class [UserOperations].
