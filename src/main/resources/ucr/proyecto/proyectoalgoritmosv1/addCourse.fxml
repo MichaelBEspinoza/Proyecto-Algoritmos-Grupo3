@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -70,7 +68,7 @@
                            <menus>
                               <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
                                  <items>
-                                    <MenuItem fx:id="mn_mainPage" mnemonicParsing="false" text="Págin Principal" />
+                                    <MenuItem fx:id="mn_mainPage" mnemonicParsing="false" text="Página Principal" />
                                  </items>
                               </Menu>
                               <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
