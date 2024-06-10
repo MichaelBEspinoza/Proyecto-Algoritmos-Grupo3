@@ -1,6 +1,7 @@
 package domain;
 
 import structures.lists.ListException;
+import structures.lists.Node;
 import structures.lists.SinglyLinkedList;
 
 import java.io.Serial;
@@ -111,13 +112,16 @@ public class User implements Serializable {
     public StringBuilder coursesToString() throws ListException {
         StringBuilder list = new StringBuilder();
         for (int i = 0; i < courses.size(); i++) {
-            Course check = (Course) courses.getNode(i).data;
-            if (check != null)
-                list.append(check.getId()).append(" - ").append(check.getName());
+            Node node = courses.getNode(i);
+            if (node != null) {
+                Course check = (Course) node.data;
+                if (check != null) {
+                    list.append(check.getId()).append(" - ").append(check.getName()).append("\n");
+                }
+            }
         }
         return list;
     }
-
     public String roleToString() {
         String roleStr;
         switch (getRole()) {

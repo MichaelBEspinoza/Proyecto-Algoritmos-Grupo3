@@ -60,6 +60,9 @@ public class UserProfileController {
             country.setText(loggedUser.getCountry());
             city.setText(loggedUser.getCity());
             place.setText(loggedUser.getPlace());
+
+            if (loggedUser.getCourses() == null) courses.setText("Sin cursos que mostrar.");
+            else courses.setText(String.valueOf(loggedUser.coursesToString()));
         }
     }
 
