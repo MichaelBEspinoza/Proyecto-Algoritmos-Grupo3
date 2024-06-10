@@ -27,6 +27,8 @@ public class EditCourseController {
     @javafx.fxml.FXML
     private MenuItem mn_courses;
 
+
+
     @javafx.fxml.FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
     }

@@ -4,6 +4,7 @@ import domain.Role;
 import domain.User;
 import domain.UserSession;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -16,49 +17,50 @@ import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import java.io.IOException;
 
 public class UserEditProfileController {
-    @javafx.fxml.FXML
+    @FXML
     private ImageView imageView;
-    @javafx.fxml.FXML
+    @FXML
     private Circle circleImage;
-    @javafx.fxml.FXML
-    private TextField txf_role;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_email;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_name;
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane bp;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_country;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_city;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_place;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_id;
+    @FXML
+    private TextField txf_role;
 
-    User loggedUser = UserSession.getInstance().getLoggedUser();
-    UserProfileController UPC = new UserProfileController();
-    UserOperations UO = new UserOperations();
+    private User loggedUser = UserSession.getInstance().getLoggedUser();
+    private final UserOperations userOperations = new UserOperations();
 
-    public UserEditProfileController() throws ListException {
+    public UserEditProfileController() {
     }
 
     public void initialize() {
         textFieldSetUp();
     }
 
-    @javafx.fxml.FXML
-    public void mainPageOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");}
+    @FXML
+    public void mainPageOnAction(ActionEvent actionEvent) {
+        loadPage("mainPage.fxml");
+    }
 
-    @javafx.fxml.FXML
-    public void changePasswordOnAction(ActionEvent actionEvent) {loadPage("changePassword.fxml");}
+    @FXML
+    public void changePasswordOnAction(ActionEvent actionEvent) {
+        loadPage("changePassword.fxml");
+    }
 
-    @javafx.fxml.FXML
+    @FXML
     public void saveChangesOnAction(ActionEvent actionEvent) {
-        if (txf_name.getText().isEmpty() || txf_id.getText().isEmpty() ||
-            txf_email.getText().isEmpty() || txf_role.getText().isEmpty() ||
-            txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty()) {
+        if (fieldsAreEmpty()) {
             util.UtilityFX.alert("Error: cambios no aplicables",
                     "Uno o más campos están vacíos. Todos los campos deben contener información.\nInténtelo de nuevo.");
         } else {
@@ -66,36 +68,46 @@ public class UserEditProfileController {
             loggedUser.setId(Integer.parseInt(txf_id.getText()));
             loggedUser.setEmail(txf_email.getText());
             loggedUser.setRole(loggedUser.stringToRole(txf_role.getText()));
-            UPC.setCountryInput(txf_country.getText());
-            UPC.setCityInput(txf_city.getText());
-            UPC.setPlaceInput(txf_place.getText());
-            UO.updateProfile(loggedUser);
+            loggedUser.setCountry(txf_country.getText());
+            loggedUser.setCity(txf_city.getText());
+            loggedUser.setPlace(txf_place.getText());
+
+            userOperations.updateProfile(loggedUser);
         }
     }
 
     private void textFieldSetUp() {
-        if (loggedUser.getRole() != Role.ADMINISTRATOR){
-            txf_name.disabledProperty();
-            txf_id.disabledProperty();
-            txf_email.disabledProperty();
-            txf_role.disabledProperty();
+        if (loggedUser.getRole() != Role.ADMINISTRATOR) {
+            txf_name.setDisable(true);
+            txf_id.setDisable(true);
+            txf_email.setDisable(true);
+            txf_role.setDisable(true);
         }
 
         txf_name.setText(loggedUser.getName());
         txf_email.setText(loggedUser.getEmail());
         txf_id.setText(String.valueOf(loggedUser.getId()));
         txf_role.setText(loggedUser.roleToString());
-        txf_country.setText(UPC.getCountryInput());
-        txf_city.setText(UPC.getCityInput());
-        txf_place.setText(UPC.getPlaceInput());
+        txf_country.setText(loggedUser.getCountry());
+        txf_city.setText(loggedUser.getCity());
+        txf_place.setText(loggedUser.getPlace());
     }
 
-    private void loadPage(String page){
+    private boolean fieldsAreEmpty() {
+        return txf_name.getText().isEmpty() || txf_id.getText().isEmpty() ||
+                txf_email.getText().isEmpty() || txf_role.getText().isEmpty() ||
+                txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty();
+    }
+
+    private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            e.printStackTrace();
         }
     }
 }
+

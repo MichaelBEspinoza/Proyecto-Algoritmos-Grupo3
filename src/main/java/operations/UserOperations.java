@@ -10,6 +10,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -74,7 +75,7 @@ public class UserOperations implements UserMaintenance {
                 "\n" +
                 "Best regards,\n" +
                 "\n" +
-                "The MyOnlineLearning Team";
+                "The MyOnlineLearning Team\n" + "Sent at: " + LocalDate.now();
         sendEmailNotification(user,longMessage);
         viewAllUsers("users.txt");
         return true;
@@ -107,7 +108,7 @@ public class UserOperations implements UserMaintenance {
             for (int i = 1; i <= users.size(); i++) {
                 User currentUser = (User) users.getNode(i).data;
                 if (currentUser.getId() == user.getId()) {
-                    users.getNode(i).data = new User(user.getId(), user.getName(), user.getPassword(), user.getEmail(), user.getRole());
+                    users.getNode(i).data = new User(user.getId(), user.getName(), user.getPassword(), user.getEmail(), user.getRole(), user.getCountry(), user.getCity(), user.getPlace());
                     return true;
                 }// End of 'if'.
             }// End of 'for' loop.

@@ -7,39 +7,35 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private int id; /**Identificador del usuario**/
-
-    private String name; /**Nombre del usuario**/
-
-    private String password; /**Contraseña del usuario (se guarda encriptada)**/
-
-    private String email; /**Correo electronico del usuario**/
-
-    private Role role; /**Rol del usuario (Administrador,Instructor, usuario**/
-
+    private int id;
+    private String name;
+    private String password;
+    private String email;
+    private Role role;
+    private String country;
+    private String city;
+    private String place;
     private SinglyLinkedList courses;
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    // Constructores
     public User() {
     }
 
-    public User(int id, String name, String password, String email) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.email = email;
-    }
-
-    public User(int id, String name, String password, String email, Role role) {
+    public User(int id, String name, String password, String email, Role role, String country, String city, String place) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.country = country;
+        this.city = city;
+        this.place = place;
     }
 
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -80,16 +76,36 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
     public SinglyLinkedList getCourses() {
         return courses;
     }
 
     public void setCourses(SinglyLinkedList courses) {
         this.courses = courses;
-    }
-
-    public void addCourse(Course course) {
-        this.courses.add(course);
     }
 
     public StringBuilder coursesToString() throws ListException {
@@ -113,6 +129,30 @@ public class User implements Serializable {
         return roleStr;
     }
 
+
+    @Override
+    public String toString() {
+        return id + "," + name + "," + password + "," + email + "," + role + "," + country + "," + city + "," + place;
+    }
+
+    public static User fromString(String userString) {
+        String[] parts = userString.split(",");
+        if (parts.length >= 8) {
+            int id = Integer.parseInt(parts[0]);
+            String name = parts[1];
+            String password = parts[2];
+            String email = parts[3];
+            Role role = Role.valueOf(parts[4]);
+            String country = parts[5];
+            String city = parts[6];
+            String place = parts[7];
+            return new User(id, name, password, email, role, country, city, place);
+        } else {
+            throw new IllegalArgumentException("Formato de cadena incorrecto para crear un usuario: " + userString);
+        }
+    }
+
+
     public Role stringToRole(String useThis) {
         if (useThis.trim().equalsIgnoreCase("Usuario")) return Role.USER;
         else if (useThis.trim().equalsIgnoreCase("Administrador")) return Role.ADMINISTRATOR;
@@ -120,19 +160,8 @@ public class User implements Serializable {
         else return null;
     }
 
-    @Override
-    public String toString() {
-        return id + "," + name + "," + password + "," + email + "," + role;
+    public void addCourse(Course course) {
+        if (courses == null) courses = new SinglyLinkedList();
+        courses.add(course);
     }
-
-    public static User fromString(String userString) {
-        String[] parts = userString.split(",");
-        int id = Integer.parseInt(parts[0]);
-        String name = parts[1];
-        String password = parts[2];
-        String email = parts[3];
-        Role role = Role.valueOf(parts[4]);
-        return new User(id, name, password, email, role);
-    }
-
 }
