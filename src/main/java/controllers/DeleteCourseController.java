@@ -118,6 +118,8 @@ public class DeleteCourseController {
             if (deleted) {
                 UtilityFX.alert("Éxito", "El curso ha sido eliminado correctamente.");
                 clearFields();
+                bp.getChildren().clear();
+                loadPage("editCourses.fxml");
             } else {
                 UtilityFX.alert("Error", "No se encontró ningún curso con el ID proporcionado.");
             }
