@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -17,6 +18,7 @@ import operations.UserOperations;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class AdminEditProfilesController {
     @javafx.fxml.FXML
@@ -48,6 +50,8 @@ public class AdminEditProfilesController {
 
     UserOperations UO = new UserOperations();
     User foundUser;
+    @javafx.fxml.FXML
+    private Button deleteButton;
 
     public void initialize() {
         foundUser = new User();
@@ -106,7 +110,7 @@ public class AdminEditProfilesController {
         editThisTXF.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                 foundUser = UO.readUser(Integer.parseInt(editThisTXF.getText()));
-                if (userFound() && foundUser != null) {
+                if (userFound() && UO.userExists(foundUser)) {
                     util.UtilityFX.alert("Modificar", "Usuario encontrado con éxito.\nHabilitando campos...");
                     txf_name.setDisable(false);
                     txf_id.setDisable(false);
@@ -138,5 +142,13 @@ public class AdminEditProfilesController {
 
     private boolean userFound() {
         return UO.readUser(Integer.parseInt(editThisTXF.getText())).getId() == Integer.parseInt(editThisTXF.getText());
+    }
+
+    @javafx.fxml.FXML
+    public void deleteOnAction(ActionEvent actionEvent) {
+        if (foundUser != null && UO.userExists(foundUser)) {
+            UO.deleteUser(foundUser.getId());
+            util.UtilityFX.alert("Eliminado","Usuario eliminado con éxito.");
+        }else util.UtilityFX.alert("Usuario no encontrado", "El usuario no pudo ser encontrado por su ID.\nInténtelo de nuevo.");
     }
 }

@@ -94,6 +94,7 @@
                             </children>
                         </Pane>
                   <TextField fx:id="editThisTXF" layoutX="146.0" layoutY="94.0" onKeyPressed="#searchOnAction" prefHeight="25.0" prefWidth="183.0" />
+                  <Button fx:id="deleteButton" disable="true" layoutX="522.0" layoutY="94.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: #EC6C6A;" text="Suprimir usuario" textFill="#fcd3d3" />
                     </children>
                 </Pane>
             </children>
