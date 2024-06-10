@@ -153,12 +153,12 @@
                            <menus>
                               <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Close" />
+                                    <MenuItem fx:id="mn_MainPage" mnemonicParsing="false" text="Página Principal" />
                                  </items>
                               </Menu>
                               <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Delete" />
+                                    <MenuItem fx:id="mn_courses" mnemonicParsing="false" text="Cursos" />
                                  </items>
                               </Menu>
                               <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
