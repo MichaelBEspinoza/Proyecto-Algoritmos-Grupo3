@@ -15,15 +15,17 @@ public class CourseOperations implements CourseMaintenance {
 
     @Override
     public boolean createCourse(Course course) {
-
         // Cargar cursos desde el archivo para asegurar que la verificación sea completa
         loadCoursesFromFile("cursos.txt");
 
         // Verifica si el curso con el mismo ID ya existe
         try {
-            if (avlTree.contains(course)) {
-                System.out.println("El curso con este ID ya existe");
-                return false; // El curso con este ID ya existe
+            List<Course> courseList = avlTree.inOrderUsage();
+            for (Course existingCourse : courseList) {
+                if (existingCourse.getId() == course.getId()) {
+                    System.out.println("El curso con este ID ya existe");
+                    return false; // El curso con este ID ya existe
+                }
             }
         } catch (TreeException e) {
             e.printStackTrace();
@@ -154,6 +156,4 @@ public class CourseOperations implements CourseMaintenance {
         int instructorId = Integer.parseInt(parts[5]);
         return new Course(id, name, description, courseLength, level, instructorId);
     }
-
-
 }

@@ -107,14 +107,20 @@ public class EditCoursesController {
 
     @FXML
     public void editOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("editCourses.fxml");
     }
 
     @FXML
     public void deleteOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("deleteCourse.fxml");
     }
 
     @FXML
     public void addCourseOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("addCourse.fxml");
     }
 
     @FXML

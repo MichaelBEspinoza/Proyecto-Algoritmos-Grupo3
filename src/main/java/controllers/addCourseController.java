@@ -1,41 +1,108 @@
 package controllers;
 
+import domain.Course;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import operations.CourseOperations;
+import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
+
+import java.io.IOException;
 
 public class addCourseController {
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuPaginaPrincipal;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuAyuda;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_id;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_description;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_name;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuCursos;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_idIntructor;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_level;
-    @javafx.fxml.FXML
+    @FXML
+    private TextField txf_length;
+    @FXML
     private MenuItem mn_mainPage;
-    @javafx.fxml.FXML
+    @FXML
     private MenuItem mn_courses;
+    @FXML
+    private BorderPane bp;
 
-    @javafx.fxml.FXML
+    private CourseOperations courseOperations = new CourseOperations();
+
+    private void loadPage(String page) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        System.out.println(HelloApplication.class.getResource(page));
+        try {
+            this.bp.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("helpScreen.fxml");
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void pagePrincipalOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("mainPage.fxml");
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void cursosOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("userCourses.fxml");
+    }
+
+    @FXML
+    public void addOnAction(ActionEvent actionEvent) {
+        try {
+            int id = Integer.parseInt(txf_id.getText());
+            String name = txf_name.getText();
+            String description = txf_description.getText();
+            String length = txf_length.getText();
+            String level = txf_level.getText();
+            int instructorId = Integer.parseInt(txf_idIntructor.getText());
+
+            Course newCourse = new Course(id, name, description, length, level, instructorId);
+
+            if (courseOperations.createCourse(newCourse)) {
+                showAlert(Alert.AlertType.INFORMATION, "Éxito", "Curso añadido exitosamente.");
+                bp.getChildren().clear();
+                loadPage("editCourses.fxml");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "El curso con este ID ya existe.");
+            }
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "ID e Instructor ID deben ser números enteros.");
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Ocurrió un error al añadir el curso.");
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
