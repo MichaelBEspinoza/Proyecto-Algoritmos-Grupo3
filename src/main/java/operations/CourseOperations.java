@@ -122,13 +122,21 @@ public class CourseOperations implements CourseMaintenance {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Course course = stringToCourse(line);
-                avlTree.add(course);
+                if (!line.trim().isEmpty()) { // Verificar que la línea no esté vacía
+                    try {
+                        Course course = stringToCourse(line);
+                        avlTree.add(course);
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        System.err.println("Error parsing line: " + line);
+                        e.printStackTrace();
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void viewAllCourses(String filename) {
         loadCoursesFromFile(filename); // Cargar los cursos desde el archivo
@@ -147,13 +155,18 @@ public class CourseOperations implements CourseMaintenance {
     }
 
     private Course stringToCourse(String str) {
-        String[] parts = str.split(",");
-        int id = Integer.parseInt(parts[0]);
-        String name = parts[1];
-        String description = parts[2];
-        String courseLength = parts[3];
-        String level = parts[4];
-        int instructorId = Integer.parseInt(parts[5]);
-        return new Course(id, name, description, courseLength, level, instructorId);
+        try {
+            String[] parts = str.split(",");
+            int id = Integer.parseInt(parts[0]);
+            String name = parts[1];
+            String description = parts[2];
+            String courseLength = parts[3];
+            String level = parts[4];
+            int instructorId = Integer.parseInt(parts[5]);
+            return new Course(id, name, description, courseLength, level, instructorId);
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Invalid course data: " + str, e);
+        }
     }
+
 }

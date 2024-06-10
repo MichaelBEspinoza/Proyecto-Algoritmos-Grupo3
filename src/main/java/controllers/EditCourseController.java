@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -33,14 +34,14 @@ public class EditCourseController {
     private MenuItem mn_courses;
 
 
-    @javafx.fxml.FXML
+    @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
-
 
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void pagePrincipalOnAction(ActionEvent actionEvent) {
+
     }
 
     @Deprecated

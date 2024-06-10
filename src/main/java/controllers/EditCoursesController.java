@@ -108,7 +108,7 @@ public class EditCoursesController {
     @FXML
     public void editOnAction(ActionEvent actionEvent) {
         bp.getChildren().clear();
-        loadPage("editCourses.fxml");
+        loadPage("modifyCourse.fxml");
     }
 
     @FXML
