@@ -46,7 +46,6 @@ public class UserProfileController {
 
     RegisterScreenController RSC = new RegisterScreenController();
 
-
     public void initialize() throws ListException {
         setInfo();
     }
@@ -59,10 +58,10 @@ public class UserProfileController {
             id.setText(String.valueOf(loggedUser.getId()));
             email.setText(loggedUser.getEmail());
             role.setText(loggedUser.roleToString());
-            courses.setText(String.valueOf(loggedUser.coursesToString()));
-            country.setText(RSC.getCountryInput());
-            city.setText(RSC.getCityInput());
-            place.setText(RSC.getPlaceInput());
+//            courses.setText(String.valueOf(loggedUser.coursesToString()));
+//            country.setText(RSC.getCountryInput());
+//            city.setText(RSC.getCityInput());
+//            place.setText(RSC.getPlaceInput());
         }
     }
 

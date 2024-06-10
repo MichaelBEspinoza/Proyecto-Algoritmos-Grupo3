@@ -35,7 +35,8 @@ public class MainPageController {
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            e.printStackTrace();
         }
     }
 
