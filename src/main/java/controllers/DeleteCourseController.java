@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,69 +14,79 @@ import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import util.UtilityFX;
 import java.io.IOException;
 import domain.Course;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import java.util.List;
 
 public class DeleteCourseController {
 
-    @FXML
-    private BorderPane bp;
+    private CourseOperations courseOperations;
     @FXML
     private Menu menuPaginaPrincipal;
     @FXML
     private Menu menuAyuda;
     @FXML
-    private TextField txf_length;
+    private TextField idField;
     @FXML
-    private TextField txf_id;
+    private TextField levelField;
     @FXML
-    private TextField txf_description;
+    private TextField instructorIdField;
     @FXML
     private MenuItem mn_mainPage;
     @FXML
-    private TextField txf_name;
+    private TextField lengthField;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField descriptionField;
     @FXML
     private Menu menuCursos;
     @FXML
-    private TextField txf_idIntructor;
-    @FXML
-    private TextField txf_level;
+    private BorderPane bp;
     @FXML
     private MenuItem mn_courses;
 
-    private CourseOperations courseOperations;
-
     @FXML
     public void initialize() {
-
         courseOperations = new CourseOperations();
         courseOperations.loadCoursesFromFile("cursos.txt");
 
         // Agregar listener para el campo de texto del ID
-        txf_id.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.isEmpty()) {
-                    try {
-                        int courseId = Integer.parseInt(newValue);
-                        Course course = findCourseById(courseId);
-                        if (course != null) {
-                            txf_name.setText(course.getName());
-                            txf_description.setText(course.getDescription());
-                            txf_length.setText(course.getCourseLength());
-                            txf_level.setText(course.getLevel());
-                            txf_idIntructor.setText(String.valueOf(course.getInstructorId()));
-                        } else {
-                            clearFields();
-                        }
-                    } catch (NumberFormatException e) {
-                        UtilityFX.alert("Error", "ID del curso no es un número válido.");
+        idField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int courseId = Integer.parseInt(newValue);
+                    Course course = findCourseById(courseId);
+                    if (course != null) {
+                        nameField.setText(course.getName());
+                        descriptionField.setText(course.getDescription());
+                        lengthField.setText(course.getCourseLength());
+                        levelField.setText(course.getLevel());
+                        instructorIdField.setText(String.valueOf(course.getInstructorId()));
+                    } else {
+
                     }
-                } else {
-                    clearFields();
+                } catch (NumberFormatException e) {
+                    UtilityFX.alert("Error", "ID del curso no es un número válido.");
                 }
             }
+        });
+
+        // Añadir enfoque explícito a los campos
+        Platform.runLater(() -> {
+            idField.setFocusTraversable(true);
+            nameField.setFocusTraversable(true);
+            descriptionField.setFocusTraversable(true);
+            lengthField.setFocusTraversable(true);
+            levelField.setFocusTraversable(true);
+            instructorIdField.setFocusTraversable(true);
+
+            // Imprimir el enfoque actual
+            System.out.println("idField editable: " + idField.isEditable());
+            System.out.println("nameField editable: " + nameField.isEditable());
+            System.out.println("descriptionField editable: " + descriptionField.isEditable());
+            System.out.println("lengthField editable: " + lengthField.isEditable());
+            System.out.println("levelField editable: " + levelField.isEditable());
+            System.out.println("instructorIdField editable: " + instructorIdField.isEditable());
+            System.out.println("Focused element: " + idField.getScene().getFocusOwner());
         });
     }
 
@@ -89,12 +100,24 @@ public class DeleteCourseController {
         return null;
     }
 
-    private void loadPage(String page) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+
+
+    @FXML
+    public void deleteOnAction(ActionEvent actionEvent) {
         try {
-            this.bp.setCenter(fxmlLoader.load());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            int courseId = Integer.parseInt(idField.getText());
+            boolean deleted = courseOperations.deleteCourse(courseId);
+            if (deleted) {
+                UtilityFX.alert("Éxito", "El curso ha sido eliminado correctamente.");
+                bp.getChildren().clear();
+                loadPage("editCourses.fxml");
+            } else {
+                UtilityFX.alert("Error", "No se encontró ningún curso con el ID proporcionado.");
+            }
+        } catch (NumberFormatException e) {
+            UtilityFX.alert("Error", "ID del curso no es un número válido.");
+        } catch (TreeException e) {
+            UtilityFX.alert("Error", "Ocurrió un error al eliminar el curso.");
         }
     }
 
@@ -111,38 +134,17 @@ public class DeleteCourseController {
     }
 
     @FXML
-    public void deleteOnAction(ActionEvent actionEvent) {
-        try {
-            int courseId = Integer.parseInt(txf_id.getText());
-            boolean deleted = courseOperations.deleteCourse(courseId);
-            if (deleted) {
-                UtilityFX.alert("Éxito", "El curso ha sido eliminado correctamente.");
-                clearFields();
-                bp.getChildren().clear();
-                loadPage("editCourses.fxml");
-            } else {
-                UtilityFX.alert("Error", "No se encontró ningún curso con el ID proporcionado.");
-            }
-        } catch (NumberFormatException e) {
-            UtilityFX.alert("Error", "ID del curso no es un número válido.");
-        } catch (TreeException e) {
-            UtilityFX.alert("Error", "Ocurrió un error al eliminar el curso.");
-        }
-    }
-
-    private void clearFields() {
-        txf_id.clear();
-        txf_name.clear();
-        txf_description.clear();
-        txf_length.clear();
-        txf_level.clear();
-        txf_idIntructor.clear();
-    }
-
-    @FXML
     public void cursosOnAction(ActionEvent actionEvent) {
         bp.getChildren().clear();
         loadPage("userCourses.fxml");
     }
 
+    private void loadPage(String page) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        try {
+            this.bp.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

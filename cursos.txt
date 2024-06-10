@@ -1,2 +1,1 @@
-15,Math,Math Course,5 months,Hard,43
-5,Science,Science Course,3 meses,Hard,43
+10,Math,Math course,5 mese,Hard,15

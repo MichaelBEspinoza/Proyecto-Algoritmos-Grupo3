@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DeleteCourseController">
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DeleteCourseController">
    <center>
       <AnchorPane prefHeight="393.0" prefWidth="629.0" style="-fx-background-color: #457d97;">
          <children>
@@ -51,15 +59,15 @@
                         <Text layoutX="14.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
                         <Text layoutX="14.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción del curso:" />
                         <Text layoutX="313.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duración:" />
-                        <TextField fx:id="txf_description" editable="false" layoutX="142.0" layoutY="114.0" />
-                        <TextField fx:id="txf_id" layoutX="142.0" layoutY="45.0" />
-                        <TextField fx:id="txf_name" editable="false" layoutX="142.0" layoutY="81.0" />
-                        <TextField fx:id="txf_length" editable="false" layoutX="375.0" layoutY="89.0" />
                         <Text layoutX="313.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nivel:" />
-                        <TextField fx:id="txf_level" editable="false" layoutX="375.0" layoutY="45.0" />
                         <Text layoutX="14.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID instructor:" />
-                        <TextField fx:id="txf_idIntructor" editable="false" layoutX="142.0" layoutY="148.0" />
                         <Button layoutX="430.0" layoutY="207.0" mnemonicParsing="false" onAction="#deleteOnAction" text="Eliminar curso:" />
+                        <TextField fx:id="idField" layoutX="147.0" layoutY="45.0" />
+                        <TextField fx:id="nameField" editable="false" layoutX="147.0" layoutY="81.0" />
+                        <TextField fx:id="descriptionField" editable="false" layoutX="147.0" layoutY="114.0" />
+                        <TextField fx:id="instructorIdField" editable="false" layoutX="147.0" layoutY="148.0" />
+                        <TextField fx:id="levelField" editable="false" layoutX="374.0" layoutY="45.0" />
+                        <TextField fx:id="lengthField" editable="false" layoutX="374.0" layoutY="89.0" />
                      </children>
                   </Pane>
                   <Pane layoutX="233.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
