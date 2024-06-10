@@ -14,14 +14,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import operations.UserOperations;
-import structures.lists.CircularDoublyLinkedList;
-import structures.lists.ListException;
+import operations.CourseOperations;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import util.UtilityFX;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserCoursesController implements Initializable {
@@ -48,6 +47,8 @@ public class UserCoursesController implements Initializable {
     private TableColumn<Course, String> tc_duration;
     @FXML
     private TableColumn<Course, String> tc_dificultyLevel;
+    @FXML
+    private TableColumn<Course, Integer> tc_instructorId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,30 +67,18 @@ public class UserCoursesController implements Initializable {
         if (tc_dificultyLevel != null) {
             tc_dificultyLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
         }
+        if (tc_instructorId != null) {
+            tc_instructorId.setCellValueFactory(new PropertyValueFactory<>("instructorId"));
+        }
 
         // Cargar los datos en la tabla
         loadTableData();
     }
 
     private void loadTableData() {
-        UserOperations userOperations = new UserOperations();
-        CircularDoublyLinkedList coursesList = userOperations.listAllCourses();
-        ObservableList<Course> courses = FXCollections.observableArrayList();
-
-        try {
-            if (coursesList != null && coursesList.size() > 0) {
-                for (int i = 1; i <= coursesList.size(); i++) {
-                    Course course = (Course) coursesList.getNode(i).data;
-                    if (course != null) {
-                        courses.add(course);
-                    }
-                }
-            } else {
-                System.out.println("No hay cursos disponibles para mostrar.");
-            }
-        } catch (ListException e) {
-            e.printStackTrace();
-        }
+        CourseOperations courseOperations = new CourseOperations();
+        List<Course> coursesList = courseOperations.listCourse();
+        ObservableList<Course> courses = FXCollections.observableArrayList(coursesList);
 
         if (!courses.isEmpty()) {
             tableView.setItems(courses);
@@ -122,7 +111,7 @@ public class UserCoursesController implements Initializable {
     @FXML
     public void editCoursesOnAction(ActionEvent actionEvent) {
         String userType = String.valueOf(UserSession.getInstance().getLoggedUser().getRole()); // Obtén el tipo de usuario actual
-        if ("INSTRUCTOR".equals(userType) || "ADMIN".equals(userType)) {
+        if ("INSTRUCTOR".equals(userType) || "ADMINISTRATOR".equals(userType)) {
             bp.getChildren().clear();
             loadPage("editCourses.fxml");
         } else {

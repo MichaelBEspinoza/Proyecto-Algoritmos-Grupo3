@@ -318,21 +318,29 @@ public class UserOperations implements UserMaintenance {
     public CircularDoublyLinkedList listAllCourses() {
         CircularDoublyLinkedList allCourses = new CircularDoublyLinkedList();
         try {
+            System.out.println("Iniciando el listado de todos los cursos...");
             for (int i = 1; i <= users.size(); i++) {
                 User user = (User) users.getNode(i).data;
+                System.out.println("Usuario encontrado: " + user.getName());
                 SinglyLinkedList userCourses = user.getCourses();
                 if (userCourses != null) {
+                    System.out.println("Cursos del usuario " + user.getName() + ": " + userCourses.size());
                     for (int j = 1; j <= userCourses.size(); j++) {
                         Course course = (Course) userCourses.getNode(j).data;
+                        System.out.println("Curso encontrado: " + course.getName());
                         allCourses.add(course);
                     }
+                } else {
+                    System.out.println("El usuario " + user.getName() + " no tiene cursos.");
                 }
             }
         } catch (ListException e) {
             logger.log(Level.SEVERE, "Error while listing all courses.", e);
         }
+        System.out.println("Listado de cursos completado. Total de cursos: " + allCourses.size());
         return allCourses;
     }
 
-    //holas
+
+
 }// End of class [UserOperations].
