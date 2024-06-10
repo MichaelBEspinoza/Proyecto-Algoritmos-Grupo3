@@ -3,6 +3,7 @@ package controllers;
 import domain.User;
 import domain.UserSession;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
 import javafx.scene.image.ImageView;
@@ -15,36 +16,34 @@ import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import java.io.IOException;
 
 public class UserProfileController {
-    @javafx.fxml.FXML
+    @FXML
     private ImageView imageView;
-    @javafx.fxml.FXML
+    @FXML
     private Circle circleImage;
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane bp;
-    @javafx.fxml.FXML
+    @FXML
     private Text courses;
-    @javafx.fxml.FXML
+    @FXML
     private Text role;
-    @javafx.fxml.FXML
+    @FXML
     private Text name;
-    @javafx.fxml.FXML
+    @FXML
     private Text id;
-    @javafx.fxml.FXML
+    @FXML
     private Text email;
-    @javafx.fxml.FXML
+    @FXML
     private Text country;
-    @javafx.fxml.FXML
+    @FXML
     private Text city;
-    @javafx.fxml.FXML
+    @FXML
     private Text place;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuAyuda;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuCursos;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuPaginaPrincipal;
-
-    RegisterScreenController RSC = new RegisterScreenController();
 
     public void initialize() throws ListException {
         setInfo();
@@ -58,61 +57,45 @@ public class UserProfileController {
             id.setText(String.valueOf(loggedUser.getId()));
             email.setText(loggedUser.getEmail());
             role.setText(loggedUser.roleToString());
-//            courses.setText(String.valueOf(loggedUser.coursesToString()));
-//            country.setText(RSC.getCountryInput());
-//            city.setText(RSC.getCityInput());
-///           place.setText(RSC.getPlaceInput());
+            country.setText(loggedUser.getCountry());
+            city.setText(loggedUser.getCity());
+            place.setText(loggedUser.getPlace());
         }
     }
 
-    public String getCountryInput() {
-        return country.getText();
-    }
-
-    public void setCountryInput(String country) {
-        this.country.setText(country);
-    }
-
-    public String getCityInput() {
-        return city.getText();
-    }
-
-    public void setCityInput(String city) {
-        this.city.setText(city);
-    }
-
-    public String getPlaceInput() {
-        return place.getText();
-    }
-
-    public void setPlaceInput(String place) {
-        this.place.setText(place);
-    }
-
-    private void loadPage(String page){
+    private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            e.printStackTrace();
         }
     }
 
-    @javafx.fxml.FXML
-    public void mainPageOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");}
+    @FXML
+    public void mainPageOnAction(ActionEvent actionEvent) {
+        loadPage("mainPage.fxml");
+    }
 
-    @javafx.fxml.FXML
-    public void editProfileOnAction(ActionEvent actionEvent) {loadPage("userEditProfile.fxml");}
+    @FXML
+    public void editProfileOnAction(ActionEvent actionEvent) {
+        loadPage("userEditProfile.fxml");
+    }
 
-    @javafx.fxml.FXML
+    @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
+        // Implementación del manejo de la acción de ayuda
     }
 
-    @javafx.fxml.FXML
-    public void pagePrincipalOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");
+    @FXML
+    public void pagePrincipalOnAction(ActionEvent actionEvent) {
+        loadPage("mainPage.fxml");
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void cursosOnAction(ActionEvent actionEvent) {
+        // Implementación del manejo de la acción de cursos
     }
 }

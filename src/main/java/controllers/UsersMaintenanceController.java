@@ -1,5 +1,6 @@
 package controllers;
 
+import domain.Role;
 import domain.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,8 +40,6 @@ public class UsersMaintenanceController {
     @FXML
     private TableColumn<User, String> tc_country;
     @FXML
-    private TableColumn<User, String> tc_cedula;
-    @FXML
     private TableColumn<User, String> tc_name;
     @FXML
     private TableColumn<User, String> tc_place;
@@ -51,44 +50,49 @@ public class UsersMaintenanceController {
 
     private final UserOperations userOperations;
     @FXML
-    private TableColumn<User, String> tc_rol;
+    private TableColumn<User, Integer> tc_cedula;
+    @FXML
+    private TableColumn<User, Role> tc_rol;
 
     public UsersMaintenanceController() {
         userOperations = new UserOperations();
     }
 
     public void initialize() {
-        // Configurar las columnas del TableView
+        tc_cedula.setCellValueFactory(new PropertyValueFactory<>("id"));
         tc_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         tc_email.setCellValueFactory(new PropertyValueFactory<>("email"));
         tc_city.setCellValueFactory(new PropertyValueFactory<>("city"));
         tc_country.setCellValueFactory(new PropertyValueFactory<>("country"));
-        tc_cedula.setCellValueFactory(new PropertyValueFactory<>("cedula"));
-        tc_rol.setCellValueFactory(new PropertyValueFactory<>("role"));
         tc_place.setCellValueFactory(new PropertyValueFactory<>("place"));
-
+        tc_rol.setCellValueFactory(new PropertyValueFactory<>("role"));
         loadUsersIntoTableView();
     }
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            e.printStackTrace();
         }
     }
 
     @FXML
-    public void mainPageOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");}
+    public void mainPageOnAction(ActionEvent actionEvent) {
+        loadPage("mainPage.fxml");
+    }
 
     @FXML
-    public void editInformationOnAction(ActionEvent actionEvent) {loadPage("userEditProfile.fxml");}
+    public void editInformationOnAction(ActionEvent actionEvent) {
+        loadPage("userEditProfile.fxml");
+    }
 
     private void loadUsersIntoTableView() {
         ObservableList<User> usersList = FXCollections.observableArrayList();
 
-        // Cargar usuarios desde el archivo
         userOperations.loadUsersFromFile("users.txt");
 
         try {
@@ -100,7 +104,6 @@ public class UsersMaintenanceController {
             e.printStackTrace();
         }
 
-        // Establecer los datos en el TableView
         tv.setItems(usersList);
     }
 }

@@ -90,3 +90,61 @@ jun 09, 2024 9:07:05 P. M. operations.UserOperations saveUsersToFile
 INFO: Users saved to file successfully.
 jun 09, 2024 9:07:05 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
+jun 09, 2024 7:40:26 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 7:41:52 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 7:42:12 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 8:56:32 P. M. operations.UserOperations loadUsersFromFile
+INFO: File is empty. Starting with an empty user list.
+jun 09, 2024 8:56:32 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 8:56:34 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 8:59:51 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 8:59:51 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 8:59:53 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:01:37 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:01:37 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 9:01:39 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:35 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:35 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 9:07:37 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:37 P. M. operations.UserOperations loadUsersFromFile
+INFO: File is empty. Starting with an empty user list.
+jun 09, 2024 9:07:37 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:37 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 9:07:40 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:40 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:40 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:40 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:40 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:40 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:40 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:40 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 9:07:42 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
+jun 09, 2024 9:07:42 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 09, 2024 9:07:42 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.

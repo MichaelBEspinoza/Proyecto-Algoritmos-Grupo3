@@ -2,6 +2,7 @@ package controllers;
 
 import domain.User;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -13,25 +14,25 @@ import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import java.io.IOException;
 
 public class RegisterScreenController {
-    @javafx.fxml.FXML
+    @FXML
     private Pane pane1;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_role;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_email;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_user;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_password;
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane bp;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_country;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_city;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_place;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_id;
 
     UserOperations UO = new UserOperations();
@@ -43,14 +44,16 @@ public class RegisterScreenController {
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            e.printStackTrace();
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void registerOnAction(ActionEvent actionEvent) throws ListException {
 
         if (areEmpty()) {
@@ -71,28 +74,20 @@ public class RegisterScreenController {
                     Inténtelo de nuevo.""");
         } else {
             UO.createUser(new User(Integer.parseInt(txf_id.getText()),
-                                                    txf_user.getText(),
-                                                    txf_password.getText(),
-                                                    txf_email.getText(),
-                                                    forStringToRoleOnly.stringToRole(txf_role.getText())));
-            loadPage("mainPage.fxml");
+                    txf_user.getText(),
+                    txf_password.getText(),
+                    txf_email.getText(),
+                    forStringToRoleOnly.stringToRole(txf_role.getText()),
+                    txf_country.getText(),
+                    txf_city.getText(),
+                    txf_place.getText()));
+            loadPage("loginScreen.fxml");
             util.UtilityFX.alert("Registro exitoso", "¡Bienvenido!");
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void passwordRequirementsOnAction(ActionEvent actionEvent) {
-        /*
-         * Valida si una contraseña cumple con los requerimientos:
-         * - Al menos 8 caracteres.
-         * - Al menos una letra mayúscula.
-         * - Al menos una letra minúscula.
-         * - Al menos un signo especial.
-         *
-         * @param password La contraseña a validar
-         * @return true si la contraseña cumple con los requerimientos, false de lo contrario
-         */
-
         util.UtilityFX.alert("Requerimientos de contraseña:", """
                 La contraseña debe tener:\
 
@@ -107,25 +102,13 @@ public class RegisterScreenController {
         return txf_country.getText();
     }
 
-//    public void setCountryInput(String country) {
-//        this.txf_country.setText(country);
-//    }
-
     public String getCityInput() {
         return txf_city.getText();
     }
 
-//    public void setCityInput(String city) {
-//        this.txf_city.setText(city);
-//    }
-
     public String getPlaceInput() {
         return txf_place.getText();
     }
-
-//    public void setPlaceInput(String place) {
-//        this.txf_place.setText(place);
-//    }
 
     private void clearAllFields() {
         txf_id.clear();
@@ -154,3 +137,4 @@ public class RegisterScreenController {
     }
 
 }
+

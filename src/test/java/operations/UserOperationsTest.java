@@ -15,76 +15,73 @@ public class UserOperationsTest {
 
     private UserOperations userOperations;
 
-    // Importante: como la mayoría de los métodos de la clase 'UserOperations' devuelven un valor booleano, considero que
-    // es imperativo usar los 'assertTrue', 'assertFalse', y sus derivados. Lo dejo a su decisión.
-    //                                                                                                          -- David
-
     @BeforeEach
     public void setUp() {
         userOperations = new UserOperations();
-    }// End of method [setUp].
+    }
 
     @Test
     public void testCreateUser() throws ListException {
-        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER, "Costa Rica", "San Jose", "Place1");
         assertTrue(userOperations.createUser(user));
         assertFalse(userOperations.createUser(user)); // No se puede crear el mismo usuario dos veces.
-    }// Test #1.
+    }
 
     @Test
     public void testReadUser() throws ListException {
-        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER, "Costa Rica", "San Jose", "Place1");
         userOperations.createUser(user);
         User retrievedUser = userOperations.readUser(1);
         assertNotNull(retrievedUser);
         assertEquals(1, retrievedUser.getId());
-    }// Test #2.
+    }
 
     @Test
     public void testUpdateUser() throws ListException {
-        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER, "Costa Rica", "San Jose", "Place1");
         userOperations.createUser(user);
-        User updatedUser = new User(1, "Carlos Bonilla", "newpassword", "car.bon@prueba.com", Role.ADMINISTRATOR);
+        User updatedUser = new User(1, "Carlos Bonilla", "newpassword", "car.bon@prueba.com", Role.ADMINISTRATOR, "USA", "New York", "Place2");
         assertTrue(userOperations.updateUser(updatedUser));
         User retrievedUser = userOperations.readUser(1);
         assertEquals("newpassword", retrievedUser.getPassword());
         assertEquals(Role.ADMINISTRATOR, retrievedUser.getRole());
-    }// Test #3.
+        assertEquals("USA", retrievedUser.getCountry());
+        assertEquals("New York", retrievedUser.getCity());
+        assertEquals("Place2", retrievedUser.getPlace());
+    }
 
     @Test
     public void testDeleteUser() throws ListException {
-        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER, "Costa Rica", "San Jose", "Place1");
         userOperations.createUser(user);
-        System.out.println(userOperations.listUsers());
         assertTrue(userOperations.deleteUser(1));
-        System.out.println(userOperations.listUsers());
         assertNull(userOperations.readUser(1));
-    }// Test #4.
+    }
 
     @Test
     public void testChangePassword() throws ListException {
-        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER, "Costa Rica", "San Jose", "Place1");
         userOperations.createUser(user);
         assertTrue(userOperations.changePassword(1, "newpassword123"));
         User retrievedUser = userOperations.readUser(1);
         assertEquals("newpassword123", retrievedUser.getPassword());
-    }// Test #5.
+    }
 
     @Test
     public void testUserExists() throws ListException {
-        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER);
+        User user = new User(1, "Carlos Bonilla", "password123", "car.bon@prueba.com", Role.USER, "Costa Rica", "San Jose", "Place1");
         userOperations.createUser(user);
         assertTrue(userOperations.userExists(user));
-        User nonExistentUser = new User(2, "Sonya Bonilla", "password456", "so.bon@example.com", Role.USER);
+        User nonExistentUser = new User(2, "Sonya Bonilla", "password456", "so.bon@example.com", Role.USER, "USA", "New York", "Place2");
         assertFalse(userOperations.userExists(nonExistentUser));
-    }// Test #6.
+    }
 
     @Test
     void testSaveAndLoadUsers() throws ListException {
         String testFile = "archivoUsuariosPrueba.dat";
 
-        User user1 = new User(1, "David Calvo", "password123", "deivid@test.com", Role.USER);
-        User user2 = new User(2, "Katherine Brenes", "password456", "katharin@test.com", Role.INSTRUCTOR);
+        User user1 = new User(1, "David Calvo", "password123", "deivid@test.com", Role.USER, "Costa Rica", "San Jose", "Place1");
+        User user2 = new User(2, "Katherine Brenes", "password456", "katharin@test.com", Role.INSTRUCTOR, "USA", "New York", "Place2");
 
         userOperations.createUser(user1);
         userOperations.createUser(user2);
@@ -112,12 +109,18 @@ public class UserOperationsTest {
         assertEquals(user1.getPassword(), loadedUser1.getPassword());
         assertEquals(user1.getEmail(), loadedUser1.getEmail());
         assertEquals(user1.getRole(), loadedUser1.getRole());
+        assertEquals(user1.getCountry(), loadedUser1.getCountry());
+        assertEquals(user1.getCity(), loadedUser1.getCity());
+        assertEquals(user1.getPlace(), loadedUser1.getPlace());
 
         assertEquals(user2.getId(), loadedUser2.getId());
         assertEquals(user2.getName(), loadedUser2.getName());
         assertEquals(user2.getPassword(), loadedUser2.getPassword());
         assertEquals(user2.getEmail(), loadedUser2.getEmail());
         assertEquals(user2.getRole(), loadedUser2.getRole());
+        assertEquals(user2.getCountry(), loadedUser2.getCountry());
+        assertEquals(user2.getCity(), loadedUser2.getCity());
+        assertEquals(user2.getPlace(), loadedUser2.getPlace());
 
         // Eliminar archivo de prueba
         File file = new File(testFile);
@@ -135,4 +138,4 @@ public class UserOperationsTest {
         assertNotNull(users);
         assertEquals(0, users.size());
     }
-}// End of class [UserOperationsTest].
+}

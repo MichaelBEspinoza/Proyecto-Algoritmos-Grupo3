@@ -12,13 +12,12 @@ import java.io.*;
 public class SecurityOperations implements SystemSecurity {
 
     File file = new File("users.txt"); // Change file reference to users.txt
-    private static int idCounter = 1; // Constante para llevar la contabilidad de cuántos usuarios han sido registrados
+    private static final int idCounter = 1; // Constante para llevar la contabilidad de cuántos usuarios han sido registrados
     CircularLinkedList list = new CircularLinkedList();
 
     public SecurityOperations() {
-        loadUsertoFile();
+        loadUserToFile();
     }
-
 
     @Override
     public boolean login(String username, String password) {
@@ -144,20 +143,22 @@ public class SecurityOperations implements SystemSecurity {
         return br;
     }
 
-    public void loadUsertoFile() {
-
+    public void loadUserToFile() {
         try (BufferedReader br = getBufferedReader()) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] userDetails = line.split(",");
-                if (userDetails.length == 5) {
+                if (userDetails.length == 8) {
                     int id = Integer.parseInt(userDetails[0]);
                     String username = userDetails[1];
                     String password = userDetails[2];
                     String email = userDetails[3];
                     Role role = Role.valueOf(userDetails[4]);
+                    String country = userDetails[5];
+                    String city = userDetails[6];
+                    String place = userDetails[7];
 
-                    User user = new User(id, username, password, email, role);
+                    User user = new User(id, username, password, email, role, country, city, place);
 
                     list.add(user);  // Agregar el usuario a la lista
                     System.out.println("Usuario añadido: " + line);
@@ -171,5 +172,4 @@ public class SecurityOperations implements SystemSecurity {
             e.printStackTrace();
         }
     }
-
 }
