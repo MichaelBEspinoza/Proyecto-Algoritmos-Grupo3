@@ -63,6 +63,8 @@ public class UserEditProfileController {
             util.UtilityFX.alert("Error: cambios no aplicables",
                     "Uno o más campos están vacíos. Todos los campos deben contener información.\nInténtelo de nuevo.");
         } else {
+
+            util.UtilityFX.alert("Exito","Los cambios fueron aplicados");
             loggedUser.setName(txf_name.getText());
             loggedUser.setId(Integer.parseInt(txf_id.getText()));
             loggedUser.setEmail(txf_email.getText());
@@ -72,6 +74,7 @@ public class UserEditProfileController {
             loggedUser.setPlace(txf_place.getText());
 
             userOperations.updateProfile(loggedUser);
+            loadPage("userProfile.fxml");
         }
     }
 
