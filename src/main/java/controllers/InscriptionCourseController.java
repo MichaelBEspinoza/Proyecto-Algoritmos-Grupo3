@@ -57,7 +57,11 @@ public class InscriptionCourseController {
     }
 
     @javafx.fxml.FXML
-    public void cursosOnAction(ActionEvent actionEvent) {
+    public void cursosOnAction(ActionEvent actionEvent) {loadPage("userCourses.fxml");
+    }
+
+    @javafx.fxml.FXML
+    public void addOnAction(ActionEvent actionEvent) {
         if (txf_name.getText().isEmpty() || txf_courseID.getText().isEmpty()) {
             util.UtilityFX.alert("Error en inscripción", "Ambos campos deben estar llenos antes de la inscripción.");
             return;

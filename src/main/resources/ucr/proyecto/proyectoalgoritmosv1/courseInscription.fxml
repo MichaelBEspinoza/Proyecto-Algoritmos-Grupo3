@@ -51,7 +51,7 @@
                         <Text layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
                         <TextField fx:id="txf_name" layoutX="142.0" layoutY="81.0" />
                         <TextField fx:id="txf_courseID" layoutX="142.0" layoutY="45.0" />
-                        <Button layoutX="433.0" layoutY="122.0" mnemonicParsing="false" text="Agregar curso:" />
+                        <Button layoutX="433.0" layoutY="122.0" mnemonicParsing="false" onAction="#addOnAction" text="Agregar curso:" />
                      </children>
                   </Pane>
                   <Pane layoutX="233.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">

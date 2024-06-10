@@ -52,12 +52,13 @@ public class AdminChangePasswordController {
 
     @javafx.fxml.FXML
     public void searchOnAction(Event event) {
-
         searchThisTXF.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(KeyCode.ENTER)) {
                 foundUser = UO.readUser(Integer.parseInt(searchThisTXF.getText()));
                 if (userFound() && foundUser != null) {
-
+                    txf_newPassword.setDisable(false);
+                    txf_confirmPassword.setDisable(false);
+                    saveChangesButton.setDisable(false);
                 }
             }
         });

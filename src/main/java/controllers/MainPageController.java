@@ -76,4 +76,8 @@ public class MainPageController {
     @javafx.fxml.FXML
     public void menuMainPage(ActionEvent actionEvent) {
     }
+
+    @javafx.fxml.FXML
+    public void inscripcionOnAction(ActionEvent actionEvent) {loadPage("courseInscription.fxml");
+    }
 }

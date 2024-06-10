@@ -59,7 +59,8 @@
                             </Menu>
                             <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
                               <items>
-                                <MenuItem mnemonicParsing="false" onAction="#menuCursosOnAction" text="Cursos" />
+                                <MenuItem mnemonicParsing="false" onAction="#menuCursosOnAction" text="Cursos inscritos" />
+                                    <MenuItem mnemonicParsing="false" onAction="#inscripcionOnAction" text="Inscribirse a cursos" />
                               </items>
                             </Menu>
                             <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
