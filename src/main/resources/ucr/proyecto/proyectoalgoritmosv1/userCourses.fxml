@@ -49,49 +49,49 @@
                                 </ImageView>
                             </children>
                         </Pane>
-                  <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
-                     <children>
-                        <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
-                          <menus>
-                            <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                              </items>
-                            </Menu>
-                            <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                              </items>
-                            </Menu>
-                            <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                              </items>
-                            </Menu>
-                          </menus>
-                        </MenuBar>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
-                     <children>
-                        <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mis Cursos:">
-                           <font>
-                              <Font name="Bell MT" size="18.0" />
-                           </font>
-                        </Text>
-                        <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vista general de curso:" />
-                        <Button layoutX="509.0" layoutY="332.0" mnemonicParsing="false" onAction="#editCoursesOnAction" style="-fx-background-color: transparent;" text="Edición de Cursos" />
-                        <TableView layoutX="14.0" layoutY="86.0" prefHeight="224.0" prefWidth="605.0">
-                          <columns>
-                            <TableColumn fx:id="tc_id" prefWidth="109.0" text="ID:" />
-                            <TableColumn fx:id="tc_name" prefWidth="122.0" text="Nombre:" />
-                              <TableColumn fx:id="tc_descripcion" prefWidth="106.0" text="Descripción:" />
-                              <TableColumn fx:id="tc_duration" prefWidth="121.0" text="Duración:" />
-                              <TableColumn fx:id="tc_dificultyLevel" prefWidth="128.0" text="ID de Instructor:" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </Pane>
+                        <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
+                            <children>
+                                <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
+                                    <menus>
+                                        <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="Close" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="About" />
+                                            </items>
+                                        </Menu>
+                                    </menus>
+                                </MenuBar>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
+                            <children>
+                                <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mis Cursos:">
+                                    <font>
+                                        <Font name="Bell MT" size="18.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vista general de curso:" />
+                                <Button layoutX="509.0" layoutY="332.0" mnemonicParsing="false" onAction="#editCoursesOnAction" style="-fx-background-color: transparent;" text="Edición de Cursos" />
+                                <TableView layoutX="14.0" layoutY="86.0" prefHeight="224.0" prefWidth="605.0">
+                                    <columns>
+                                        <TableColumn fx:id="tc_id" prefWidth="109.0" text="ID:" />
+                                        <TableColumn fx:id="tc_name" prefWidth="122.0" text="Nombre:" />
+                                        <TableColumn fx:id="tc_descripcion" prefWidth="106.0" text="Descripción:" />
+                                        <TableColumn fx:id="tc_duration" prefWidth="121.0" text="Duración:" />
+                                        <TableColumn fx:id="tc_dificultyLevel" prefWidth="128.0" text="ID de Instructor:" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </Pane>
                     </children>
                 </Pane>
             </children>

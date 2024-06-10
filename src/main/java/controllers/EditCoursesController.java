@@ -1,81 +1,132 @@
 package controllers;
 
 import domain.Course;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import operations.CourseOperations;
-import structures.trees.TreeException;
+import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
-import java.net.URL;
+import java.io.IOException;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class EditCoursesController implements Initializable {
-
-    @FXML
-    private BorderPane bp;
+public class EditCoursesController {
     @FXML
     private Menu menuPaginaPrincipal;
     @FXML
     private Menu menuAyuda;
     @FXML
-    private TableView<Course> tableView;
+    private Button p_course3;
     @FXML
-    private TableColumn<Course, Integer> tc_id;
+    private Pane pane1;
     @FXML
-    private TableColumn<Course, String> tc_name;
+    private Button p_course2;
     @FXML
-    private TableColumn<Course, String> tc_description;
+    private Button p_course5;
     @FXML
-    private TableColumn<Course, String> tc_duration;
+    private Button p_course4;
     @FXML
-    private TableColumn<Course, String> tc_dificultyLevel;
+    private Button p_course6;
+    @FXML
+    private Menu menuCursos;
+    @FXML
+    private BorderPane bp;
+    @FXML
+    private Button p_course1;
 
     private CourseOperations courseOperations;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private void loadPage(String page) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        System.out.println(HelloApplication.class.getResource(page));
+        try {
+            this.bp.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void initialize() {
         courseOperations = new CourseOperations();
         courseOperations.loadCoursesFromFile("cursos.txt");
-
-        // Configurar las columnas de la tabla
-        tc_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tc_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tc_description.setCellValueFactory(new PropertyValueFactory<>("description"));
-        tc_duration.setCellValueFactory(new PropertyValueFactory<>("courseLength"));
-        tc_dificultyLevel.setCellValueFactory(new PropertyValueFactory<>("level"));
-
-        // Cargar los datos en la tabla
         loadCourses();
     }
 
+    /******************************/
+
     private void loadCourses() {
-        try {
-            List<Course> coursesList = courseOperations.listCourse();
-            if (coursesList.isEmpty()) {
-                throw new TreeException("El árbol de cursos está vacío.");
-            }
-            ObservableList<Course> courses = FXCollections.observableArrayList(coursesList);
-            tableView.setItems(courses);
-        } catch (TreeException e) {
-            showAlert("Error", "El árbol de cursos está vacío.", Alert.AlertType.ERROR);
-        } catch (Exception e) {
-            showAlert("Error", "Ocurrió un error al cargar los cursos.", Alert.AlertType.ERROR);
+        List<Course> courses = courseOperations.listCourse();
+        if (!courses.isEmpty()) {
+            displayCourse(p_course1, courses.get(0));
+        }
+        if (courses.size() > 1) {
+            displayCourse(p_course2, courses.get(1));
+        }
+        if (courses.size() > 2) {
+            displayCourse(p_course3, courses.get(2));
+        }
+        if (courses.size() > 3) {
+            displayCourse(p_course4, courses.get(3));
+        }
+        if (courses.size() > 4) {
+            displayCourse(p_course5, courses.get(4));
+        }
+        if (courses.size() > 5) {
+            displayCourse(p_course6, courses.get(5));
         }
     }
 
-    private void showAlert(String title, String content, Alert.AlertType alertType) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.showAndWait();
+    private void displayCourse(Button courseButton, Course course) {
+        courseButton.setText("ID: " + course.getId() + "\nName: " + course.getName() + "\nDescription: " + course.getDescription());
+        courseButton.setOnAction(event -> {
+            /*Se define lo que ocurre si se toca el boton, mas aun no se sabe si existe*/
+        });
+    }
+
+    /******************************/
+
+    @FXML
+    public void ayudaOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("helpScreen.fxml");
+
+    }
+
+    @FXML
+    public void pagePrincipalOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("mainPage.fxml");
+
+    }
+
+    @FXML
+    public void editOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("modifyCourse.fxml");
+    }
+
+    @FXML
+    public void deleteOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("deleteCourse.fxml");
+    }
+
+    @FXML
+    public void addCourseOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("addCourse.fxml");
+    }
+
+    @FXML
+    public void cursosOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("userCourses.fxml");
+
     }
 }

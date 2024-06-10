@@ -47,8 +47,8 @@
                               <Font name="Bell MT" size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
-                        <Text layoutX="14.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" />
+                        <Text layoutX="14.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
+                        <Text layoutX="14.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:" wrappingWidth="15.208984375" />
                         <Text layoutX="14.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descripción del curso:" />
                         <Text layoutX="313.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duración:" />
                         <TextField fx:id="txf_description" layoutX="142.0" layoutY="114.0" />

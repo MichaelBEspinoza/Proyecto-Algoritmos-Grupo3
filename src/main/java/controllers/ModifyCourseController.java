@@ -1,56 +1,57 @@
 package controllers;
 
 import domain.Course;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import operations.CourseOperations;
+import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import util.UtilityFX;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class ModifyCourseController {
+public class ModifyCourseController implements Initializable {
 
     @FXML
     private Menu menuPaginaPrincipal;
     @FXML
     private Menu menuAyuda;
     @FXML
-    private Menu menuCursos;
-    @FXML
-    private MenuItem mn_courses;
-    @FXML
-    private MenuItem mn_mainPage;
-
-    @FXML
     private TextField txf_id;
     @FXML
     private TextField txf_description;
     @FXML
+    private MenuItem mn_mainPage;
+    @FXML
     private TextField txf_name;
+    @FXML
+    private Menu menuCursos;
     @FXML
     private TextField txf_idIntructor;
     @FXML
     private TextField txf_level;
     @FXML
-    private TextField txf_length;
-
-    @FXML
     private BorderPane bp;
 
     private CourseOperations courseOperations;
-
     @FXML
-    public void initialize() {
+    private TextField txf_length;
+    @FXML
+    private MenuItem mn_courses;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         courseOperations = new CourseOperations();
         courseOperations.loadCoursesFromFile("cursos.txt");
 
@@ -65,9 +66,9 @@ public class ModifyCourseController {
                         if (course != null) {
                             txf_name.setText(course.getName());
                             txf_description.setText(course.getDescription());
-                            txf_length.setText(course.getCourseLength());
                             txf_level.setText(course.getLevel());
                             txf_idIntructor.setText(String.valueOf(course.getInstructorId()));
+                            txf_length.setText(course.getCourseLength());
                         } else {
                             clearFields();
                         }
@@ -91,16 +92,20 @@ public class ModifyCourseController {
         return null;
     }
 
+    private void clearFields() {
+        txf_name.clear();
+        txf_description.clear();
+        txf_level.clear();
+        txf_idIntructor.clear();
+        txf_length.clear();
+    }
+
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error al cargar la página");
-            alert.setContentText("No se pudo cargar la página: " + page);
-            alert.showAndWait();
+            UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }
@@ -120,49 +125,21 @@ public class ModifyCourseController {
     @FXML
     public void editOnAction(ActionEvent actionEvent) {
         try {
-            int id = Integer.parseInt(txf_id.getText().trim());
-            String name = txf_name.getText().trim();
-            String description = txf_description.getText().trim();
-            String length = txf_length.getText().trim();
-            String level = txf_level.getText().trim();
-            int instructorId = Integer.parseInt(txf_idIntructor.getText().trim());
-
-            Course updatedCourse = new Course(id, name, description, length, level, instructorId);
-            CourseOperations operations = new CourseOperations();
-
-            boolean result = operations.updateCourse(updatedCourse);
-
-            if (result) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Curso Actualizado");
-                alert.setHeaderText(null);
-                alert.setContentText("El curso fue actualizado exitosamente.");
-                alert.showAndWait();
+            int courseId = Integer.parseInt(txf_id.getText());
+            Course updatedCourse = new Course(courseId, txf_name.getText(), txf_description.getText(),
+                    txf_length.getText(), txf_level.getText(), Integer.parseInt(txf_idIntructor.getText()));
+            boolean updated = courseOperations.updateCourse(updatedCourse);
+            if (updated) {
+                UtilityFX.alert("Éxito", "El curso ha sido actualizado correctamente.");
+                clearFields();
                 bp.getChildren().clear();
                 loadPage("editCourses.fxml");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("No se pudo actualizar el curso.");
-                alert.showAndWait();
+                UtilityFX.alert("Error", "No se encontró ningún curso con el ID proporcionado.");
             }
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, ingrese valores válidos.");
-            alert.showAndWait();
+            UtilityFX.alert("Error", "Por favor, ingrese valores válidos en todos los campos.");
         }
-    }
-
-    private void clearFields() {
-        txf_id.clear();
-        txf_name.clear();
-        txf_description.clear();
-        txf_length.clear();
-        txf_level.clear();
-        txf_idIntructor.clear();
     }
 
     @FXML

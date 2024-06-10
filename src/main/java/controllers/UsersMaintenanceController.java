@@ -2,6 +2,7 @@ package controllers;
 
 import domain.Role;
 import domain.User;
+import domain.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -54,6 +55,9 @@ public class UsersMaintenanceController {
     @FXML
     private TableColumn<User, Role> tc_rol;
 
+    private User loggedUser = UserSession.getInstance().getLoggedUser();
+
+
     public UsersMaintenanceController() {
         userOperations = new UserOperations();
     }
@@ -87,7 +91,9 @@ public class UsersMaintenanceController {
 
     @FXML
     public void editInformationOnAction(ActionEvent actionEvent) {
-        loadPage("userEditProfile.fxml");
+        if (loggedUser.getRole() != Role.ADMINISTRATOR)
+            loadPage("userEditProfile.fxml");
+        else loadPage("adminEditProfiles.fxml");
     }
 
     private void loadUsersIntoTableView() {

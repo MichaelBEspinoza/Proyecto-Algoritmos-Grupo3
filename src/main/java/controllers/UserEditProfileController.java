@@ -36,16 +36,14 @@ public class UserEditProfileController {
     private TextField txf_place;
     @FXML
     private TextField txf_id;
+    @FXML
+    private ComboBox<String> cb_role;
 
     private User loggedUser = UserSession.getInstance().getLoggedUser();
     private final UserOperations userOperations = new UserOperations();
-    @FXML
-    private ComboBox cb_role;
-
-    public UserEditProfileController() {
-    }
 
     public void initialize() {
+        cb_role.getItems().addAll("Usuario","Instructor","Administrador");
         textFieldSetUp();
     }
 
@@ -68,7 +66,7 @@ public class UserEditProfileController {
             loggedUser.setName(txf_name.getText());
             loggedUser.setId(Integer.parseInt(txf_id.getText()));
             loggedUser.setEmail(txf_email.getText());
-            loggedUser.setRole(loggedUser.stringToRole(cb_role.getValue().toString()));
+            loggedUser.setRole(loggedUser.stringToRole(cb_role.getValue()));
             loggedUser.setCountry(txf_country.getText());
             loggedUser.setCity(txf_city.getText());
             loggedUser.setPlace(txf_place.getText());
@@ -88,10 +86,10 @@ public class UserEditProfileController {
         txf_name.setText(loggedUser.getName());
         txf_email.setText(loggedUser.getEmail());
         txf_id.setText(String.valueOf(loggedUser.getId()));
-        //cb_role.getValue().s(loggedUser.roleToString());
         txf_country.setText(loggedUser.getCountry());
         txf_city.setText(loggedUser.getCity());
         txf_place.setText(loggedUser.getPlace());
+        cb_role.getSelectionModel().selectFirst();
     }
 
     private boolean fieldsAreEmpty() {

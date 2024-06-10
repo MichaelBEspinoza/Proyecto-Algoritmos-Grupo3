@@ -1,5 +1,6 @@
 package controllers;
 
+import domain.Role;
 import domain.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,13 +34,14 @@ public class RegisterScreenController {
     private TextField txf_place;
     @FXML
     private TextField txf_id;
+    @FXML
+    private ComboBox<String> cb_role;
 
     UserOperations UO = new UserOperations();
     User forStringToRoleOnly = new User();
-    @FXML
-    private ComboBox cb_role;
 
     public void initialize() {
+        cb_role.getItems().addAll("Usuario","Instructor","Administrador");
         clearAllFields();
     }
 
@@ -78,7 +80,7 @@ public class RegisterScreenController {
                     txf_user.getText(),
                     txf_password.getText(),
                     txf_email.getText(),
-                    forStringToRoleOnly.stringToRole(cb_role.getValue().toString()),
+                    forStringToRoleOnly.stringToRole(cb_role.getValue()),
                     txf_country.getText(),
                     txf_city.getText(),
                     txf_place.getText()));
@@ -97,18 +99,6 @@ public class RegisterScreenController {
                 2. Letras mayúsculas y minúsculas.\
 
                 3. Un signo especial ('*', '!', '$', etc.).""");
-    }
-
-    public String getCountryInput() {
-        return txf_country.getText();
-    }
-
-    public String getCityInput() {
-        return txf_city.getText();
-    }
-
-    public String getPlaceInput() {
-        return txf_place.getText();
     }
 
     private void clearAllFields() {
