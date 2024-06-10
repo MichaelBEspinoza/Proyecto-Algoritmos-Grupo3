@@ -111,7 +111,7 @@ public class User implements Serializable {
 
     public StringBuilder coursesToString() throws ListException {
         StringBuilder list = new StringBuilder();
-        for (int i = 0; i < courses.size(); i++) {
+        for (int i = 1; i <= courses.size(); i++) { // Cambiado a 1-based index
             Node node = courses.getNode(i);
             if (node != null) {
                 Course check = (Course) node.data;
@@ -122,6 +122,7 @@ public class User implements Serializable {
         }
         return list;
     }
+
     public String roleToString() {
         String roleStr;
         switch (getRole()) {
