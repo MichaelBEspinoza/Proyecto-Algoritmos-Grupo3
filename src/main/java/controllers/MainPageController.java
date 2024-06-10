@@ -80,7 +80,7 @@ public class MainPageController {
 
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
-        loadPage("");
+        loadPage("usersupport.fxml");
     }
 
     @FXML
