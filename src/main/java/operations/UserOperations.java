@@ -88,6 +88,8 @@ public class UserOperations implements UserMaintenance {
            @param userID ID del usuario a buscar y retornar.
            @return check Que corresponde al usuario encontrado.*/
 
+        loadUsersFromFile("users.txt");
+
         try {
             for (int i = 1; i <= users.size(); i++) {
                 User user = (User) users.getNode(i).data;
@@ -133,14 +135,17 @@ public class UserOperations implements UserMaintenance {
 
                 if (user == users.getNode(1).data) { // Si es el primer elemento en la lista.
                     users.removeFirst();
+                    saveUsersToFile("users.txt");
                     return true;
                 }// End of 'if'.
                 else if (user == users.getNode(users.size()).data) { // Si es el último elemento en la lista.
                     users.removeLast();
+                    saveUsersToFile("users.txt");
                     return true;
                 }// End of 'if'
                 else if (user.getId() == userId) { // Si no es ninguno de los dos escenarios anteriores.
                     users.remove(user);
+                    saveUsersToFile("users.txt");
                     return true; // Usuario borrado exitosamente.
                 }// End of 'if'.
             }// End of 'for' loop.

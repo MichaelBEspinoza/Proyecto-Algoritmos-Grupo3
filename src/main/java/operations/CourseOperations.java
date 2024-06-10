@@ -20,9 +20,9 @@ public class CourseOperations implements CourseMaintenance {
 
         // Verifica si el curso con el mismo ID ya existe
         try {
-            List<Course> courseList = avlTree.inOrderUsage();
-            for (Course existingCourse : courseList) {
-                if (existingCourse.getId() == course.getId()) {
+            List<Course> courseList = avlTree.inOrderUsage();//genera una lista de cursos para comparar su id
+            for (Course existingCourse : courseList) {//itera sobre la lista
+                if (existingCourse.getId() == course.getId()) {// comprobaacion de disponibilidad
                     System.out.println("El curso con este ID ya existe");
                     return false; // El curso con este ID ya existe
                 }
@@ -78,7 +78,7 @@ public class CourseOperations implements CourseMaintenance {
         loadCoursesFromFile("cursos.txt"); // Cargar cursos desde el archivo
         try {
             for (Course course : avlTree.inOrderUsage()) {
-                if (course.getId() == courseId) {
+                if (course.getId() == courseId) {// comprobaaacion de existencia
                     avlTree.remove(course);
                     saveCoursesToFile("cursos.txt"); // Guarda los cursos en un archivo
                     System.out.println("El curso fue eliminado");
@@ -108,8 +108,8 @@ public class CourseOperations implements CourseMaintenance {
 
     public void saveCoursesToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            for (Course course : avlTree.inOrderUsage()) {
-                writer.write(courseToString(course));
+            for (Course course : avlTree.inOrderUsage()) {// toma los cursos del arbol y iteraaa sobre ellos
+                writer.write(courseToString(course));//escribe los cursos
                 writer.newLine();
             }
         } catch (IOException | TreeException e) {
@@ -125,7 +125,7 @@ public class CourseOperations implements CourseMaintenance {
                 if (!line.trim().isEmpty()) { // Verificar que la línea no esté vacía
                     try {
                         Course course = stringToCourse(line);
-                        avlTree.add(course);
+                        avlTree.add(course);// creaa cursos y los agrega al arbol
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                         System.err.println("Error parsing line: " + line);
                         e.printStackTrace();
@@ -149,12 +149,12 @@ public class CourseOperations implements CourseMaintenance {
         }
     }
 
-    private String courseToString(Course course) {
+    private String courseToString(Course course) {//convierte los cursos a un string
         return course.getId() + "," + course.getName() + "," + course.getDescription() + ","
                 + course.getCourseLength() + "," + course.getLevel() + "," + course.getInstructorId();
     }
 
-    private Course stringToCourse(String str) {
+    private Course stringToCourse(String str) {// convierte los strings a un curso
         try {
             String[] parts = str.split(",");
             int id = Integer.parseInt(parts[0]);

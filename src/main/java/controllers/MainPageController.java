@@ -1,33 +1,40 @@
 package controllers;
 
+import domain.Course;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import operations.CourseOperations;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MainPageController {
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuPaginaPrincipal;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuAyuda;
-    @javafx.fxml.FXML
+    @FXML
     private Pane pane1;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuCursos;
-    @javafx.fxml.FXML
-    private Pane p_course3;
-    @javafx.fxml.FXML
+    @FXML
+    private Button p_course1;
+    @FXML
+    private Button p_course2;
+    @FXML
+    private Button p_course3;
+    @FXML
     private Pane p_anunciosInteres;
-    @javafx.fxml.FXML
-    private Pane p_course2;
-    @javafx.fxml.FXML
-    private Pane p_course1;
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane bp;
+
+    private CourseOperations courseOperations;
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
@@ -35,49 +42,81 @@ public class MainPageController {
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }
 
-    @javafx.fxml.FXML
-    public void perfilOnAction(ActionEvent actionEvent) {loadPage("userProfile.fxml");
+    @FXML
+    public void initialize() {
+        courseOperations = new CourseOperations();
+        courseOperations.loadCoursesFromFile("cursos.txt");
+        loadCourses();
     }
 
-    @javafx.fxml.FXML
-    public void ayudaOnAction(ActionEvent actionEvent) {loadPage("");
+    private void loadCourses() {
+        List<Course> courses = courseOperations.listCourse();
+        if (!courses.isEmpty()) {
+            displayCourse(p_course1, courses.get(0));
+        }
+        if (courses.size() > 1) {
+            displayCourse(p_course2, courses.get(1));
+        }
+        if (courses.size() > 2) {
+            displayCourse(p_course3, courses.get(2));
+        }
     }
 
-    @javafx.fxml.FXML
-    public void pagePrincipalOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");
+    private void displayCourse(Button courseButton, Course course) {
+        courseButton.setText("ID: " + course.getId() + "\nName: " + course.getName() + "\nDescription: " + course.getDescription());
+        courseButton.setOnAction(event -> {
+            // Acción al hacer clic en el botón del curso
+        });
     }
 
-    @javafx.fxml.FXML
-    public void cursosOnAction(ActionEvent actionEvent) {loadPage("userCourses.fxml");
+    @FXML
+    public void perfilOnAction(ActionEvent actionEvent) {
+        loadPage("userProfile.fxml");
     }
 
-    @javafx.fxml.FXML
-    public void cerrarSesionOnAction(ActionEvent actionEvent) {loadPage("loginScreen.fxml");
+    @FXML
+    public void ayudaOnAction(ActionEvent actionEvent) {
+        loadPage("");
     }
 
-    @javafx.fxml.FXML
+    @FXML
+    public void pagePrincipalOnAction(ActionEvent actionEvent) {
+        loadPage("mainPage.fxml");
+    }
+
+    @FXML
+    public void cursosOnAction(ActionEvent actionEvent) {
+        loadPage("userCourses.fxml");
+    }
+
+    @FXML
+    public void cerrarSesionOnAction(ActionEvent actionEvent) {
+        loadPage("loginScreen.fxml");
+    }
+
+    @FXML
     public void userMaintenenceOnAction(ActionEvent actionEvent) {
         loadPage("usersMaintenance.fxml");
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void menuHelpOnAction(ActionEvent actionEvent) {
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void menuCursosOnAction(ActionEvent actionEvent) {
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void menuMainPage(ActionEvent actionEvent) {
     }
 
-    @javafx.fxml.FXML
-    public void inscripcionOnAction(ActionEvent actionEvent) {loadPage("courseInscription.fxml");
+    @FXML
+    public void inscripcionOnAction(ActionEvent actionEvent) {
+        loadPage("courseInscription.fxml");
     }
 }

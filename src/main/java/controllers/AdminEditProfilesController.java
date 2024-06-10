@@ -121,6 +121,7 @@ public class AdminEditProfilesController {
                     txf_place.setDisable(false);
                     saveChangesButton.setDisable(false);
                     changePasswordText.setDisable(false);
+                    deleteButton.setDisable(false);
 
                     txf_name.setText(foundUser.getName());
                     txf_id.setText(String.valueOf(foundUser.getId()));

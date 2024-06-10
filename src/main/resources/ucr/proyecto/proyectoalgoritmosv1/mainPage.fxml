@@ -40,50 +40,50 @@
                                 </ImageView>
                             </children>
                         </Pane>
-                  <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
-                     <children>
-                        <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
-                          <menus>
-                            <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
-                              <items>
-                                <MenuItem mnemonicParsing="false" onAction="#menuMainPage" text="Página Principal" />
-                              </items>
-                            </Menu>
-                            <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
-                              <items>
-                                <MenuItem mnemonicParsing="false" onAction="#menuCursosOnAction" text="Cursos disponibles" />
-                                    <MenuItem mnemonicParsing="false" onAction="#inscripcionOnAction" text="Inscribirse a cursos" />
-                              </items>
-                            </Menu>
-                            <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
-                              <items>
-                                <MenuItem mnemonicParsing="false" onAction="#menuHelpOnAction" text="About" />
-                              </items>
-                            </Menu>
-                          </menus>
-                        </MenuBar>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="538.0" layoutY="14.0" prefHeight="47.0" prefWidth="113.0" style="-fx-background-color: #edd5c5;">
-                     <children>
-                        <MenuButton layoutX="27.0" layoutY="11.0" mnemonicParsing="false" text="Perfil">
-                          <items>
-                            <MenuItem mnemonicParsing="false" onAction="#perfilOnAction" text="Usuario" />
-                              <MenuItem mnemonicParsing="false" onAction="#userMaintenenceOnAction" text="Mantenimiento de usuario" />
-                            <MenuItem mnemonicParsing="false" onAction="#cerrarSesionOnAction" text="Cerrar Sesión" />
-                          </items>
-                        </MenuButton>
-                     </children>
-                  </Pane>
-                  <Label layoutX="15.0" layoutY="243.0" text="Vista general de los cursos:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Pane fx:id="p_course1" layoutX="16.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
-                  <Pane fx:id="p_course2" layoutX="235.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
-                  <Pane fx:id="p_course3" layoutX="455.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
-                  <Pane fx:id="p_anunciosInteres" layoutX="16.0" layoutY="72.0" prefHeight="167.0" prefWidth="633.0" style="-fx-background-color: #efeba9;" />
+                        <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
+                            <children>
+                                <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
+                                    <menus>
+                                        <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#menuMainPage" text="Página Principal" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#menuCursosOnAction" text="Cursos disponibles" />
+                                                <MenuItem mnemonicParsing="false" onAction="#inscripcionOnAction" text="Inscribirse a cursos" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#menuHelpOnAction" text="About" />
+                                            </items>
+                                        </Menu>
+                                    </menus>
+                                </MenuBar>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="538.0" layoutY="14.0" prefHeight="47.0" prefWidth="113.0" style="-fx-background-color: #edd5c5;">
+                            <children>
+                                <MenuButton layoutX="27.0" layoutY="11.0" mnemonicParsing="false" text="Perfil">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#perfilOnAction" text="Usuario" />
+                                        <MenuItem mnemonicParsing="false" onAction="#userMaintenenceOnAction" text="Mantenimiento de usuario" />
+                                        <MenuItem mnemonicParsing="false" onAction="#cerrarSesionOnAction" text="Cerrar Sesión" />
+                                    </items>
+                                </MenuButton>
+                            </children>
+                        </Pane>
+                        <Label layoutX="15.0" layoutY="243.0" text="Vista general de los cursos:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="p_course1" layoutX="16.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
+                        <Button fx:id="p_course2" layoutX="235.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
+                        <Button fx:id="p_course3" layoutX="455.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
+                        <Pane fx:id="p_anunciosInteres" layoutX="16.0" layoutY="72.0" prefHeight="167.0" prefWidth="633.0" style="-fx-background-color: #efeba9;" />
                     </children>
                 </Pane>
             </children>
