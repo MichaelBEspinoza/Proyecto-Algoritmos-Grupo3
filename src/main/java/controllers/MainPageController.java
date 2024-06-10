@@ -64,4 +64,16 @@ public class MainPageController {
     public void userMaintenenceOnAction(ActionEvent actionEvent) {
         loadPage("usersMaintenance.fxml");
     }
+
+    @javafx.fxml.FXML
+    public void menuHelpOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void menuCursosOnAction(ActionEvent actionEvent) {
+    }
+
+    @javafx.fxml.FXML
+    public void menuMainPage(ActionEvent actionEvent) {
+    }
 }

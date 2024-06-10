@@ -4,6 +4,7 @@ import domain.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -16,8 +17,6 @@ import java.io.IOException;
 public class RegisterScreenController {
     @FXML
     private Pane pane1;
-    @FXML
-    private TextField txf_role;
     @FXML
     private TextField txf_email;
     @FXML
@@ -37,6 +36,8 @@ public class RegisterScreenController {
 
     UserOperations UO = new UserOperations();
     User forStringToRoleOnly = new User();
+    @FXML
+    private ComboBox cb_role;
 
     public void initialize() {
         clearAllFields();
@@ -77,7 +78,7 @@ public class RegisterScreenController {
                     txf_user.getText(),
                     txf_password.getText(),
                     txf_email.getText(),
-                    forStringToRoleOnly.stringToRole(txf_role.getText()),
+                    forStringToRoleOnly.stringToRole(cb_role.getValue().toString()),
                     txf_country.getText(),
                     txf_city.getText(),
                     txf_place.getText()));
@@ -116,14 +117,14 @@ public class RegisterScreenController {
         txf_place.clear();
         txf_city.clear();
         txf_country.clear();
-        txf_role.clear();
+        //cb_role.getValue() ==;
         txf_user.clear();
         txf_password.clear();
     }
 
     private boolean areEmpty() {
         return txf_user.getText().isEmpty() || txf_id.getText().isEmpty() || txf_email.getText().isEmpty() || txf_password.getText().isEmpty()
-                || txf_role.getText().isEmpty() || txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty();
+                || cb_role.getValue() == null || txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty();
     }
 
     private boolean isValidPassword(String password) {

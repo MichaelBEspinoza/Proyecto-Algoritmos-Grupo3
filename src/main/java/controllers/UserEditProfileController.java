@@ -6,6 +6,7 @@ import domain.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -35,11 +36,11 @@ public class UserEditProfileController {
     private TextField txf_place;
     @FXML
     private TextField txf_id;
-    @FXML
-    private TextField txf_role;
 
     private User loggedUser = UserSession.getInstance().getLoggedUser();
     private final UserOperations userOperations = new UserOperations();
+    @FXML
+    private ComboBox cb_role;
 
     public UserEditProfileController() {
     }
@@ -67,7 +68,7 @@ public class UserEditProfileController {
             loggedUser.setName(txf_name.getText());
             loggedUser.setId(Integer.parseInt(txf_id.getText()));
             loggedUser.setEmail(txf_email.getText());
-            loggedUser.setRole(loggedUser.stringToRole(txf_role.getText()));
+            loggedUser.setRole(loggedUser.stringToRole(cb_role.getValue().toString()));
             loggedUser.setCountry(txf_country.getText());
             loggedUser.setCity(txf_city.getText());
             loggedUser.setPlace(txf_place.getText());
@@ -81,13 +82,13 @@ public class UserEditProfileController {
             txf_name.setDisable(true);
             txf_id.setDisable(true);
             txf_email.setDisable(true);
-            txf_role.setDisable(true);
+            cb_role.setDisable(true);
         }
 
         txf_name.setText(loggedUser.getName());
         txf_email.setText(loggedUser.getEmail());
         txf_id.setText(String.valueOf(loggedUser.getId()));
-        txf_role.setText(loggedUser.roleToString());
+        //cb_role.getValue().s(loggedUser.roleToString());
         txf_country.setText(loggedUser.getCountry());
         txf_city.setText(loggedUser.getCity());
         txf_place.setText(loggedUser.getPlace());
@@ -95,7 +96,7 @@ public class UserEditProfileController {
 
     private boolean fieldsAreEmpty() {
         return txf_name.getText().isEmpty() || txf_id.getText().isEmpty() ||
-                txf_email.getText().isEmpty() || txf_role.getText().isEmpty() ||
+                txf_email.getText().isEmpty() || cb_role.getValue() == null ||
                 txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty();
     }
 
