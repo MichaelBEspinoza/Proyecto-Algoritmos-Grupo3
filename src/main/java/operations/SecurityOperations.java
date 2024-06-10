@@ -71,25 +71,41 @@ public class SecurityOperations implements SystemSecurity {
 
 
     @Override
-    public String encryptPassword(String password) { // Método que encrypta la contraseña del usuario al registrarse
-        char[] encryptedPassword = password.toCharArray(); // Arreglo de tipo caracter que contendrá cada letra de la contraseña
+    public String encryptPassword(String password) {
+        char[] encryptedPassword = password.toCharArray();
 
-        // Se recorre el arreglo para ir encriptando la contraseña de forma que, por cada letra encontrada, se le agregan 5 letras después del abecedario
-        // para que no sea reconocida
-        for (int i = 0; i < encryptedPassword.length; i++) encryptedPassword[i] = (char) (encryptedPassword[i] + (char) 5);
+        for (int i = 0; i < encryptedPassword.length; i++) {
+            char c = encryptedPassword[i];
+            if (c >= 32 && c <= 126) { // Rango de caracteres ASCII visibles
+                c = (char) (c + 5);
+                if (c > 126) {
+                    c = (char) (c - 95); // Volver al inicio del rango visible
+                }
+            }
+            encryptedPassword[i] = c;
+        }
 
-        return String.valueOf(encryptedPassword); // Se retorna la contraseña encriptada
+        return String.valueOf(encryptedPassword);
     }
 
-    public String desencryptedPassword(String password) { // Método que desencripta la contraseña del usuario
-        char[] desencryptedPassword = password.toCharArray(); // Arreglo de tipo caracter que contendrá cada letra de la contraseña
 
-        // Se recorre el arreglo para ir desencriptando la contraseña de forma que, por cada letra encontrada, se le restan 5 letras después del abecedario
-        // para que no sea reconocida
-        for (int i = 0; i < desencryptedPassword.length; i++) desencryptedPassword[i] = (char) (desencryptedPassword[i] - (char) 5);
+    public String decryptPassword(String password) { // Método que desencripta la contraseña del usuario
+        char[] decryptedPassword = password.toCharArray(); // Arreglo de tipo caracter que contendrá cada letra de la contraseña
 
-        return String.valueOf(desencryptedPassword); // Se retorna la contraseña desencriptada
+        for (int i = 0; i < decryptedPassword.length; i++) {
+            char c = decryptedPassword[i];
+            if (c >= 32 && c <= 126) { // Rango de caracteres ASCII visibles
+                c = (char) (c - 5);
+                if (c < 32) {
+                    c = (char) (c + 95); // Volver al final del rango visible
+                }
+            }
+            decryptedPassword[i] = c;
+        }
+
+        return String.valueOf(decryptedPassword); // Se retorna la contraseña desencriptada
     }
+
 
 
     public User getUserByUsername(String username) throws ListException {
