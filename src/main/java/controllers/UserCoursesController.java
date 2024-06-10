@@ -1,6 +1,7 @@
 package controllers;
 
 import domain.Course;
+import domain.UserSession;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import operations.UserOperations;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
+import util.UtilityFX;
 
 import java.io.IOException;
 import java.net.URL;
@@ -119,8 +121,15 @@ public class UserCoursesController implements Initializable {
 
     @FXML
     public void editCoursesOnAction(ActionEvent actionEvent) {
-        bp.getChildren().clear();
-        loadPage("editCourses.fxml");
+        String userType = String.valueOf(UserSession.getInstance().getLoggedUser().getRole()); // Obtén el tipo de usuario actual
+        if ("INSTRUCTOR".equals(userType) || "ADMIN".equals(userType)) {
+            bp.getChildren().clear();
+            loadPage("editCourses.fxml");
+        } else {
+            System.out.println("No tienes permiso para editar cursos.");
+            // Muestra una alerta al usuario
+            UtilityFX.alert("Permiso denegado", "No tienes permiso para editar cursos.");
+        }
     }
 
     @FXML
