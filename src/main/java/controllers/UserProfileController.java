@@ -61,7 +61,7 @@ public class UserProfileController {
 //            courses.setText(String.valueOf(loggedUser.coursesToString()));
 //            country.setText(RSC.getCountryInput());
 //            city.setText(RSC.getCityInput());
-//            place.setText(RSC.getPlaceInput());
+///           place.setText(RSC.getPlaceInput());
         }
     }
 
