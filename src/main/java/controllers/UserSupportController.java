@@ -39,7 +39,7 @@ public class UserSupportController {
 
     @javafx.fxml.FXML
     public void mailSuportOnAction(ActionEvent actionEvent) {
-        String email = "alejosolis1705@gmail.com";
+        String email = "myonlinelearning229@gmail.com";
         String subject = "Consulta de Soporte";
         String body = "Ingrese su consulta aquí:";
         String mailto = String.format("mailto:%s?subject=%s&body=%s", email, subject, body);

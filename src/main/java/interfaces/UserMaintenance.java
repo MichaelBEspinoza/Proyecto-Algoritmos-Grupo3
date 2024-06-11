@@ -45,5 +45,5 @@ public interface UserMaintenance {
     /**
     - changePassword(int userId, String newPassword): boolean: Permite al usuario cambiar su contraseña y devuelve true si se cambia con éxito.
     */
-    public boolean changePassword(int userId, String newPassword);
+    public boolean changePassword(int userId, String newPassword) throws ListException;
 }
