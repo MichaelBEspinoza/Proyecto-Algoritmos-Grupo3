@@ -5,6 +5,7 @@ import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
+import structures.lists.Node;
 import structures.lists.SinglyLinkedList;
 
 
@@ -90,17 +91,18 @@ public class UserOperations implements UserMaintenance {
 
     @Override
     public User readUser(int userId) {
-        /* Método que retorna al usuario correspondiente al ID que recibe por parámetro. De no encontrarlo, retorna 'null'
-           @param userID ID del usuario a buscar y retornar.
-           @return check Que corresponde al usuario encontrado.*/
-
+    /* Método que retorna al usuario correspondiente al ID que recibe por parámetro. De no encontrarlo, retorna 'null'
+       @param userID ID del usuario a buscar y retornar.
+       @return check Que corresponde al usuario encontrado.*/
         loadUsersFromFile("users.txt");
-
         try {
-            for (int i = 1; i <= users.size(); i++) {
-                User user = (User) users.getNode(i).data;
-                if (user.getId() == userId)
-                    return user;
+            for (int i = 1; i < users.size(); i++) { // Cambiado a i = 0
+                Node node = users.getNode(i);
+                if (node != null) {
+                    User user = (User) node.data;
+                    if (user.getId() == userId)
+                        return user;
+                }
             }// End of 'for' loop.
         } catch (ListException e) {
             logger.log(Level.SEVERE, "Error while reading user.", e);
