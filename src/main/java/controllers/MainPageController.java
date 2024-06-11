@@ -9,6 +9,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import operations.CourseOperations;
+import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
@@ -50,19 +51,27 @@ public class MainPageController {
     public void initialize() {
         courseOperations = new CourseOperations();
         courseOperations.loadCoursesFromFile("cursos.txt");
-        loadCourses();
+        try {
+            loadCourses();
+        } catch (TreeException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void loadCourses() {
+    private void loadCourses() throws TreeException {
         List<Course> courses = courseOperations.listCourse();
-        if (!courses.isEmpty()) {
-            displayCourse(p_course1, courses.get(0));
-        }
-        if (courses.size() > 1) {
-            displayCourse(p_course2, courses.get(1));
-        }
-        if (courses.size() > 2) {
-            displayCourse(p_course3, courses.get(2));
+        if (courses == null || courses.isEmpty()) {
+            displayNoCoursesMessage();
+        } else {
+            if (courses.size() > 0) {
+                displayCourse(p_course1, courses.get(0));
+            }
+            if (courses.size() > 1) {
+                displayCourse(p_course2, courses.get(1));
+            }
+            if (courses.size() > 2) {
+                displayCourse(p_course3, courses.get(2));
+            }
         }
     }
 
@@ -73,6 +82,15 @@ public class MainPageController {
         });
     }
 
+    private void displayNoCoursesMessage() {
+        p_course1.setText("No hay cursos disponibles");
+        p_course1.setDisable(true);
+        p_course2.setText("No hay cursos disponibles");
+        p_course2.setDisable(true);
+        p_course3.setText("No hay cursos disponibles");
+        p_course3.setDisable(true);
+    }
+
     @FXML
     public void perfilOnAction(ActionEvent actionEvent) {
         loadPage("userProfile.fxml");
@@ -80,7 +98,7 @@ public class MainPageController {
 
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
-        loadPage("usersupport.fxml");
+        loadPage("");
     }
 
     @FXML

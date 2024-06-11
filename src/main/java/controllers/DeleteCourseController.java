@@ -116,8 +116,6 @@ public class DeleteCourseController {
             }
         } catch (NumberFormatException e) {
             UtilityFX.alert("Error", "ID del curso no es un número válido.");
-        } catch (TreeException e) {
-            UtilityFX.alert("Error", "Ocurrió un error al eliminar el curso.");
         }
     }
 
