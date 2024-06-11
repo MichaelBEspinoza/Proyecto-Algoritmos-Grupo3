@@ -124,7 +124,7 @@ public class DeleteCourseController {
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
         bp.getChildren().clear();
-        loadPage("helpScreen.fxml");
+        loadPage("usersupport.fxml");
     }
 
     @FXML

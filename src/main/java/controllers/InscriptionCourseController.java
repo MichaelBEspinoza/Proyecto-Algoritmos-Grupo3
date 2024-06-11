@@ -49,6 +49,8 @@ public class InscriptionCourseController {
 
     @javafx.fxml.FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("usersupport.fxml");
     }
 
     @javafx.fxml.FXML

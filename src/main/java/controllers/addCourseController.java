@@ -56,7 +56,7 @@ public class addCourseController {
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
         bp.getChildren().clear();
-        loadPage("helpScreen.fxml");
+        loadPage("usersupport.fxml");
     }
 
     @FXML

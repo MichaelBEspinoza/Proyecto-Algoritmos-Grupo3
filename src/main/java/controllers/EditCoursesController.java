@@ -94,7 +94,7 @@ public class EditCoursesController {
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
         bp.getChildren().clear();
-        loadPage("helpScreen.fxml");
+        loadPage("usersupport.fxml");
 
     }
 

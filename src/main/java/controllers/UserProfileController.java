@@ -89,7 +89,7 @@ public class UserProfileController {
 
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
-        // Implementación del manejo de la acción de ayuda
+        loadPage("usersupport.fxml");
     }
 
     @FXML
