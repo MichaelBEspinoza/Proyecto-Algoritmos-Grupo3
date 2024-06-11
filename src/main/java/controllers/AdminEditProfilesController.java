@@ -70,7 +70,6 @@ public class AdminEditProfilesController {
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
-        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
@@ -93,7 +92,6 @@ public class AdminEditProfilesController {
             util.UtilityFX.alert("Error: cambios no aplicables",
                     "Uno o más campos están vacíos. Todos los campos deben contener información.\nInténtelo de nuevo.");
         } else {
-            System.out.println("Usuario: " + foundUser);
             foundUser.setName(txf_name.getText());
             foundUser.setId(Integer.parseInt(txf_id.getText()));
             foundUser.setEmail(txf_email.getText());
@@ -102,42 +100,12 @@ public class AdminEditProfilesController {
             foundUser.setCity(txf_city.getText());
             foundUser.setPlace(txf_place.getText());
             UO.updateUser(foundUser);
-            System.out.println("Usuario: " + foundUser);
 
             UO.updateProfile(foundUser);
             UO.saveUsersToFile("users.txt");
+            util.UtilityFX.alert("Cambios efectuados", "Se han realizado los cambios acordemente.");
         }
     }
-
-//    @javafx.fxml.FXML
-//    public void searchOnAction(Event event) {
-//        editThisTXF.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
-//            if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-//                foundUser = UO.readUser(Integer.parseInt(editThisTXF.getText()));
-//                if (foundUser != null && UO.userExists(foundUser)) {
-//                    util.UtilityFX.alert("Modificar", "Usuario encontrado con éxito.\nHabilitando campos...");
-//                    txf_name.setDisable(false);
-//                    txf_id.setDisable(false);
-//                    txf_email.setDisable(false);
-//                    cb_role.setDisable(false);
-//                    txf_country.setDisable(false);
-//                    txf_city.setDisable(false);
-//                    txf_place.setDisable(false);
-//                    saveChangesButton.setDisable(false);
-//                    changePasswordText.setDisable(false);
-//                    deleteButton.setDisable(false);
-//
-//                    txf_name.setText(foundUser.getName());
-//                    txf_id.setText(String.valueOf(foundUser.getId()));
-//                    txf_email.setText(foundUser.getEmail());
-//                    cb_role.getSelectionModel().select(foundUser.roleToString());
-//                    txf_country.setText(foundUser.getCountry());
-//                    txf_city.setText(foundUser.getCity());
-//                    txf_place.setText(foundUser.getPlace());
-//                } else
-//                    util.UtilityFX.alert("Usuario no encontrado", "El usuario no pudo ser encontrado por su ID.\nInténtelo de nuevo.");
-//            }});
-//    }
 
     private boolean fieldsAreEmpty() {
         return txf_name.getText().isEmpty() || txf_id.getText().isEmpty() ||
@@ -149,6 +117,7 @@ public class AdminEditProfilesController {
     public void deleteOnAction(ActionEvent actionEvent) {
         if (foundUser != null && UO.userExists(foundUser)) {
             UO.deleteUser(foundUser.getId());
+            UO.saveUsersToFile("users.txt");
             util.UtilityFX.alert("Eliminado","Usuario eliminado con éxito.");
         }else util.UtilityFX.alert("Usuario no encontrado", "El usuario no pudo ser encontrado por su ID.\nInténtelo de nuevo.");
     }

@@ -49,7 +49,6 @@ public class DeleteCourseController {
         courseOperations = new CourseOperations();
         courseOperations.loadCoursesFromFile("cursos.txt");
 
-        // Agregar listener para el campo de texto del ID
         idField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.isEmpty()) {
                 try {
@@ -70,7 +69,6 @@ public class DeleteCourseController {
             }
         });
 
-        // Añadir enfoque explícito a los campos
         Platform.runLater(() -> {
             idField.setFocusTraversable(true);
             nameField.setFocusTraversable(true);
@@ -79,14 +77,13 @@ public class DeleteCourseController {
             levelField.setFocusTraversable(true);
             instructorIdField.setFocusTraversable(true);
 
-            // Imprimir el enfoque actual
-            System.out.println("idField editable: " + idField.isEditable());
-            System.out.println("nameField editable: " + nameField.isEditable());
-            System.out.println("descriptionField editable: " + descriptionField.isEditable());
-            System.out.println("lengthField editable: " + lengthField.isEditable());
-            System.out.println("levelField editable: " + levelField.isEditable());
-            System.out.println("instructorIdField editable: " + instructorIdField.isEditable());
-            System.out.println("Focused element: " + idField.getScene().getFocusOwner());
+//            System.out.println("idField editable: " + idField.isEditable());
+//            System.out.println("nameField editable: " + nameField.isEditable());
+//            System.out.println("descriptionField editable: " + descriptionField.isEditable());
+//            System.out.println("lengthField editable: " + lengthField.isEditable());
+//            System.out.println("levelField editable: " + levelField.isEditable());
+//            System.out.println("instructorIdField editable: " + instructorIdField.isEditable());
+//            System.out.println("Focused element: " + idField.getScene().getFocusOwner());
         });
     }
 

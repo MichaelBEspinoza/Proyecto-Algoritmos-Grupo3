@@ -139,7 +139,7 @@ public class UserOperations implements UserMaintenance {
                     users.removeLast();
                     return true;
                 }// End of 'if'
-                else if (user.getId() == userId) { // Si no es ninguno de los dos escenarios anteriores.
+                 else if (user.getId() == userId) { // Si no es ninguno de los dos escenarios anteriores.
                     users.remove(user);
                     return true; // Usuario borrado exitosamente.
                 }// End of 'if'.

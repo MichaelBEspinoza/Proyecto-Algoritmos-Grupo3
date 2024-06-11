@@ -78,7 +78,7 @@
                               </Menu>
                               <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="About" />
+                                    <MenuItem mnemonicParsing="false" text="Soporte" />
                                  </items>
                               </Menu>
                            </menus>

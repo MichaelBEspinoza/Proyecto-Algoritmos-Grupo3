@@ -46,17 +46,17 @@
                                     <menus>
                                         <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Close" />
+                                                <MenuItem mnemonicParsing="false" text="Página principal" />
                                             </items>
                                         </Menu>
                                         <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                                <MenuItem mnemonicParsing="false" text="Mis cursos" />
                                             </items>
                                         </Menu>
                                         <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="About" />
+                                                <MenuItem mnemonicParsing="false" text="Soporte" />
                                             </items>
                                         </Menu>
                                     </menus>

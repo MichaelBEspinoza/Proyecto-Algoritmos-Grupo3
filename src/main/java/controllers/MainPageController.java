@@ -39,7 +39,6 @@ public class MainPageController {
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
-        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
@@ -92,9 +91,7 @@ public class MainPageController {
     }
 
     @FXML
-    public void perfilOnAction(ActionEvent actionEvent) {
-        loadPage("userProfile.fxml");
-    }
+    public void perfilOnAction(ActionEvent actionEvent) {loadPage("userProfile.fxml");}
 
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
@@ -122,16 +119,13 @@ public class MainPageController {
     }
 
     @FXML
-    public void menuHelpOnAction(ActionEvent actionEvent) {
-    }
+    public void menuHelpOnAction(ActionEvent actionEvent) {loadPage("usersupport.fxml");}
 
     @FXML
-    public void menuCursosOnAction(ActionEvent actionEvent) {
-    }
+    public void menuCursosOnAction(ActionEvent actionEvent) {loadPage("userCourses.fxml");}
 
     @FXML
-    public void menuMainPage(ActionEvent actionEvent) {
-    }
+    public void menuMainPage(ActionEvent actionEvent) {loadPage("mainPage.fxml");}
 
     @FXML
     public void inscripcionOnAction(ActionEvent actionEvent) {

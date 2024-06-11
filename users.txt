@@ -1,6 +1,4 @@
-9999,Katherine,KntwjqqE69,kathybrenes14@gmail.com,USER,CR,Cartago,Paraíso
-6247,David,IE{ni678,davidcalvogam@gmail.com,USER,CR,Cartago,Paraiso
-305530305,Kerlon,Kerlon123/,kerlon.gomez@ucr.ac.cr,USER,Sudamerica,New York,Puntarenas
-204,Micha,FqfgErf9kzs,davidcalvogam@gmail.com,ADMINISTRATOR,Costa Rica,San Jose,Paraiso
 101,Ale,67894Fghi,alejosolis1705@gmail.com,ADMINISTRATOR,Si,Morado,Sede Regional Isla del Coco
 119260668,David Calvo Gamboa,MtqfIf{nx&678,davidcalvogam@gmail.com,ADMINISTRATOR,Costa Rica,Cartago,Paraíso
+1,Hola,MtqfMtqf&678,Hola,USER,Hola,Hola,Hola
+2,Buenas,GzjsfxGzjsfx&678,hola,USER,Hola,Hola,hola
