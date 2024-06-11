@@ -256,97 +256,23 @@ jun 10, 2024 5:30:28 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
 jun 10, 2024 6:29:14 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
-jun 10, 2024 8:09:29 P. M. operations.UserOperations loadUsersFromFile
+jun 10, 2024 6:47:36 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
-jun 10, 2024 8:09:38 P. M. operations.UserOperations loadUsersFromFile
+jun 10, 2024 6:47:36 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 10, 2024 6:47:40 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
-jun 10, 2024 8:11:05 P. M. operations.UserOperations loadUsersFromFile
+jun 10, 2024 6:48:28 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
-jun 10, 2024 8:11:36 P. M. operations.UserOperations loadUsersFromFile
+jun 10, 2024 6:48:46 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 10, 2024 7:15:12 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
-jun 10, 2024 8:11:53 P. M. operations.UserOperations loadUsersFromFile
+jun 10, 2024 7:15:12 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 10, 2024 7:15:16 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
-jun 10, 2024 8:11:53 P. M. operations.UserOperations loadUsersFromFile
+jun 10, 2024 7:17:29 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:10 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:10 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:12 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:12 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:12 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:12 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:14 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:14 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:15 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:15 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:15 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:15 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:16 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:16 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:16 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:16 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:16 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:16 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:16 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:16 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:26 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:31 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:31 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:32 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:32 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:34 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:34 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:35 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:12:35 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:03 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:07 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:07 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:08 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:08 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:09 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:09 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:10 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:10 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:27 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:13:27 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
-jun 10, 2024 8:14:56 P. M. operations.UserOperations loadUsersFromFile
-INFO: Users loaded from file successfully.
+jun 10, 2024 7:18:21 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
