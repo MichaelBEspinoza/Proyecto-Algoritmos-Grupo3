@@ -5,18 +5,11 @@ import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
-import structures.lists.Node;
 import structures.lists.SinglyLinkedList;
 
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Properties;
@@ -91,18 +84,15 @@ public class UserOperations implements UserMaintenance {
 
     @Override
     public User readUser(int userId) {
-    /* Método que retorna al usuario correspondiente al ID que recibe por parámetro. De no encontrarlo, retorna 'null'
-       @param userID ID del usuario a buscar y retornar.
-       @return check Que corresponde al usuario encontrado.*/
+        /* Método que retorna al usuario correspondiente al ID que recibe por parámetro. De no encontrarlo, retorna 'null'
+           @param userID ID del usuario a buscar y retornar.
+           @return check Que corresponde al usuario encontrado.*/
         loadUsersFromFile("users.txt");
         try {
-            for (int i = 1; i < users.size(); i++) { // Cambiado a i = 0
-                Node node = users.getNode(i);
-                if (node != null) {
-                    User user = (User) node.data;
-                    if (user.getId() == userId)
-                        return user;
-                }
+            for (int i = 1; i <= users.size(); i++) {
+                User user = (User) users.getNode(i).data;
+                if (user.getId() == userId)
+                    return user;
             }// End of 'for' loop.
         } catch (ListException e) {
             logger.log(Level.SEVERE, "Error while reading user.", e);
@@ -143,17 +133,14 @@ public class UserOperations implements UserMaintenance {
 
                 if (user == users.getNode(1).data) { // Si es el primer elemento en la lista.
                     users.removeFirst();
-                    saveUsersToFile("users.txt");
                     return true;
                 }// End of 'if'.
                 else if (user == users.getNode(users.size()).data) { // Si es el último elemento en la lista.
                     users.removeLast();
-                    saveUsersToFile("users.txt");
                     return true;
                 }// End of 'if'
                 else if (user.getId() == userId) { // Si no es ninguno de los dos escenarios anteriores.
                     users.remove(user);
-                    saveUsersToFile("users.txt");
                     return true; // Usuario borrado exitosamente.
                 }// End of 'if'.
             }// End of 'for' loop.
@@ -172,9 +159,9 @@ public class UserOperations implements UserMaintenance {
 
     @Override
     public void sendEmailNotification(User user, String message) {
-    /* Método que envía una notificación por correo electrónico a la dirección del usuario pasado como parámetro.
-       @param user Usuario al que se le enviará la notificación, por medio de su correo electrónico.
-       @param message Mensaje incluido en el correo enviado al usuario.*/
+        /* Método que envía una notificación por correo electrónico a la dirección del usuario pasado como parámetro.
+           @param user Usuario al que se le enviará la notificación, por medio de su correo electrónico.
+           @param message Mensaje incluido en el correo enviado al usuario.*/
 
         System.out.println("TLSEmail Start");
         Properties props = new Properties();
@@ -189,32 +176,15 @@ public class UserOperations implements UserMaintenance {
             }// End of 'PasswordAuthentication'.
         });
 
-        try {
+        try{
             MimeMessage mimeMessage = new MimeMessage(session);
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), true));
             mimeMessage.setSubject("MyOnlineLearning Authentication");
-
-            MimeBodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText(message);
-
-            MimeBodyPart imagePart = new MimeBodyPart();
-            String imagePath = "src/main/resources/ucr/proyecto/proyectoalgoritmosv1/ucr.png";
-            DataSource source = new FileDataSource(imagePath);
-            imagePart.setDataHandler(new DataHandler(source));
-            imagePart.setFileName(imagePath);
-            imagePart.setHeader("Content-ID", "<image>");
-
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart);
-            multipart.addBodyPart(imagePart);
-
-            mimeMessage.setContent(multipart);
-
+            mimeMessage.setText(message);
             System.out.println("sending...");
             Transport.send(mimeMessage);
             System.out.println("Sent message successfully....");
-        } catch (MessagingException me) {
-            logger.log(Level.SEVERE, "Error while sending e-mail.", me);
+        }catch (MessagingException me){logger.log(Level.SEVERE, "Error while sending e-mail.", me);
         }// End of 'catch'.
     }// End of method [sendEmailNotifications].
 
