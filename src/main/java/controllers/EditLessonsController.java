@@ -1,60 +1,55 @@
 package controllers;
 
 import domain.Lesson;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Menu;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import operations.CourseOperations;
 import operations.LessonOperations;
 import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
-import util.UtilityFX;
 
 import java.io.IOException;
-import java.util.Optional;
+import java.util.Objects;
 
 public class EditLessonsController {
+
+    @javafx.fxml.FXML
+    private TextField txf_title;
     @javafx.fxml.FXML
     private Menu menuPaginaPrincipal;
     @javafx.fxml.FXML
     private Menu menuAyuda;
     @javafx.fxml.FXML
-    private Pane pane1;
+    private TextField txf_id;
     @javafx.fxml.FXML
-    private TableView<Lesson> tv_Lessons;
+    private Button editButton;
+    @javafx.fxml.FXML
+    private MenuItem mn_mainPage;
+    @javafx.fxml.FXML
+    private TextField txf_idcourse;
+    @javafx.fxml.FXML
+    private TextArea txa_Content;
     @javafx.fxml.FXML
     private Menu menuCursos;
     @javafx.fxml.FXML
+    private TextField txf_SearchID;
+    @javafx.fxml.FXML
     private BorderPane bp;
-    @FXML
-    private TableColumn<Lesson, String> tc_Content;
-    @FXML
-    private TableColumn<Lesson, String> tc_Course;
-    @FXML
-    private TableColumn<Lesson, String> tc_Title;
-    @FXML
-    private TableColumn<Lesson, Integer> tc_ID;
+    @javafx.fxml.FXML
+    private MenuItem mn_courses;
 
-    LessonOperations lessonOperations = new LessonOperations();
+    LessonOperations lessons = new LessonOperations();
+    CourseOperations courses = new CourseOperations();
 
-    public void initialize() throws TreeException {
-        if (!lessonOperations.listLessons().isEmpty())
-            lessonOperations.loadCoursesFromFile("lessons.txt");
-
-        tc_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tc_Title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        tc_Content.setCellValueFactory(new PropertyValueFactory<>("course"));
-        tc_Content.setCellValueFactory(new PropertyValueFactory<>("content"));
-        loadLessonsIntoTableView();
+    public void initialize() {
+        txf_id.setDisable(true);
+        txf_title.setDisable(true);
+        txa_Content.setDisable(true);
+        txf_idcourse.setDisable(true);
+        editButton.setDisable(true);
     }
 
     private void loadPage(String page) {
@@ -65,29 +60,6 @@ public class EditLessonsController {
         } catch (IOException e) {
             //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
-        }
-    }
-
-    @javafx.fxml.FXML
-    public void editOnAction(ActionEvent actionEvent) {loadPage("editLessons.fxml");
-    }
-
-    @javafx.fxml.FXML
-    public void addOnAction(ActionEvent actionEvent) {loadPage("addLessons.fxml");
-    }
-
-    @javafx.fxml.FXML
-    public void deleteOnAction(ActionEvent actionEvent) throws TreeException {
-
-        String deleteThis = UtilityFX.dialog("Eliminar lección", "Digite la lección a eliminar.");
-        Optional<String> value = deleteThis.describeConstable();
-
-        if (value.isPresent()) {
-            String id = value.get();
-            if (id.matches("[0-9]") && lessonOperations.readLesson(Integer.parseInt(id)) != null) {
-                lessonOperations.deleteLesson(Integer.parseInt(id));
-                util.UtilityFX.alert("Éxito al eliminar", "La lección ha sido suprimida exitosamente.");
-            } else util.UtilityFX.alert("Error al eliminar", "La lección con ID " + id + " no existe o no fue encontrada.");
         }
     }
 
@@ -109,17 +81,50 @@ public class EditLessonsController {
         loadPage("userCourses.fxml");
     }
 
-    private void loadLessonsIntoTableView() {
-        ObservableList<Lesson> list = FXCollections.observableArrayList();
+    @javafx.fxml.FXML
+    public void editOnAction(ActionEvent actionEvent) throws TreeException {
 
-        try {
-            for (int i = 1; i <= lessonOperations.listLessons().size(); i++) {
-                Lesson lesson =  lessonOperations.listLessons().get(i);
-                list.add(lesson);
-            }
-        } catch (TreeException e) {
-            throw new RuntimeException(e);
+        if (txf_idcourse.getText().isEmpty() || txf_title.getText().isEmpty() || txa_Content.getText().isEmpty() || txf_idcourse.getText().isEmpty()) {
+            util.UtilityFX.alert("Error al editar", "Ningún campo debe quedar vacío. Inténtelo de nuevo.");
+            return;
         }
+
+        if (Objects.equals(courses.readCourse(Integer.parseInt(txf_idcourse.getText())), "The course doesn’t exist")) {
+            util.UtilityFX.alert("Error al editar", "El curso con la ID " + txf_idcourse.getText() + " no existe.");
+            return;
+        }
+
+        Lesson editThis = lessons.readLesson(Integer.parseInt(txf_SearchID.getText()));
+        editThis.setId(Integer.parseInt(txf_id.getText()));
+        editThis.setTitle(txf_title.getText());
+        editThis.setContent(txa_Content.getText());
+        editThis.setCourseId(Integer.parseInt(txf_idcourse.getText()));
+        util.UtilityFX.alert("Éxito al editar", "Se ha editado la lección exitosamente.");
     }
 
-}
+    @javafx.fxml.FXML
+    public void backOnAction(ActionEvent actionEvent) {
+        bp.getChildren().clear();
+        loadPage("lessonMaintenance.fxml");
+    }
+
+    @FXML
+    public void searchOnAction(ActionEvent actionEvent) throws TreeException {
+        lessons.loadLessonsFromFile("lessons.txt");
+
+        int searchThis = Integer.parseInt(txf_SearchID.getText());
+
+        if (lessons.checkIfExistsById(searchThis)) {
+            txf_id.setDisable(false);
+            txf_title.setDisable(false);
+            txa_Content.setDisable(false);
+            txf_idcourse.setDisable(false);
+            editButton.setDisable(false);
+            util.UtilityFX.alert("Lección encontrada", "La lección fue encontrada exitosamente.\nCargando campos...");
+            txf_id.setText(String.valueOf(lessons.readLesson(searchThis).getId()));
+            txf_title.setText(lessons.readLesson(searchThis).getTitle());
+            txa_Content.setText(lessons.readLesson(searchThis).getContent());
+            txf_idcourse.setText(String.valueOf(lessons.readLesson(searchThis).getCourseId()));
+        } else util.UtilityFX.alert("Error al buscar", "La ID no está asociada a una lección existente.");
+    }
+}// End of class [EditLessonsController].

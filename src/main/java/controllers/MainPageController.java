@@ -146,6 +146,6 @@ public class MainPageController {
     }
 
     @FXML
-    public void menuLessons(ActionEvent actionEvent) {loadPage("editLessons.fxml");
+    public void menuLessons(ActionEvent actionEvent) {loadPage("lessonMaintenance.fxml");
     }
 }

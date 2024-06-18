@@ -4,8 +4,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,13 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditLessonsController">
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LessonMaintenanceController">
     <center>
-        <AnchorPane prefHeight="477.0" prefWidth="629.0" style="-fx-background-color: #457d97;">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="719.0" style="-fx-background-color: #457d97;">
             <children>
-                <Pane layoutX="28.0" layoutY="30.0" prefHeight="422.0" prefWidth="572.0" style="-fx-background-color: #efeba9;">
+                <Pane fx:id="pane1" layoutX="28.0" layoutY="23.0" prefHeight="486.0" prefWidth="669.0" style="-fx-background-color: #faf0e7;">
                     <children>
-                        <Pane layoutX="14.0" layoutY="14.0" prefHeight="45.0" prefWidth="202.0" style="-fx-background-color: #edd5c5;">
+                        <Pane layoutX="15.0" layoutY="14.0" prefHeight="45.0" prefWidth="202.0" style="-fx-background-color: #edd5c5;">
                             <children>
                                 <Text layoutX="54.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIVERSIDAD DE COSTA RICA" wrappingWidth="139.03515625">
                                     <font>
@@ -49,40 +49,18 @@
                                 </ImageView>
                             </children>
                         </Pane>
-                        <Pane layoutX="15.0" layoutY="70.0" prefHeight="338.0" prefWidth="541.0" style="-fx-background-color: #faf0e7;">
-                            <children>
-                                <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar una Lección:">
-                                    <font>
-                                        <Font name="Bell MT" size="18.0" />
-                                    </font>
-                                </Text>
-                                <Text layoutX="14.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cambiar título:" />
-                                <Text layoutX="11.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cambiar ID:" wrappingWidth="89.208984375" />
-                                <Text layoutX="11.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cambiar contenido:" />
-                                <TextField fx:id="txf_id" layoutX="128.0" layoutY="74.0" />
-                                <TextField fx:id="txf_title" layoutX="128.0" layoutY="108.0" />
-                                <Text layoutX="11.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CambiarID del curso:" />
-                                <TextField fx:id="txf_idcourse" layoutX="128.0" layoutY="143.0" prefHeight="25.0" prefWidth="92.0" />
-                                <Button fx:id="editButton" layoutX="446.0" layoutY="299.0" mnemonicParsing="false" onAction="#editOnAction" text="Editar curso" />
-                        <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID de la lección:" />
-                        <TextField fx:id="txf_SearchID" layoutX="128.0" layoutY="40.0" />
-                        <Button layoutX="15.0" layoutY="299.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="25.0" prefWidth="57.0" text="Atrás" />
-                        <TextArea fx:id="txa_Content" layoutX="128.0" layoutY="184.0" prefHeight="141.0" prefWidth="255.0" />
-                        <Button layoutX="291.0" layoutY="40.0" mnemonicParsing="false" onAction="#searchOnAction" text="Buscar..." />
-                            </children>
-                        </Pane>
-                        <Pane layoutX="233.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
+                        <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
                             <children>
                                 <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
                                     <menus>
                                         <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
                                             <items>
-                                                <MenuItem fx:id="mn_mainPage" mnemonicParsing="false" text="Págin principal" />
+                                                <MenuItem mnemonicParsing="false" text="Página principal" />
                                             </items>
                                         </Menu>
-                                        <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Cursos">
+                                        <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
                                             <items>
-                                                <MenuItem fx:id="mn_courses" mnemonicParsing="false" text="Mis cursos:" />
+                                                <MenuItem mnemonicParsing="false" text="Mis cursos" />
                                             </items>
                                         </Menu>
                                         <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
@@ -92,6 +70,25 @@
                                         </Menu>
                                     </menus>
                                 </MenuBar>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
+                            <children>
+                                <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edición de Lecciones:">
+                                    <font>
+                                        <Font name="Bell MT" size="18.0" />
+                                    </font>
+                                </Text>
+                        <TableView fx:id="tv_Lessons" layoutX="14.0" layoutY="36.0" prefHeight="270.0" prefWidth="604.0">
+                           <columns>
+                              <TableColumn fx:id="tc_ID" prefWidth="74.0" text="ID" />
+                              <TableColumn fx:id="tc_Title" prefWidth="107.0" text="Título" />
+                              <TableColumn fx:id="tc_Course" prefWidth="159.0" text="Curso" />
+                              <TableColumn fx:id="tc_Content" prefWidth="262.0" text="Contenido" />
+                           </columns></TableView>
+                        <Button layoutX="122.0" layoutY="326.0" mnemonicParsing="false" onAction="#addOnAction" prefHeight="25.0" prefWidth="120.0" text="Agregar lección" />
+                        <Button layoutX="251.0" layoutY="326.0" mnemonicParsing="false" onAction="#editOnAction" prefHeight="25.0" prefWidth="120.0" text="Editar lección" />
+                        <Button layoutX="381.0" layoutY="326.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="25.0" prefWidth="120.0" style="-fx-background-color: #E8563C;" text="Eliminar lección" textFill="#ebebeb" />
                             </children>
                         </Pane>
                     </children>

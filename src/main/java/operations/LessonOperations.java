@@ -15,7 +15,7 @@ public class LessonOperations implements LessonMaintenance {
 
     @Override
     public boolean createLesson(Lesson lesson) throws TreeException {
-        loadCoursesFromFile("lessons.txt");
+        loadLessonsFromFile("lessons.txt");
 
         for (int i = 0; i < lessons.size(); i++)
             if (!lessons.contains(lesson)) {
@@ -28,7 +28,7 @@ public class LessonOperations implements LessonMaintenance {
 
     @Override
     public Lesson readLesson(int lessonId) throws TreeException {
-        loadCoursesFromFile("lessons.txt");
+        loadLessonsFromFile("lessons.txt");
 
         if (lessons.isEmpty()) return null;
 
@@ -42,7 +42,7 @@ public class LessonOperations implements LessonMaintenance {
 
     @Override
     public boolean updateLesson(Lesson lesson) throws TreeException {
-        loadCoursesFromFile("lessons.txt");
+        loadLessonsFromFile("lessons.txt");
 
         if (lessons.isEmpty()) return false;
 
@@ -61,7 +61,7 @@ public class LessonOperations implements LessonMaintenance {
 
     @Override
     public boolean deleteLesson(int lessonId) throws TreeException {
-        loadCoursesFromFile("lessons.txt");
+        loadLessonsFromFile("lessons.txt");
 
         if (lessons.isEmpty()) return false;
 
@@ -79,7 +79,7 @@ public class LessonOperations implements LessonMaintenance {
     @Override
     public List<Lesson> listLessons() throws TreeException {
 
-        loadCoursesFromFile("lessons.txt");
+        loadLessonsFromFile("lessons.txt");
 
         List<Lesson> list = new ArrayList<>();
         if (!lessons.isEmpty())
@@ -103,7 +103,7 @@ public class LessonOperations implements LessonMaintenance {
         }
     }
 
-    public void loadCoursesFromFile(String filename) {
+    public void loadLessonsFromFile(String filename) {
         lessons.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -136,6 +136,15 @@ public class LessonOperations implements LessonMaintenance {
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Invalid course data: " + str, e);
         }
+    }
+
+    public boolean checkIfExistsById(int searchThis) throws TreeException {
+        loadLessonsFromFile("lessons.txt");
+        for (int i = 0; i < lessons.size(); i++) {
+            Lesson check = (Lesson) lessons.get(i);
+            if (check.getCourseId() == searchThis) return true;
+        }
+        return false;
     }
 
 }// End of class [LessonOperations].
