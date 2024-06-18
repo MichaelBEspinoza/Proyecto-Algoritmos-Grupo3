@@ -1,6 +1,9 @@
 package controllers;
 
 import domain.Course;
+import domain.Role;
+import domain.User;
+import domain.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class MainPageController {
+    public Menu menuLessons;
     @FXML
     private Menu menuPaginaPrincipal;
     @FXML
@@ -36,6 +40,7 @@ public class MainPageController {
     private BorderPane bp;
 
     private CourseOperations courseOperations;
+    User loggedUser = UserSession.getInstance().getLoggedUser();
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
@@ -50,6 +55,12 @@ public class MainPageController {
     public void initialize() {
         courseOperations = new CourseOperations();
         courseOperations.loadCoursesFromFile("cursos.txt");
+
+        if (loggedUser.getRole() == Role.USER) {
+            menuLessons.setDisable(true);
+            menuLessons.setVisible(false);
+        }
+
         try {
             loadCourses();
         } catch (TreeException e) {
@@ -115,7 +126,9 @@ public class MainPageController {
 
     @FXML
     public void userMaintenenceOnAction(ActionEvent actionEvent) {
-        loadPage("usersMaintenance.fxml");
+        if (loggedUser.getRole() == Role.USER)
+            loadPage("userEditProfile.fxml");
+        else loadPage("usersMaintenance.fxml");
     }
 
     @FXML
@@ -130,5 +143,9 @@ public class MainPageController {
     @FXML
     public void inscripcionOnAction(ActionEvent actionEvent) {
         loadPage("courseInscription.fxml");
+    }
+
+    @FXML
+    public void menuLessons(ActionEvent actionEvent) {loadPage("editLessons.fxml");
     }
 }

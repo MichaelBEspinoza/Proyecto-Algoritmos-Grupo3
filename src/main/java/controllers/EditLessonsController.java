@@ -46,7 +46,10 @@ public class EditLessonsController {
 
     LessonOperations lessonOperations = new LessonOperations();
 
-    public void initialize() {
+    public void initialize() throws TreeException {
+        if (!lessonOperations.listLessons().isEmpty())
+            lessonOperations.loadCoursesFromFile("lessons.txt");
+
         tc_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
         tc_Title.setCellValueFactory(new PropertyValueFactory<>("title"));
         tc_Content.setCellValueFactory(new PropertyValueFactory<>("course"));

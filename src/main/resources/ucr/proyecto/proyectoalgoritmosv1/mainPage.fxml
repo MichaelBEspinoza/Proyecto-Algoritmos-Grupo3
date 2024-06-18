@@ -7,9 +7,9 @@
 
 <BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainPageController">
     <center>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="719.0" style="-fx-background-color: #457d97;">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="790.0" style="-fx-background-color: #457d97;">
             <children>
-                <Pane fx:id="pane1" layoutX="28.0" layoutY="23.0" prefHeight="486.0" prefWidth="669.0" style="-fx-background-color: #faf0e7;">
+                <Pane fx:id="pane1" layoutX="28.0" layoutY="23.0" prefHeight="486.0" prefWidth="732.0" style="-fx-background-color: #faf0e7;">
                     <children>
                         <Pane layoutX="15.0" layoutY="14.0" prefHeight="45.0" prefWidth="202.0" style="-fx-background-color: #edd5c5;">
                             <children>
@@ -40,9 +40,9 @@
                                 </ImageView>
                             </children>
                         </Pane>
-                        <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
+                        <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="357.0" style="-fx-background-color: #edd5c5;">
                             <children>
-                                <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
+                                <MenuBar layoutX="13.0" layoutY="11.0" prefHeight="25.0" prefWidth="332.0">
                                     <menus>
                                         <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
                                             <items>
@@ -55,6 +55,11 @@
                                                 <MenuItem mnemonicParsing="false" onAction="#inscripcionOnAction" text="Inscribirse a cursos" />
                                             </items>
                                         </Menu>
+                              <Menu fx:id="menuLessons" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Lecciones">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#menuLessons" text="Consultar lecciones" />
+                                 </items>
+                              </Menu>
                                         <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
                                             <items>
                                                 <MenuItem mnemonicParsing="false" onAction="#menuHelpOnAction" text="Soporte" />
@@ -64,7 +69,7 @@
                                 </MenuBar>
                             </children>
                         </Pane>
-                        <Pane layoutX="538.0" layoutY="14.0" prefHeight="47.0" prefWidth="113.0" style="-fx-background-color: #edd5c5;">
+                        <Pane layoutX="605.0" layoutY="13.0" prefHeight="47.0" prefWidth="113.0" style="-fx-background-color: #edd5c5;">
                             <children>
                                 <MenuButton layoutX="27.0" layoutY="11.0" mnemonicParsing="false" text="Perfil">
                                     <items>
@@ -80,10 +85,10 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Button fx:id="p_course1" layoutX="16.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
-                        <Button fx:id="p_course2" layoutX="235.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
-                        <Button fx:id="p_course3" layoutX="455.0" layoutY="272.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #dee8be;" />
-                        <Pane fx:id="p_anunciosInteres" layoutX="16.0" layoutY="72.0" prefHeight="167.0" prefWidth="633.0" style="-fx-background-color: #efeba9;" />
+                        <Button fx:id="p_course1" layoutX="16.0" layoutY="272.0" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
+                        <Button fx:id="p_course2" layoutX="258.0" layoutY="272.0" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
+                        <Button fx:id="p_course3" layoutX="498.0" layoutY="272.0" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
+                        <Pane fx:id="p_anunciosInteres" layoutX="16.0" layoutY="72.0" prefHeight="167.0" prefWidth="704.0" style="-fx-background-color: #efeba9;" />
                     </children>
                 </Pane>
             </children>

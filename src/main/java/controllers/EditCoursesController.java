@@ -51,6 +51,7 @@ public class EditCoursesController {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void initialize() {
         courseOperations = new CourseOperations();

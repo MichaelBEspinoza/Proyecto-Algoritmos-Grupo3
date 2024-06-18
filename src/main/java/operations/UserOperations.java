@@ -1,11 +1,9 @@
 package operations;
 
-import domain.Course;
 import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
-import structures.lists.SinglyLinkedList;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -24,7 +22,6 @@ public class UserOperations implements UserMaintenance {
     // Instancia de la clase de 'CircularDoublyLinkedList' que va a mantener todos los usuarios.
     private CircularDoublyLinkedList users = new CircularDoublyLinkedList();
     // Instancia de la clase de 'SecurityOperations' para encriptar la contraseña del usuario.
-    private final SecurityOperations encrypt = new SecurityOperations();
 
     static { // Bloque estático asegura que se pueda llamar a lo largo de la clase.
         try {
@@ -284,14 +281,14 @@ public class UserOperations implements UserMaintenance {
     }
 
 
-    public User getUserByUsername(String username) throws ListException {
-        for (int i = 0; i < users.size(); i++) {
-            User user = (User) users.getNode(i).data;
-            if (user.getName().equals(username))
-                return user;
-        }
-        return null;
-    }
+//    public User getUserByUsername(String username) throws ListException {
+//        for (int i = 0; i < users.size(); i++) {
+//            User user = (User) users.getNode(i).data;
+//            if (user.getName().equals(username))
+//                return user;
+//        }
+//        return null;
+//    }
 
     public void viewAllUsers(String filename) throws ListException {
         loadUsersFromFile(filename); // Cargar los cursos desde el archivo
@@ -301,46 +298,44 @@ public class UserOperations implements UserMaintenance {
         }
     }
 
-    public boolean assignCourseToUser(int userId, Course course) {
-        try {
-            for (int i = 1; i <= users.size(); i++) {
-                User user = (User) users.getNode(i).data;
-                if (user.getId() == userId) {
-                    user.addCourse(course);
-                    return true;
-                }
-            }
-        } catch (ListException e) {
-            logger.log(Level.SEVERE, "Error while assigning course to user.", e);
-        }
-        return false;
-    }
-    public CircularDoublyLinkedList listAllCourses() {
-        CircularDoublyLinkedList allCourses = new CircularDoublyLinkedList();
-        try {
-            System.out.println("Iniciando el listado de todos los cursos...");
-            for (int i = 1; i <= users.size(); i++) {
-                User user = (User) users.getNode(i).data;
-                System.out.println("Usuario encontrado: " + user.getName());
-                SinglyLinkedList userCourses = user.getCourses();
-                if (userCourses != null) {
-                    System.out.println("Cursos del usuario " + user.getName() + ": " + userCourses.size());
-                    for (int j = 1; j <= userCourses.size(); j++) {
-                        Course course = (Course) userCourses.getNode(j).data;
-                        System.out.println("Curso encontrado: " + course.getName());
-                        allCourses.add(course);
-                    }
-                } else {
-                    System.out.println("El usuario " + user.getName() + " no tiene cursos.");
-                }
-            }
-        } catch (ListException e) {
-            logger.log(Level.SEVERE, "Error while listing all courses.", e);
-        }
-        System.out.println("Listado de cursos completado. Total de cursos: " + allCourses.size());
-        return allCourses;
-    }
-
-
-
+//    public boolean assignCourseToUser(int userId, Course course) {
+//        try {
+//            for (int i = 1; i <= users.size(); i++) {
+//                User user = (User) users.getNode(i).data;
+//                if (user.getId() == userId) {
+//                    user.addCourse(course);
+//                    return true;
+//                }
+//            }
+//        } catch (ListException e) {
+//            logger.log(Level.SEVERE, "Error while assigning course to user.", e);
+//        }
+//        return false;
+//    }
+//
+//    public CircularDoublyLinkedList listAllCourses() {
+//        CircularDoublyLinkedList allCourses = new CircularDoublyLinkedList();
+//        try {
+//            System.out.println("Iniciando el listado de todos los cursos...");
+//            for (int i = 1; i <= users.size(); i++) {
+//                User user = (User) users.getNode(i).data;
+//                System.out.println("Usuario encontrado: " + user.getName());
+//                SinglyLinkedList userCourses = user.getCourses();
+//                if (userCourses != null) {
+//                    System.out.println("Cursos del usuario " + user.getName() + ": " + userCourses.size());
+//                    for (int j = 1; j <= userCourses.size(); j++) {
+//                        Course course = (Course) userCourses.getNode(j).data;
+//                        System.out.println("Curso encontrado: " + course.getName());
+//                        allCourses.add(course);
+//                    }
+//                } else {
+//                    System.out.println("El usuario " + user.getName() + " no tiene cursos.");
+//                }
+//            }
+//        } catch (ListException e) {
+//            logger.log(Level.SEVERE, "Error while listing all courses.", e);
+//        }
+//        System.out.println("Listado de cursos completado. Total de cursos: " + allCourses.size());
+//        return allCourses;
+//    }
 }// End of class [UserOperations].
