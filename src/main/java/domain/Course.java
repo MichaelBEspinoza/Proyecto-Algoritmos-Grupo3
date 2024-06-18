@@ -1,5 +1,9 @@
 package domain;
 
+import structures.lists.ListException;
+import structures.lists.Node;
+import structures.lists.SinglyLinkedList;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -17,6 +21,8 @@ public class Course implements Serializable {
     private String level; /**Nivel de dificultad (Low, Medium, High)**/
 
     private int instructorId; /**Identificador del instructor que imparte el curso**/
+
+    private SinglyLinkedList lessons;
 
     public Course() {
     }
@@ -78,6 +84,14 @@ public class Course implements Serializable {
         this.instructorId = instructorId;
     }
 
+    public SinglyLinkedList getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(SinglyLinkedList lessons) {
+        this.lessons = lessons;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,5 +115,24 @@ public class Course implements Serializable {
                 ", level='" + level + '\'' +
                 ", instructorId=" + instructorId +
                 '}';
+    }
+
+    public StringBuilder lessonsToString() throws ListException {
+        StringBuilder list = new StringBuilder();
+        for (int i = 1; i <= lessons.size(); i++) { // Cambiado a 1-based index
+            Node node = lessons.getNode(i);
+            if (node != null) {
+                Lesson check = (Lesson) node.data;
+                if (check != null) {
+                    list.append(check.getId()).append(" - ").append(check.getTitle()).append("\n").append(check.getContent());
+                }
+            }
+        }
+        return list;
+    }
+
+    public void addLessons(Lesson lesson) {
+        if (lessons == null) lessons = new SinglyLinkedList();
+        lessons.add(lesson);
     }
 }

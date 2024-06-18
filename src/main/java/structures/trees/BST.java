@@ -227,4 +227,32 @@ public class BST implements Tree {
     public BTreeNode getRoot() {
         return root;
     }
+
+    public Object get(int index) throws TreeException {
+        if (isEmpty()) {
+            throw new TreeException("Binary Search Tree is empty.");
+        }
+        return get(root, new int[]{index}); // Usamos un array para mantener el estado del índice
+    }
+
+    private Object get(BTreeNode node, int[] index) {
+        if (node == null)
+            throw new IndexOutOfBoundsException("Index out of bounds");
+
+        Object result = null;
+        if (node.left != null) {
+            result = get(node.left, index);
+            if (result != null) return result;
+        }
+
+        if (index[0] == 0)
+            return node.data;
+        index[0]--;
+
+        if (node.right != null)
+            result = get(node.right, index);
+
+        return result;
+    }
+
 }

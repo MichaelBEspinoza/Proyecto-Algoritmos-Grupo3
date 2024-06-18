@@ -17,6 +17,7 @@ public class User implements Serializable {
     private String city;
     private String place;
     private SinglyLinkedList courses;
+    private SinglyLinkedList lessons;
 
     @Serial
     private static final long serialVersionUID = 1L;
