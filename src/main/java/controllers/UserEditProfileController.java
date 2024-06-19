@@ -29,11 +29,7 @@ public class UserEditProfileController {
     @FXML
     private BorderPane bp;
     @FXML
-    private TextField txf_country;
-    @FXML
     private TextField txf_city;
-    @FXML
-    private TextField txf_place;
     @FXML
     private TextField txf_id;
     @FXML
@@ -41,11 +37,50 @@ public class UserEditProfileController {
 
     private User loggedUser = UserSession.getInstance().getLoggedUser();
     private final UserOperations userOperations = new UserOperations();
+    @FXML
+    private ComboBox<String> cb_Place;
+    @FXML
+    private ComboBox<String> cb_Country;
 
     public void initialize() {
+        cb_Place.getItems().addAll("Ciudad Rodrigo Facio", "San Ramón", "Grecia",
+                "Turrialba", "Paraíso", "Guápiles",
+                "Liberia", "Santa Cruz", "Puerto Limón",
+                "Puntarenas", "Región Brunca");
+        cb_Country.getItems().addAll("Argentina", "Belice", "Bolivia", "Brasil", "Canadá", "Chile", "Colombia", "Costa Rica", "Cuba",
+                "Ecuador", "El Salvador", "Estados Unidos", "Guatemala", "Haití", "Honduras", "México", "Nicaragua", "Panamá",
+                "Paraguay", "Perú", "Rep. Dominicana", "Uruguay", "Venezuela");
         cb_role.getItems().addAll("Usuario","Instructor","Administrador");
         textFieldSetUp();
+
+        txf_name.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z ]*")) {
+                txf_name.setText(oldValue);
+            }
+        });
+
+        txf_city.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z ]*")) {
+                txf_name.setText(oldValue);
+            }
+        });
+
+        txf_id.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{0,9}")) {
+                txf_id.setText(oldValue);
+            }
+        });
+
+        txf_email.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (!isValidEmail(txf_email.getText())) {
+                    util.UtilityFX.alert("Email inválido", "Por favor, ingrese una dirección de correo electrónico de Gmail válida.");
+                    txf_email.requestFocus();
+                }
+            }
+        });
     }
+
 
     @FXML
     public void mainPageOnAction(ActionEvent actionEvent) {
@@ -69,9 +104,9 @@ public class UserEditProfileController {
             loggedUser.setId(Integer.parseInt(txf_id.getText()));
             loggedUser.setEmail(txf_email.getText());
             loggedUser.setRole(loggedUser.stringToRole(cb_role.getValue()));
-            loggedUser.setCountry(txf_country.getText());
+            loggedUser.setCountry(cb_Country.getValue());
             loggedUser.setCity(txf_city.getText());
-            loggedUser.setPlace(txf_place.getText());
+            loggedUser.setPlace(cb_Place.getValue());
 
             userOperations.updateProfile(loggedUser);
             loadPage("userProfile.fxml");
@@ -89,16 +124,16 @@ public class UserEditProfileController {
         txf_name.setText(loggedUser.getName());
         txf_email.setText(loggedUser.getEmail());
         txf_id.setText(String.valueOf(loggedUser.getId()));
-        txf_country.setText(loggedUser.getCountry());
+        cb_Country.getSelectionModel().select(loggedUser.getCountry());
         txf_city.setText(loggedUser.getCity());
-        txf_place.setText(loggedUser.getPlace());
+        cb_Place.getSelectionModel().select(loggedUser.getPlace());
         cb_role.getSelectionModel().selectFirst();
     }
 
     private boolean fieldsAreEmpty() {
         return txf_name.getText().isEmpty() || txf_id.getText().isEmpty() ||
                 txf_email.getText().isEmpty() || cb_role.getValue() == null ||
-                txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty();
+                cb_Country.getValue() == null || txf_city.getText().isEmpty() || cb_Place.getValue() == null;
     }
 
     private void loadPage(String page) {
@@ -110,6 +145,10 @@ public class UserEditProfileController {
             //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        return email != null && email.endsWith("@gmail.com");
     }
 }
 

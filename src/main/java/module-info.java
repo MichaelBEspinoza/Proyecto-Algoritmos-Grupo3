@@ -7,6 +7,7 @@ module ucr.proyecto.proyectoalgoritmosv1 {
     requires java.base;
     requires activation;
 
+    exports controllers to javafx.graphics;
     opens controllers to javafx.fxml;
     opens ucr.proyecto.proyectoalgoritmosv1 to javafx.fxml;
     opens domain to javafx.base;

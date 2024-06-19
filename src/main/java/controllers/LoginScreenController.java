@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -23,11 +24,11 @@ public class LoginScreenController {
     @FXML
     private TextField txf_user;
     @FXML
-    private TextField txf_password;
-    @FXML
     private BorderPane bp;
 
     private final SecurityOperations securityOperations = new SecurityOperations();
+    @FXML
+    private PasswordField txf_password;
 
     public void initialize() {
         txf_user.setText("");

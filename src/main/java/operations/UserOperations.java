@@ -118,34 +118,25 @@ public class UserOperations implements UserMaintenance {
 
     @Override
     public boolean deleteUser(int userId) {
-        /* Método que suprime a un usuario si lo encuentra en la lista, según el ID recibido por parámetro.
-           @param userID ID del usuario a buscar y borrar.
-           @return true Si se borra exitosamente, false si no se suprime nada.*/
+    /* Método que suprime a un usuario si lo encuentra en la lista, según el ID recibido por parámetro.
+       @param userID ID del usuario a buscar y borrar.
+       @return true Si se borra exitosamente, false si no se suprime nada.*/
         try {
             if (users.isEmpty()) return false; // La lista está vacía, no hay usuarios que borrar.
 
             // Buscar el usuario con el ID proporcionado.
             for (int i = 1; i <= users.size(); i++) {
                 User user = (User) users.getNode(i).data;
-
-                if (user == users.getNode(1).data) { // Si es el primer elemento en la lista.
-                    users.removeFirst();
-                    return true;
-                }// End of 'if'.
-                else if (user == users.getNode(users.size()).data) { // Si es el último elemento en la lista.
-                    users.removeLast();
-                    return true;
-                }// End of 'if'
-                 else if (user.getId() == userId) { // Si no es ninguno de los dos escenarios anteriores.
-                    users.remove(user);
+                if (user.getId() == userId) { // Comparar el ID del usuario
+                    users.remove(i); // Eliminar el usuario en la posición actual
                     return true; // Usuario borrado exitosamente.
-                }// End of 'if'.
-            }// End of 'for' loop.
+                }
+            }
         } catch (ListException e) {
             logger.log(Level.SEVERE, "Error while deleting user.", e);
-        }// End of 'catch'.
+        }
         return false; // No se encontró el usuario a borrar
-    }// End of method [deleteUser].
+    }
 
     @Override
     public CircularDoublyLinkedList listUsers() {

@@ -49,25 +49,35 @@ public class AddLessonsController {
         }
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void addOnAction(ActionEvent actionEvent) throws TreeException {
         if (txf_title.getText().isEmpty() || txf_id.getText().isEmpty() || txa_Content.getText().isEmpty()) {
             util.UtilityFX.alert("Error al insertar", "Todos los campos deben estar llenos. Inténtelo de nuevo.");
             return;
         }
 
-        for (Lesson check : lessons.listLessons()) {
-            if (check.getId() == Integer.parseInt(txf_id.getText())){
-                util.UtilityFX.alert("Error al insertar", "Una lección con esta ID ya existe.");
-                return;
-            } else {
-                Lesson addThis = new Lesson(Integer.parseInt(txf_id.getText()),
-                                            txf_title.getText(),
-                                            txa_Content.getText(),
-                                            Integer.parseInt(txf_Course.getText()));
+        try {
+            int lessonId = Integer.parseInt(txf_id.getText());
+            try {
+                int courseId = Integer.parseInt(txf_Course.getText());
+
+                for (Lesson check : lessons.listLessons())
+                    if (check.getId() == lessonId) {
+                        util.UtilityFX.alert("Error al insertar", "Una lección con esta ID ya existe.");
+                        return;
+                    }
+
+
+                // Crear la lección si no existe previamente
+                Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), courseId);
                 lessons.createLesson(addThis);
                 util.UtilityFX.alert("Éxito al insertar", "Se ha insertado la lección.");
+
+            } catch (NumberFormatException e) {
+                util.UtilityFX.alert("Error al insertar", "El campo de Curso debe contener solo números enteros.");
             }
+        } catch (NumberFormatException e) {
+            util.UtilityFX.alert("Error al insertar", "El campo de ID debe contener solo números enteros.");
         }
     }
 
@@ -78,14 +88,23 @@ public class AddLessonsController {
             return;
         }
 
-         for (Course check : courses.listCourse())
-             if (check.getId() == Integer.parseInt(txf_Course.getText())) {
-                 util.UtilityFX.alert("Éxito", "Se ha encontrado el curso.\nHabilitando campos...");
-                 txf_id.setDisable(false);
-                 txf_title.setDisable(false);
-                 txa_Content.setDisable(false);
-                 addButton.setDisable(false);
-             }
+        // Validar que txf_Course contenga solo números enteros
+        try {
+            int courseId = Integer.parseInt(txf_Course.getText());
+            // Verificar si el curso con la ID especificada existe
+            for (Course check : courses.listCourse())
+                if (check.getId() == courseId) {
+                    util.UtilityFX.alert("Éxito", "Se ha encontrado el curso.\nHabilitando campos...");
+                    txf_id.setDisable(false);
+                    txf_title.setDisable(false);
+                    txa_Content.setDisable(false);
+                    addButton.setDisable(false);
+                    return;
+                }
+            util.UtilityFX.alert("Error al buscar", "El curso con la ID especificada no existe.");
+        } catch (NumberFormatException e) {
+            util.UtilityFX.alert("Error al buscar", "El campo de Curso debe contener solo números enteros.");
+        }
     }
 
     @FXML

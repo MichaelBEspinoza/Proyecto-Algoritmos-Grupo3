@@ -54,7 +54,6 @@ public class EditLessonsController {
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
-        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
@@ -81,25 +80,33 @@ public class EditLessonsController {
         loadPage("userCourses.fxml");
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void editOnAction(ActionEvent actionEvent) throws TreeException {
-
-        if (txf_idcourse.getText().isEmpty() || txf_title.getText().isEmpty() || txa_Content.getText().isEmpty() || txf_idcourse.getText().isEmpty()) {
+        if (txf_id.getText().isEmpty() || txf_title.getText().isEmpty() || txa_Content.getText().isEmpty() || txf_idcourse.getText().isEmpty()) {
             util.UtilityFX.alert("Error al editar", "Ningún campo debe quedar vacío. Inténtelo de nuevo.");
             return;
         }
 
-        if (Objects.equals(courses.readCourse(Integer.parseInt(txf_idcourse.getText())), "The course doesn’t exist")) {
-            util.UtilityFX.alert("Error al editar", "El curso con la ID " + txf_idcourse.getText() + " no existe.");
-            return;
-        }
+        try {
+            int lessonId = Integer.parseInt(txf_id.getText());
+            int courseId = Integer.parseInt(txf_idcourse.getText());
+            int searchId = Integer.parseInt(txf_SearchID.getText());
 
-        Lesson editThis = lessons.readLesson(Integer.parseInt(txf_SearchID.getText()));
-        editThis.setId(Integer.parseInt(txf_id.getText()));
-        editThis.setTitle(txf_title.getText());
-        editThis.setContent(txa_Content.getText());
-        editThis.setCourseId(Integer.parseInt(txf_idcourse.getText()));
-        util.UtilityFX.alert("Éxito al editar", "Se ha editado la lección exitosamente.");
+            if (Objects.equals(courses.readCourse(courseId), "The course doesn’t exist")) {
+                util.UtilityFX.alert("Error al editar", "El curso con la ID " + courseId + " no existe.");
+                return;
+            }
+
+            Lesson editThis = lessons.readLesson(searchId);
+            editThis.setId(lessonId);
+            editThis.setTitle(txf_title.getText());
+            editThis.setContent(txa_Content.getText());
+            editThis.setCourseId(courseId);
+            util.UtilityFX.alert("Éxito al editar", "Se ha editado la lección exitosamente.");
+
+        } catch (NumberFormatException e) {
+            util.UtilityFX.alert("Error al editar", "Los campos de ID deben contener solo números enteros.");
+        }
     }
 
     @javafx.fxml.FXML
@@ -109,22 +116,33 @@ public class EditLessonsController {
     }
 
     @FXML
-    public void searchOnAction(ActionEvent actionEvent) throws TreeException {
-        lessons.loadLessonsFromFile("lessons.txt");
+    public void searchOnAction(ActionEvent actionEvent) {
+        if (txf_SearchID.getText().isEmpty()) {
+            util.UtilityFX.alert("Error al buscar", "El campo de búsqueda para la ID está vacío.");
+            return;
+        }
 
-        int searchThis = Integer.parseInt(txf_SearchID.getText());
+        try {
+            int searchId = Integer.parseInt(txf_SearchID.getText());
+            if (lessons.checkIfExistsById(searchId)) {
+                txf_id.setDisable(false);
+                txf_title.setDisable(false);
+                txa_Content.setDisable(false);
+                txf_idcourse.setDisable(false);
+                editButton.setDisable(false);
+                util.UtilityFX.alert("Lección encontrada", "La lección fue encontrada exitosamente.\nCargando campos...");
+                txf_id.setText(String.valueOf(lessons.readLesson(searchId).getId()));
+                txf_title.setText(lessons.readLesson(searchId).getTitle());
+                txa_Content.setText(lessons.readLesson(searchId).getContent());
+                txf_idcourse.setText(String.valueOf(lessons.readLesson(searchId).getCourseId()));
+            } else {
+                util.UtilityFX.alert("Error al buscar", "La ID no está asociada a una lección existente.");
+            }
 
-        if (lessons.checkIfExistsById(searchThis)) {
-            txf_id.setDisable(false);
-            txf_title.setDisable(false);
-            txa_Content.setDisable(false);
-            txf_idcourse.setDisable(false);
-            editButton.setDisable(false);
-            util.UtilityFX.alert("Lección encontrada", "La lección fue encontrada exitosamente.\nCargando campos...");
-            txf_id.setText(String.valueOf(lessons.readLesson(searchThis).getId()));
-            txf_title.setText(lessons.readLesson(searchThis).getTitle());
-            txa_Content.setText(lessons.readLesson(searchThis).getContent());
-            txf_idcourse.setText(String.valueOf(lessons.readLesson(searchThis).getCourseId()));
-        } else util.UtilityFX.alert("Error al buscar", "La ID no está asociada a una lección existente.");
+        } catch (NumberFormatException e) {
+            util.UtilityFX.alert("Error al buscar", "El campo de ID debe contener solo números enteros.");
+        } catch (TreeException e) {
+            throw new RuntimeException(e);
+        }
     }
 }// End of class [EditLessonsController].
