@@ -118,6 +118,14 @@ public class RegisterScreenController {
             return;
         }
 
+        for (int i = 0; i < UO.listUsers().size(); i++) {
+            User check = (User) UO.listUsers().getNode(i).data;
+            if (check.getId() == Integer.parseInt(txf_id.getText())) {
+                util.UtilityFX.alert("Error al registrarse", "El número de cédula ingresado ya está en uso por otro usuario. Por favor, inténtelo de nuevo.");
+                return;
+            }
+        }
+
         if (!isValidPassword(txf_password.getText())) {
             util.UtilityFX.alert("La contraseña no es segura", """
                     Su contraseña debe de incluir:\

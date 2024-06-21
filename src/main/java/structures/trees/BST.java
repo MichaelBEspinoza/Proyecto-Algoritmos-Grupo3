@@ -1,5 +1,11 @@
 package structures.trees;
 
+import domain.Course;
+import domain.Lesson;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BST implements Tree {
     private BTreeNode root; // única entrada al árbol
 
@@ -253,6 +259,21 @@ public class BST implements Tree {
             result = get(node.right, index);
 
         return result;
+    }
+
+    public List<Lesson> inOrderUsage() throws TreeException {
+        if (isEmpty()) throw new TreeException("AVL Binary Search Tree is empty.");
+        List<Lesson> lessons = new ArrayList<>();
+        inOrder(root, lessons);
+        return lessons;
+    }
+
+    private void inOrder(BTreeNode node, List<Lesson> lessons) {
+        if (node != null) {
+            inOrder(node.left, lessons);
+            lessons.add((Lesson) node.data);
+            inOrder(node.right, lessons);
+        }
     }
 
 }

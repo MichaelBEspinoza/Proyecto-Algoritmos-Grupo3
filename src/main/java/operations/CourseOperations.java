@@ -42,7 +42,7 @@ public class CourseOperations implements CourseMaintenance {
         try {
             for (Course c : avlTree.inOrderUsage()) {
                 if (c.getId() == courseId) {
-                    return "The course has been found \n" + c.toString();
+                    return "The course has been found \n" + c;
                 }
             }
         } catch (TreeException e) {
@@ -165,5 +165,19 @@ public class CourseOperations implements CourseMaintenance {
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Invalid course data: " + str, e);
         }
+    }
+
+    public String courseByName(int id) {
+        loadCoursesFromFile("cursos.txt");
+        try {
+            for (Course c : avlTree.inOrderUsage()) {
+                if (c.getId() == id) {
+                    return c.getName();
+                }
+            }
+        } catch (TreeException e) {
+            e.printStackTrace();
+        }
+        return "The course doesn’t exist";
     }
 }

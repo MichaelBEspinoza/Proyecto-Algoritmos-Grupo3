@@ -10,6 +10,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -73,7 +74,7 @@ public class UserOperations implements UserMaintenance {
                 "\n" +
                 "Best regards,\n" +
                 "\n" +
-                "The MyOnlineLearning Team\n" + "Sent at: " + LocalDate.now();
+                "The MyOnlineLearning Team\n" + "Sent at: " + LocalDate.now() + ", " + LocalTime.now();
         sendEmailNotification(user,longMessage);
         viewAllUsers("users.txt");
         return true;

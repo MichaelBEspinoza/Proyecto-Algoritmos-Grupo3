@@ -9,29 +9,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import operations.LessonOperations;
 import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import util.UtilityFX;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class LessonMaintenanceController {
-    @javafx.fxml.FXML
+
+    @FXML
     private Menu menuPaginaPrincipal;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuAyuda;
-    @javafx.fxml.FXML
+    @FXML
     private Pane pane1;
-    @javafx.fxml.FXML
+    @FXML
     private TableView<Lesson> tv_Lessons;
-    @javafx.fxml.FXML
+    @FXML
     private Menu menuCursos;
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane bp;
     @FXML
     private TableColumn<Lesson, String> tc_Content;
@@ -45,12 +47,11 @@ public class LessonMaintenanceController {
     LessonOperations lessonOperations = new LessonOperations();
 
     public void initialize() throws TreeException {
-        if (!lessonOperations.listLessons().isEmpty())
-            lessonOperations.loadLessonsFromFile("lessons.txt");
+        lessonOperations.loadLessonsFromFile("lessons.txt");
 
         tc_ID.setCellValueFactory(new PropertyValueFactory<>("id"));
         tc_Title.setCellValueFactory(new PropertyValueFactory<>("title"));
-        tc_Content.setCellValueFactory(new PropertyValueFactory<>("course"));
+        tc_Course.setCellValueFactory(new PropertyValueFactory<>("course"));
         tc_Content.setCellValueFactory(new PropertyValueFactory<>("content"));
         loadLessonsIntoTableView();
     }
@@ -60,31 +61,35 @@ public class LessonMaintenanceController {
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }
 
-    @javafx.fxml.FXML
-    public void editOnAction(ActionEvent actionEvent) {loadPage("lessonMaintenance.fxml");
+    @FXML
+    public void editOnAction(ActionEvent actionEvent) {
+        loadPage("lessonMaintenance.fxml");
     }
 
-    @javafx.fxml.FXML
-    public void addOnAction(ActionEvent actionEvent) {loadPage("addLessons.fxml");
+    @FXML
+    public void addOnAction(ActionEvent actionEvent) {
+        loadPage("addLessons.fxml");
     }
 
-    @javafx.fxml.FXML
+    @FXML
     public void deleteOnAction(ActionEvent actionEvent) throws TreeException {
-
+        lessonOperations.loadLessonsFromFile("lessons.txt");
         String deleteThis = UtilityFX.dialog("Eliminar lección", "Digite la lección a eliminar.");
         Optional<String> value = deleteThis.describeConstable();
 
         if (value.isPresent()) {
             String id = value.get();
-            if (id.matches("[0-9]") && lessonOperations.readLesson(Integer.parseInt(id)) != null) {
+            if (!lessonOperations.checkIfExistsById(Integer.parseInt(id))) {
                 lessonOperations.deleteLesson(Integer.parseInt(id));
-                util.UtilityFX.alert("Éxito al eliminar", "La lección ha sido suprimida exitosamente.");
-            } else util.UtilityFX.alert("Error al eliminar", "La lección con ID " + id + " no existe o no fue encontrada.");
+                lessonOperations.saveLessonsToFile("lessons.txt");
+                UtilityFX.alert("Éxito al eliminar", "La lección ha sido suprimida exitosamente.");
+            } else {
+                UtilityFX.alert("Error al eliminar", "La lección con ID " + id + " no existe o no fue encontrada.");
+            }
         }
     }
 
@@ -110,13 +115,13 @@ public class LessonMaintenanceController {
         ObservableList<Lesson> list = FXCollections.observableArrayList();
 
         try {
-            for (int i = 1; i <= lessonOperations.listLessons().size(); i++) {
-                Lesson lesson =  lessonOperations.listLessons().get(i);
+            List<Lesson> lessons = lessonOperations.listLessons();
+            for (Lesson lesson : lessons) {
                 list.add(lesson);
             }
+            tv_Lessons.setItems(list);
         } catch (TreeException e) {
             throw new RuntimeException(e);
         }
     }
-
 }

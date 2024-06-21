@@ -37,6 +37,24 @@ public class AddLessonsController {
         txf_title.setDisable(true);
         txa_Content.setDisable(true);
         addButton.setDisable(true);
+
+        txf_title.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z ]*")) {
+                txf_title.setText(oldValue);
+            }
+        });
+
+        txf_id.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txf_id.setText(oldValue);
+            }
+        });
+
+        txf_Course.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txf_Course.setText(oldValue);
+            }
+        });
     }
 
     private void loadPage(String page) {
@@ -44,7 +62,6 @@ public class AddLessonsController {
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-//            util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }
@@ -67,9 +84,7 @@ public class AddLessonsController {
                         return;
                     }
 
-
-                // Crear la lección si no existe previamente
-                Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), courseId);
+                Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), courses.courseByName(courseId), courseId);
                 lessons.createLesson(addThis);
                 util.UtilityFX.alert("Éxito al insertar", "Se ha insertado la lección.");
 
@@ -88,10 +103,8 @@ public class AddLessonsController {
             return;
         }
 
-        // Validar que txf_Course contenga solo números enteros
         try {
             int courseId = Integer.parseInt(txf_Course.getText());
-            // Verificar si el curso con la ID especificada existe
             for (Course check : courses.listCourse())
                 if (check.getId() == courseId) {
                     util.UtilityFX.alert("Éxito", "Se ha encontrado el curso.\nHabilitando campos...");

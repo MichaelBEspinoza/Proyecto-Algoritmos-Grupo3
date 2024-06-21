@@ -4,3 +4,4 @@
 2,Buenas,GzjsfxGzjsfx&678,hola,USER,Hola,Hola,hola
 1111,Lessons Test,Qjxxtsx&789,davidcalvogam@gmail.com,INSTRUCTOR,Costa Rica,Cartago,Paraíso
 123456789,Micha Bonilla,Rnhm&678,davidcalvogam@gmail.com,INSTRUCTOR,Costa Rica,San Jose,Ciudad Rodrigo Facio
+112233445,David Teacher,YmnxSj|&678,davidcalvogam@gmail.com,ADMINISTRATOR,Costa Rica,Cartago,Ciudad Rodrigo Facio

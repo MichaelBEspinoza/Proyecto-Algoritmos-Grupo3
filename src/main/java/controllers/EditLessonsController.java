@@ -50,6 +50,30 @@ public class EditLessonsController {
         txa_Content.setDisable(true);
         txf_idcourse.setDisable(true);
         editButton.setDisable(true);
+
+        txf_title.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z ]*")) {
+                txf_title.setText(oldValue);
+            }
+        });
+
+        txf_id.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txf_id.setText(oldValue);
+            }
+        });
+
+        txf_idcourse.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txf_idcourse.setText(oldValue);
+            }
+        });
+
+        txf_SearchID.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txf_SearchID.setText(oldValue);
+            }
+        });
     }
 
     private void loadPage(String page) {
@@ -146,3 +170,4 @@ public class EditLessonsController {
         }
     }
 }// End of class [EditLessonsController].
+

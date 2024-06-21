@@ -1,28 +1,20 @@
 package controllers;
 
 import domain.User;
-import domain.UserSession;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import operations.UserOperations;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class AdminEditProfilesController {
-    @javafx.fxml.FXML
-    private TextField txf_country;
     @javafx.fxml.FXML
     private ComboBox<String> cb_role;
     @javafx.fxml.FXML
@@ -40,8 +32,6 @@ public class AdminEditProfilesController {
     @javafx.fxml.FXML
     private BorderPane bp;
     @javafx.fxml.FXML
-    private TextField txf_place;
-    @javafx.fxml.FXML
     private TextField editThisTXF;
     @javafx.fxml.FXML
     private Button changePasswordText;
@@ -52,10 +42,47 @@ public class AdminEditProfilesController {
     User foundUser;
     @javafx.fxml.FXML
     private Button deleteButton;
+    @javafx.fxml.FXML
+    private ComboBox<String> cb_Place;
+    @javafx.fxml.FXML
+    private ComboBox<String> cb_Country;
 
     public void initialize() {
+        cb_Place.getItems().addAll("Ciudad Rodrigo Facio", "San Ramón", "Grecia",
+                "Turrialba", "Paraíso", "Guápiles",
+                "Liberia", "Santa Cruz", "Puerto Limón",
+                "Puntarenas", "Región Brunca");
+        cb_Country.getItems().addAll("Argentina", "Belice", "Bolivia", "Brasil", "Canadá", "Chile", "Colombia", "Costa Rica", "Cuba",
+                "Ecuador", "El Salvador", "Estados Unidos", "Guatemala", "Haití", "Honduras", "México", "Nicaragua", "Panamá",
+                "Paraguay", "Perú", "Rep. Dominicana", "Uruguay", "Venezuela");
         foundUser = new User();
         clearAllFields();
+
+        txf_name.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z ]*")) {
+                txf_name.setText(oldValue);
+            }
+        });
+
+        txf_city.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z ]*")) {
+                txf_city.setText(oldValue);
+            }
+        });
+
+        txf_id.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txf_id.setText(oldValue);
+            }
+        });
+
+        txf_email.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue)
+                if (!isValidEmail(txf_email.getText())) {
+                    util.UtilityFX.alert("Email inválido", "Por favor, ingrese una dirección de correo electrónico de Gmail válida.");
+                    txf_email.requestFocus();
+                }
+        });
     }
 
     private void clearAllFields() {
@@ -63,9 +90,9 @@ public class AdminEditProfilesController {
         txf_id.clear();
         txf_email.clear();
         cb_role.getSelectionModel().select(null);
-        txf_country.clear();
+        cb_Country.getSelectionModel().select(null);
         txf_city.clear();
-        txf_place.clear();
+        cb_Place.getSelectionModel().select(null);
     }
 
     private void loadPage(String page) {
@@ -73,32 +100,33 @@ public class AdminEditProfilesController {
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }
 
     @javafx.fxml.FXML
-    public void mainPageOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");
+    public void mainPageOnAction(ActionEvent actionEvent) {
+        loadPage("mainPage.fxml");
     }
 
     @javafx.fxml.FXML
-    public void changePasswordOnAction(ActionEvent actionEvent) {loadPage("adminChangePassword.fxml");
+    public void changePasswordOnAction(ActionEvent actionEvent) {
+        loadPage("adminChangePassword.fxml");
     }
 
     @javafx.fxml.FXML
     public void saveChangesOnAction(ActionEvent actionEvent) {
-        if (fieldsAreEmpty()) {
+        if (fieldsAreEmpty())
             util.UtilityFX.alert("Error: cambios no aplicables",
                     "Uno o más campos están vacíos. Todos los campos deben contener información.\nInténtelo de nuevo.");
-        } else {
+         else {
             foundUser.setName(txf_name.getText());
             foundUser.setId(Integer.parseInt(txf_id.getText()));
             foundUser.setEmail(txf_email.getText());
             foundUser.setRole(foundUser.stringToRole(cb_role.getValue()));
-            foundUser.setCountry(txf_country.getText());
+            foundUser.setCountry(cb_Country.getValue());
             foundUser.setCity(txf_city.getText());
-            foundUser.setPlace(txf_place.getText());
+            foundUser.setPlace(cb_Place.getValue());
             UO.updateUser(foundUser);
 
             UO.updateProfile(foundUser);
@@ -110,7 +138,7 @@ public class AdminEditProfilesController {
     private boolean fieldsAreEmpty() {
         return txf_name.getText().isEmpty() || txf_id.getText().isEmpty() ||
                 txf_email.getText().isEmpty() || cb_role.getValue() == null ||
-                txf_country.getText().isEmpty() || txf_city.getText().isEmpty() || txf_place.getText().isEmpty();
+                cb_Country.getValue() == null || txf_city.getText().isEmpty() || cb_Place.getValue() == null;
     }
 
     @javafx.fxml.FXML
@@ -119,7 +147,8 @@ public class AdminEditProfilesController {
             UO.deleteUser(foundUser.getId());
             UO.saveUsersToFile("users.txt");
             util.UtilityFX.alert("Eliminado","Usuario eliminado con éxito.");
-        }else util.UtilityFX.alert("Usuario no encontrado", "El usuario no pudo ser encontrado por su ID.\nInténtelo de nuevo.");
+        } else
+            util.UtilityFX.alert("Usuario no encontrado", "El usuario no pudo ser encontrado por su ID.\nInténtelo de nuevo.");
     }
 
     @javafx.fxml.FXML
@@ -131,9 +160,9 @@ public class AdminEditProfilesController {
             txf_id.setDisable(false);
             txf_email.setDisable(false);
             cb_role.setDisable(false);
-            txf_country.setDisable(false);
+            cb_Country.setDisable(false);
             txf_city.setDisable(false);
-            txf_place.setDisable(false);
+            cb_Place.setDisable(false);
             saveChangesButton.setDisable(false);
             changePasswordText.setDisable(false);
             deleteButton.setDisable(false);
@@ -142,10 +171,15 @@ public class AdminEditProfilesController {
             txf_id.setText(String.valueOf(foundUser.getId()));
             txf_email.setText(foundUser.getEmail());
             cb_role.getSelectionModel().select(foundUser.roleToString());
-            txf_country.setText(foundUser.getCountry());
+            cb_Country.getSelectionModel().select(foundUser.getCountry());
             txf_city.setText(foundUser.getCity());
-            txf_place.setText(foundUser.getPlace());
+            cb_Place.getSelectionModel().select(foundUser.getPlace());
         } else
             util.UtilityFX.alert("Usuario no encontrado", "El usuario no pudo ser encontrado por su ID.\nInténtelo de nuevo.");
     }
+
+    private boolean isValidEmail(String email) {
+        return email != null && email.endsWith("@gmail.com");
+    }
 }
+

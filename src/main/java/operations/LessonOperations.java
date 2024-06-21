@@ -13,18 +13,27 @@ public class LessonOperations implements LessonMaintenance {
 
     BST lessons = new BST();
 
+    public int size() throws TreeException {
+        return lessons.size();
+    }
+
     @Override
     public boolean createLesson(Lesson lesson) throws TreeException {
         loadLessonsFromFile("lessons.txt");
 
-        for (int i = 0; i < lessons.size(); i++)
-            if (!lessons.contains(lesson)) {
-                lessons.add(lesson);
-                saveLessonsToFile("lessons.txt");
-                return true;
-            }
+        if (lessons.isEmpty()) {
+            lessons.add(lesson);
+            saveLessonsToFile("lessons.txt");
+            return true;
+        }
+
+        if (!lessons.contains(lesson)) {
+            lessons.add(lesson);
+            saveLessonsToFile("lessons.txt");
+            return true;
+        }
         return false;
-    }// End of method [createLesson].
+    }
 
     @Override
     public Lesson readLesson(int lessonId) throws TreeException {
@@ -38,7 +47,7 @@ public class LessonOperations implements LessonMaintenance {
                 return check;
         }
         return null;
-    }// End of method [readLesson].
+    }
 
     @Override
     public boolean updateLesson(Lesson lesson) throws TreeException {
@@ -57,39 +66,36 @@ public class LessonOperations implements LessonMaintenance {
             }
         }
         return false;
-    }// End of method [updateLesson].
+    }
 
     @Override
     public boolean deleteLesson(int lessonId) throws TreeException {
         loadLessonsFromFile("lessons.txt");
 
-        if (lessons.isEmpty()) return false;
-
-        for (int i = 0; i < lessons.size(); i++) {
-            Lesson check = (Lesson) lessons.get(i);
+        for (Lesson check : lessons.inOrderUsage())
             if (check.getId() == lessonId) {
                 lessons.remove(check);
                 saveLessonsToFile("lessons.txt");
                 return true;
             }
-        }
+
         return false;
-    }// End of method [deleteLesson].
+    }
+
 
     @Override
     public List<Lesson> listLessons() throws TreeException {
-
         loadLessonsFromFile("lessons.txt");
 
         List<Lesson> list = new ArrayList<>();
         if (!lessons.isEmpty())
             for (int i = 0; i < lessons.size(); i++) {
-                 Lesson check = (Lesson) lessons.get(i);
-                 list.add(check);
+                Lesson check = (Lesson) lessons.get(i);
+                list.add(check);
             }
 
         return list;
-    }// End of method [listLessons].
+    }
 
     public void saveLessonsToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
@@ -107,33 +113,39 @@ public class LessonOperations implements LessonMaintenance {
         lessons.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
-            while ((line = reader.readLine()) != null)
-                if (!line.trim().isEmpty())
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
                     try {
                         Lesson lesson = stringToLesson(line);
                         lessons.add(lesson);
-                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    } catch (IllegalArgumentException e) {
                         System.err.println("Error parsing line: " + line);
                         e.printStackTrace();
                     }
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private String lessonToString(Lesson lesson) {
-        return lesson.getId() + ", " + lesson.getTitle() + ", " + lesson.getContent() + ", from course #" + lesson.getCourseId();
+        return lesson.getId() + "<>" + lesson.getTitle() + "<>" + lesson.getContent() + "<>" + lesson.getCourse() + "<>" + lesson.getCourseId();
     }
 
     private Lesson stringToLesson(String str) {
         try {
-            String[] parts = str.split(",");
-            int id = Integer.parseInt(parts[0]);
-            String title = parts[1];
-            String content = parts[2];
-            int courseId = Integer.parseInt(parts[3]);
-            return new Lesson(id, title, content, courseId);
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            String[] parts = str.split("<>");
+            if (parts.length != 5) {
+                throw new IllegalArgumentException("Invalid data format: " + str);
+            }
+            int id = Integer.parseInt(parts[0].trim());
+            String title = parts[1].trim();
+            String content = parts[2].trim();
+            String course = parts[3].trim();
+            int courseId = Integer.parseInt(parts[4].trim());
+            return new Lesson(id, title, content, course,courseId);
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid course data: " + str, e);
         }
     }
@@ -146,5 +158,5 @@ public class LessonOperations implements LessonMaintenance {
         }
         return false;
     }
+}
 
-}// End of class [LessonOperations].
