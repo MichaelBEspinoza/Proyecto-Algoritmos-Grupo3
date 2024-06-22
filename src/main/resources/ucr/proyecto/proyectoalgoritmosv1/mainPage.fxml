@@ -58,6 +58,7 @@
                               <Menu fx:id="menuLessons" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Lecciones">
                                  <items>
                                     <MenuItem mnemonicParsing="false" onAction="#menuLessons" text="Consultar lecciones" />
+                                    <MenuItem mnemonicParsing="false" onAction="#courseLessons" text="Lecciones de un curso" />
                                  </items>
                               </Menu>
                                         <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">

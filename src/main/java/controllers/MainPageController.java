@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class MainPageController {
+    @FXML
     public Menu menuLessons;
     @FXML
     private Menu menuPaginaPrincipal;
@@ -147,5 +148,9 @@ public class MainPageController {
 
     @FXML
     public void menuLessons(ActionEvent actionEvent) {loadPage("lessonMaintenance.fxml");
+    }
+
+    @FXML
+    public void courseLessons(ActionEvent actionEvent) {loadPage("courseLessons.fxml");
     }
 }
