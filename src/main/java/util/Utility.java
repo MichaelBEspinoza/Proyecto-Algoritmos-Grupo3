@@ -1,6 +1,7 @@
 package util;
 
 import domain.Course;
+import domain.Lesson;
 import operations.CourseOperations;
 
 import java.text.DecimalFormat;
@@ -40,19 +41,22 @@ public class Utility {
         switch (instanceOf(a, b)){
             case "Integer":
                 Integer int1 = (Integer)a; Integer int2 = (Integer)b;
-                return int1 < int2 ? -1 : int1 > int2 ? 1 : 0; //0 == equal
+                return int1.compareTo(int2);
             case "String":
                 String st1 = (String)a; String st2 = (String)b;
-                return st1.compareTo(st2)<0 ? -1 : st1.compareTo(st2) > 0 ? 1 : 0;
+                return st1.compareTo(st2);
             case "Character":
                 Character c1 = (Character)a; Character c2 = (Character)b;
-                return c1.compareTo(c2)<0 ? -1 : c1.compareTo(c2)>0 ? 1 : 0;
+                return c1.compareTo(c2);
             case "Course":
                 Course co1 = (Course) a; Course co2 = (Course) b;
-                return co1.equals(co2) ? 0 : 1;
-
+                return Integer.compare(co1.getId(), co2.getId());
+            case "Lesson":
+                Lesson le1 = (Lesson) a; Lesson le2 = (Lesson) b;
+                return Integer.compare(le1.getId(), le2.getId());
+            default:
+                throw new IllegalArgumentException("Invalid comparison types.");
         }
-        return 2; //Unknown
     }
 
     private static String instanceOf(Object a, Object b) {
@@ -60,6 +64,7 @@ public class Utility {
         if(a instanceof String && b instanceof String) return "String";
         if(a instanceof Character && b instanceof Character) return "Character";
         if(a instanceof Course && b instanceof Course) return "Course";
+        if(a instanceof Lesson && b instanceof Lesson) return "Lesson";
         return "Unknown";
     }
 }

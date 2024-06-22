@@ -1,1 +1,5 @@
-3344<>Prueba<>Pruebas!<>Algoritmos<>1122
+1<>Pilas<>¡Pilas!<>Algoritmos<>1122
+2<>Colas<>¡Colas!<>Algoritmos<>1122
+3<>Arboles<>¡Árboles!<>Algoritmos<>1122
+4<>Grafos<>¡Árboles!<>Algoritmos<>1122
+6<>Camino más corto<>Clase del camino más corto (Kruskal).<>Algoritmos<>1122

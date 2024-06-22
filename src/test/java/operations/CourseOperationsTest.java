@@ -60,11 +60,7 @@ class CourseOperationsTest {
         Course course1 = new Course(10,"Math","Math Course","5 months","Hard",43);
         operations.createCourse(course1);
 
-        try {
-            System.out.println(operations.deleteCourse(10));
-        } catch (TreeException e) {
-            throw new RuntimeException(e);
-        }
+        System.out.println(operations.deleteCourse(10));
         System.out.println(operations.readCourse(10));
 
         System.out.println("\n\n///// Delete test end. /////");

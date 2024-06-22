@@ -116,7 +116,6 @@ public class UserCoursesController implements Initializable {
             loadPage("editCourses.fxml");
         } else {
             System.out.println("No tienes permiso para editar cursos.");
-            // Muestra una alerta al usuario
             UtilityFX.alert("Permiso denegado", "No tienes permiso para editar cursos.");
         }
     }

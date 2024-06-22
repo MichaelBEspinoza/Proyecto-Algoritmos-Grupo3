@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import operations.SecurityOperations;
@@ -33,6 +34,13 @@ public class LoginScreenController {
     public void initialize() {
         txf_user.setText("");
         txf_password.setText("");
+
+        txf_user.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
+                return change;
+            }
+            return null;
+        }));
     }
 
     @FXML

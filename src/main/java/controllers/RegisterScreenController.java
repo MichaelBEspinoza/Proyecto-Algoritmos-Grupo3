@@ -47,6 +47,7 @@ public class RegisterScreenController {
     private ComboBox<String> cb_Country;
 
     public void initialize() {
+        UO.loadUsersFromFile("users.txt");
 
         cb_role.getItems().addAll("Usuario", "Instructor", "Administrador");
         cb_Place.getItems().addAll("Ciudad Rodrigo Facio", "San Ramón", "Grecia",
@@ -59,14 +60,14 @@ public class RegisterScreenController {
         clearAllFields();
 
         txf_user.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[a-zA-Z ]*")) {
+            if (change.getControlNewText().matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
                 return change;
             }
             return null;
         }));
 
         txf_city.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[a-zA-Z ]*")) {
+            if (change.getControlNewText().matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
                 return change;
             }
             return null;
@@ -108,6 +109,14 @@ public class RegisterScreenController {
             return;
         }
 
+        for (int i = 1; i < UO.listUsers().size(); i++) {
+            User u = (User) UO.listUsers().getNode(i).data;
+            if (u.getId() == Integer.parseInt(txf_id.getText())) {
+                util.UtilityFX.alert("Cédula inválida","La cédula ingresada ya se encuentra registrada. Inténtelo de nuevo.");
+                return;
+            }
+        }
+
         if (txf_id.getText().length() != 9) {
             util.UtilityFX.alert("Cédula inválida", "La cédula debe tener exactamente 9 caracteres.");
             return;
@@ -118,7 +127,7 @@ public class RegisterScreenController {
             return;
         }
 
-        for (int i = 0; i < UO.listUsers().size(); i++) {
+        for (int i = 1; i < UO.listUsers().size(); i++) {
             User check = (User) UO.listUsers().getNode(i).data;
             if (check.getId() == Integer.parseInt(txf_id.getText())) {
                 util.UtilityFX.alert("Error al registrarse", "El número de cédula ingresado ya está en uso por otro usuario. Por favor, inténtelo de nuevo.");

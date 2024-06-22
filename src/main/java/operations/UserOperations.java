@@ -48,10 +48,8 @@ public class UserOperations implements UserMaintenance {
 
         for (int i = 1; i < users.size(); i++) {
             User u = (User) users.getNode(i).data;
-            if (u.getId() == user.getId()) {
-                System.out.println("El usuario con este ID ya existe");
+            if (u.getId() == user.getId())
                 return false; // El curso con este ID ya existe
-            }
         }
 
         users.add(user);
