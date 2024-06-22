@@ -13,15 +13,18 @@ public class Lesson {
 
     private String course;
 
+    private boolean stateCompleted;
+
     public Lesson() {
     }
 
-    public Lesson(int id, String title, String content, String course,int courseId) {
+    public Lesson(int id, String title, String content, String course,int courseId,boolean stateCompleted) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.course = course;
         this.courseId = courseId;
+        this.stateCompleted = stateCompleted;
     }
 
     public int getId() {
@@ -63,4 +66,6 @@ public class Lesson {
     public void setCourse(String course) {
         this.course = course;
     }
+
+
 }

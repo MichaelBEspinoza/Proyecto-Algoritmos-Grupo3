@@ -144,7 +144,7 @@ public class LessonOperations implements LessonMaintenance {
             String content = parts[2].trim();
             String course = parts[3].trim();
             int courseId = Integer.parseInt(parts[4].trim());
-            return new Lesson(id, title, content, course,courseId);
+            return new Lesson(id, title, content, course,courseId,false);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid course data: " + str, e);
         }

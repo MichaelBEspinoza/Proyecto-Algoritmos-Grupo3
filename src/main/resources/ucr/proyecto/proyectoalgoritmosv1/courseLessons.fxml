@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserCoursesController">
+    <center>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="719.0" style="-fx-background-color: #457d97;">
+            <children>
+                <Pane fx:id="pane1" layoutX="28.0" layoutY="23.0" prefHeight="486.0" prefWidth="669.0" style="-fx-background-color: #faf0e7;">
+                    <children>
+                        <Pane layoutX="15.0" layoutY="14.0" prefHeight="45.0" prefWidth="202.0" style="-fx-background-color: #edd5c5;">
+                            <children>
+                                <Text layoutX="54.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIVERSIDAD DE COSTA RICA" wrappingWidth="139.03515625">
+                                    <font>
+                                        <Font size="10.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="61.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Campus" wrappingWidth="46.673828125">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="106.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Virtual">
+                                    <font>
+                                        <Font name="System Bold" size="11.0" />
+                                    </font>
+                                </Text>
+                                <Text fill="#4598d3" layoutX="143.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EstudiaU">
+                                    <font>
+                                        <Font name="System Italic" size="11.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fitHeight="35.0" fitWidth="44.0" layoutX="8.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@ucr.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="235.0" layoutY="14.0" prefHeight="46.0" prefWidth="287.0" style="-fx-background-color: #edd5c5;">
+                            <children>
+                                <MenuBar layoutX="14.0" layoutY="11.0" prefHeight="25.0" prefWidth="251.0">
+                                    <menus>
+                                        <Menu fx:id="menuPaginaPrincipal" mnemonicParsing="false" onAction="#pagePrincipalOnAction" text="Página Principal">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="Página principal" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuCursos" mnemonicParsing="false" onAction="#cursosOnAction" text="Mis Cursos">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="Mis cursos" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuAyuda" mnemonicParsing="false" onAction="#ayudaOnAction" text="Ayuda">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" text="Soporte" />
+                                            </items>
+                                        </Menu>
+                                    </menus>
+                                </MenuBar>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
+                            <children>
+                                <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font name="Bell MT" size="18.0" />
+                                    </font>
+                                </Text>
+                                <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecciones del curso:" />
+                                <Button layoutX="509.0" layoutY="332.0" mnemonicParsing="false" onAction="#editCoursesOnAction" style="-fx-background-color: transparent;" text="Edición de Cursos" />
+                                <TableView fx:id="tableView" layoutX="14.0" layoutY="86.0" prefHeight="224.0" prefWidth="605.0">
+                                    <columns>
+                                        <TableColumn fx:id="tc_id" prefWidth="109.0" text="ID:" />
+                                        <TableColumn fx:id="tc_name" prefWidth="122.0" text="Nombre:" />
+                                        <TableColumn fx:id="tc_description" prefWidth="106.0" text="Descripción:" />
+                                        <TableColumn fx:id="tc_duration" prefWidth="121.0" text="Duración:" />
+                                        <TableColumn fx:id="tc_dificultyLevel" prefWidth="128.0" text="Nivel de Dificultad:" />
+                                        <TableColumn fx:id="tc_instructorId" prefWidth="128.0" text="ID de Instructor:" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </Pane>
+                    </children>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

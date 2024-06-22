@@ -6,6 +6,8 @@ module ucr.proyecto.proyectoalgoritmosv1 {
     requires java.desktop;
     requires java.base;
     requires activation;
+    requires kernel;
+    requires layout;
 
     exports controllers to javafx.graphics;
     opens controllers to javafx.fxml;

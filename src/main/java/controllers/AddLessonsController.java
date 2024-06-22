@@ -84,7 +84,7 @@ public class AddLessonsController {
                         return;
                     }
 
-                Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), courses.courseByName(courseId), courseId);
+                Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), courses.courseByName(courseId), courseId,false);
                 lessons.createLesson(addThis);
                 util.UtilityFX.alert("Éxito al insertar", "Se ha insertado la lección.");
 

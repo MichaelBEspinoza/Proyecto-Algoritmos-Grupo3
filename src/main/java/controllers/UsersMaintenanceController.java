@@ -26,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import util.UtilityFX;
 
 import java.io.IOException;
 
@@ -111,5 +112,33 @@ public class UsersMaintenanceController {
         }
 
         tv.setItems(usersList);
+    }
+
+
+    @FXML
+    public void inscriptiontoCourseOnAction(ActionEvent actionEvent) {
+        String userType = String.valueOf(UserSession.getInstance().getLoggedUser().getRole()); // Obtén el tipo de usuario actual
+        if ("INSTRUCTOR".equals(userType) || "ADMINISTRATOR".equals(userType)) {
+            bp.getChildren().clear();
+            loadPage("editCourses.fxml");
+        } else {
+            System.out.println("No tienes permiso para editar cursos.");
+            // Muestra una alerta al usuario
+            UtilityFX.alert("Permiso denegado", "No tienes permiso para acceder a reportes.");
+        }
+    }
+
+    @FXML
+    public void progressOnAction(ActionEvent actionEvent) {
+
+
+    }
+
+    @FXML
+    public void evaluationOnAction(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void reportsOnAction(ActionEvent actionEvent) {
     }
 }
