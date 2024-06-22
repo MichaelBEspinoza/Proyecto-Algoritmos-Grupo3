@@ -119,11 +119,8 @@ public class UsersMaintenanceController {
         if ("INSTRUCTOR".equals(userType) || "ADMINISTRATOR".equals(userType)) {
             bp.getChildren().clear();
             loadPage("editCourses.fxml");
-        } else {
-            System.out.println("No tienes permiso para editar cursos.");
-            // Muestra una alerta al usuario
-            UtilityFX.alert("Permiso denegado", "No tienes permiso para acceder a reportes.");
-        }
+        } else
+            UtilityFX.alert("Permiso denegado", "No tiene los permisos necesarios para acceder a reportes.");
     }
 
     @FXML

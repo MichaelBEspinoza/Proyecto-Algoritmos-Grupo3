@@ -105,7 +105,6 @@ public class ModifyCourseController implements Initializable {
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }
@@ -134,9 +133,8 @@ public class ModifyCourseController implements Initializable {
                 clearFields();
                 bp.getChildren().clear();
                 loadPage("editCourses.fxml");
-            } else {
+            } else
                 UtilityFX.alert("Error", "No se encontró ningún curso con el ID proporcionado.");
-            }
         } catch (NumberFormatException e) {
             UtilityFX.alert("Error", "Por favor, ingrese valores válidos en todos los campos.");
         }

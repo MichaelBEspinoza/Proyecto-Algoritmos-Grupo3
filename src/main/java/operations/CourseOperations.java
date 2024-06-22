@@ -20,19 +20,15 @@ public class CourseOperations implements CourseMaintenance {
 
         try {
             List<Course> courseList = avlTree.inOrderUsage();
-            for (Course existingCourse : courseList) {
-                if (existingCourse.getId() == course.getId()) {
-                    System.out.println("El curso con este ID ya existe");
+            for (Course existingCourse : courseList)
+                if (existingCourse.getId() == course.getId())
                     return false;
-                }
-            }
         } catch (TreeException e) {
             e.printStackTrace();
         }
 
         avlTree.add(course);
         saveCoursesToFile("cursos.txt");
-        System.out.println("El curso fue agregado");
         return true;
     }
 
@@ -40,11 +36,9 @@ public class CourseOperations implements CourseMaintenance {
     public String readCourse(int courseId) {
         loadCoursesFromFile("cursos.txt");
         try {
-            for (Course c : avlTree.inOrderUsage()) {
-                if (c.getId() == courseId) {
+            for (Course c : avlTree.inOrderUsage())
+                if (c.getId() == courseId)
                     return "The course has been found \n" + c;
-                }
-            }
         } catch (TreeException e) {
             e.printStackTrace();
         }
@@ -60,11 +54,9 @@ public class CourseOperations implements CourseMaintenance {
                     avlTree.remove(course);
                     avlTree.add(updatedCourse);
                     saveCoursesToFile("cursos.txt");
-                    System.out.println("El curso fue actualizado");
                     return true;
                 }
             }
-            System.out.println("El curso no se encontró");
         } catch (TreeException e) {
             e.printStackTrace();
         }
@@ -75,18 +67,15 @@ public class CourseOperations implements CourseMaintenance {
     public boolean deleteCourse(int courseId) {
         loadCoursesFromFile("cursos.txt");
         try {
-            for (Course course : avlTree.inOrderUsage()) {
+            for (Course course : avlTree.inOrderUsage())
                 if (course.getId() == courseId) {
                     avlTree.remove(course);
                     saveCoursesToFile("cursos.txt");
-                    System.out.println("El curso fue eliminado");
                     return true;
                 }
-            }
         } catch (TreeException e) {
             e.printStackTrace();
         }
-        System.out.println("El curso no se encontró");
         return false;
     }
 
@@ -94,10 +83,8 @@ public class CourseOperations implements CourseMaintenance {
     public List<Course> listCourse() {
         loadCoursesFromFile("cursos.txt");
         try {
-            if (avlTree.isEmpty()) {
-                System.out.println("El árbol de cursos está vacío.");
+            if (avlTree.isEmpty())
                 return new ArrayList<>();
-            }
             return avlTree.inOrderUsage();
         } catch (TreeException e) {
             e.printStackTrace();
@@ -120,17 +107,14 @@ public class CourseOperations implements CourseMaintenance {
         avlTree.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
-            while ((line = reader.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
+            while ((line = reader.readLine()) != null)
+                if (!line.trim().isEmpty())
                     try {
                         Course course = stringToCourse(line);
                         avlTree.add(course);
                     } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                        System.err.println("Error parsing line: " + line);
                         e.printStackTrace();
                     }
-                }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,9 +123,8 @@ public class CourseOperations implements CourseMaintenance {
     public void viewAllCourses(String filename) {
         loadCoursesFromFile(filename);
         try {
-            for (Course course : avlTree.inOrderUsage()) {
+            for (Course course : avlTree.inOrderUsage())
                 System.out.println(course);
-            }
         } catch (TreeException e) {
             e.printStackTrace();
         }

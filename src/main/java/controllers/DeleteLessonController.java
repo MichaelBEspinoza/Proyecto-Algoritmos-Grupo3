@@ -1,21 +1,17 @@
 package controllers;
 
 import domain.Lesson;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import operations.LessonOperations;
 import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
-import util.UtilityFX;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteLessonController {
@@ -30,8 +26,6 @@ public class DeleteLessonController {
     @javafx.fxml.FXML
     private TextField txf_CourseId;
     @javafx.fxml.FXML
-    private TextField txf_Id;
-    @javafx.fxml.FXML
     private MenuItem mn_mainPage;
     @javafx.fxml.FXML
     private TextArea txa_Content;
@@ -43,63 +37,76 @@ public class DeleteLessonController {
     private MenuItem mn_courses;
 
     private LessonOperations LO;
+    @FXML
+    private ComboBox<Lesson> cb_Lessons;
 
     @FXML
     public void initialize() {
         LO = new LessonOperations();
         LO.loadLessonsFromFile("lessons.txt");
 
-        txf_Id.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.isEmpty()) {
-                try {
-                    int courseId = Integer.parseInt(newValue);
-                    Lesson lesson = findLessonById(courseId);
-                    if (lesson != null) {
-                        txf_Title.setText(lesson.getTitle());
-                        txf_Id.setText(String.valueOf(lesson.getId()));
-                        txf_Course.setText(lesson.getCourse());
-                        txf_CourseId.setText(String.valueOf(lesson.getCourseId()));
-                        txa_Content.setText(lesson.getContent());
-                    }
-                } catch (NumberFormatException e) {
-                    UtilityFX.alert("Error", "ID del curso no es un número válido.");
-                } catch (TreeException e) {
-                    throw new RuntimeException(e);
+        fillComboBox();
+
+        cb_Lessons.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                txf_Title.setText(newVal.getTitle());
+                txf_Course.setText(newVal.getCourse());
+                txf_CourseId.setText(String.valueOf(newVal.getCourseId()));
+                txa_Content.setText(newVal.getContent());
+            }
+        });
+    }
+
+    private void fillComboBox() {
+        List<Lesson> lessons = new ArrayList<>();
+        try {
+            lessons = LO.listLessons();
+        } catch (TreeException e) {
+            e.printStackTrace();
+        }
+
+        cb_Lessons.getItems().setAll(lessons);
+        cb_Lessons.setCellFactory(param -> new ListCell<Lesson>() {
+            @Override
+            protected void updateItem(Lesson item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item.getId() + " - " + item.getTitle());
                 }
             }
         });
 
-        Platform.runLater(() -> {
-            txf_Id.setFocusTraversable(true);
-            txf_Title.setFocusTraversable(true);
-            txf_Course.setFocusTraversable(true);
-            txf_CourseId.setFocusTraversable(true);
-            txa_Content.setFocusTraversable(true);
+        cb_Lessons.setButtonCell(new ListCell<Lesson>() {
+            @Override
+            protected void updateItem(Lesson item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item.getId() + " - " + item.getTitle());
+                }
+            }
         });
     }
 
     @FXML
     public void deleteOnAction(ActionEvent actionEvent) {
-        try {
-
-            if (LO.isEmpty()) {
-                util.UtilityFX.alert("Error al eliminar", "La lista de lecciones está vacía. No se puede suprimir nada.");
-                return;
+        Lesson selectedLesson = cb_Lessons.getSelectionModel().getSelectedItem();
+        if (selectedLesson != null)
+            try {
+                boolean deleted = LO.deleteLesson(selectedLesson.getId());
+                if (deleted) {
+                    util.UtilityFX.alert("Éxito", "La lección ha sido eliminado correctamente.");
+                    LO.saveLessonsToFile("lessons.txt");
+                    fillComboBox();
+                } else util.UtilityFX.alert("Error", "No se pudo eliminar la lección.");
+            } catch (TreeException e) {
+                util.UtilityFX.alert("Error", "Error al eliminar la lección.");
+                e.printStackTrace();
             }
-
-            int courseId = Integer.parseInt(txf_Id.getText());
-            boolean deleted = LO.deleteLesson(courseId);
-            if (deleted) {
-                UtilityFX.alert("Éxito", "La lección ha sido eliminado correctamente.");
-                bp.getChildren().clear();
-                loadPage("lessonMaintenance.fxml");
-            } else
-                UtilityFX.alert("Error", "No se encontró ninguna lección con el ID proporcionado.");
-        } catch (NumberFormatException e) {
-            UtilityFX.alert("Error", "ID de la lección no es un número válido.");
-        } catch (TreeException e) {
-            throw new RuntimeException(e);
-        }
+         else util.UtilityFX.alert("Error", "No se ha seleccionado ninguna lección.");
     }
 
     @FXML
@@ -127,16 +134,6 @@ public class DeleteLessonController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private Lesson findLessonById(int courseId) throws TreeException {
-        List<Lesson> lessons = LO.listLessons();
-        for (Lesson lesson : lessons) {
-            if (lesson.getId() == courseId) {
-                return lesson;
-            }
-        }
-        return null;
     }
 
     @FXML

@@ -34,7 +34,6 @@ public class ChangePasswordController {
     private SecurityOperations SO = new SecurityOperations();
 
     public ChangePasswordController() throws ListException {
-        // Cargar los usuarios desde el archivo
         UO.loadUsersFromFile("users.txt");
     }
 

@@ -92,11 +92,9 @@ public class RegisterScreenController {
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
-        System.out.println(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }
@@ -135,7 +133,7 @@ public class RegisterScreenController {
             }
         }
 
-        if (!isValidPassword(txf_password.getText())) {
+        if (!isValidPassword(txf_password.getText()))
             util.UtilityFX.alert("La contraseña no es segura", """
                     Su contraseña debe de incluir:\
 
@@ -146,7 +144,7 @@ public class RegisterScreenController {
                     3. Un signo especial ('*', '!', '$', etc.).\
 
                     Inténtelo de nuevo.""");
-        } else {
+         else {
             UO.createUser(new User(Integer.parseInt(txf_id.getText()),
                     txf_user.getText(),
                     SO.encryptPassword(txf_password.getText()),
@@ -194,7 +192,6 @@ public class RegisterScreenController {
         if (!password.matches(".*[A-Z].*")) return false;
         if (!password.matches(".*[a-z].*")) return false;
         if (!password.matches(".*[!@#$%^&*()_+=\\-\\[\\]{};':\"\\\\|,.<>/?].*")) return false;
-
         return true;
     }
 

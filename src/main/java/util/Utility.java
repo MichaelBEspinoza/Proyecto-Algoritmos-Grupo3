@@ -2,6 +2,7 @@ package util;
 
 import domain.Course;
 import domain.Lesson;
+import domain.User;
 import operations.CourseOperations;
 
 import java.text.DecimalFormat;
@@ -48,6 +49,9 @@ public class Utility {
             case "Character":
                 Character c1 = (Character)a; Character c2 = (Character)b;
                 return c1.compareTo(c2);
+            case "User":
+                User u1 = (User) a; User u2 = (User) b;
+                return Integer.compare(u1.getId(), u2.getId());
             case "Course":
                 Course co1 = (Course) a; Course co2 = (Course) b;
                 return Integer.compare(co1.getId(), co2.getId());
@@ -63,6 +67,7 @@ public class Utility {
         if(a instanceof Integer && b instanceof Integer) return "Integer";
         if(a instanceof String && b instanceof String) return "String";
         if(a instanceof Character && b instanceof Character) return "Character";
+        if(a instanceof User && b instanceof User) return "User";
         if(a instanceof Course && b instanceof Course) return "Course";
         if(a instanceof Lesson && b instanceof Lesson) return "Lesson";
         return "Unknown";

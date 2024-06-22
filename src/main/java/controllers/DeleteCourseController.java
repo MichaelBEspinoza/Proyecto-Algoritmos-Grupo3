@@ -4,9 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import operations.CourseOperations;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
@@ -22,8 +20,6 @@ public class DeleteCourseController {
     private Menu menuPaginaPrincipal;
     @FXML
     private Menu menuAyuda;
-    @FXML
-    private TextField idField;
     @FXML
     private TextField levelField;
     @FXML
@@ -42,66 +38,51 @@ public class DeleteCourseController {
     private BorderPane bp;
     @FXML
     private MenuItem mn_courses;
+    @FXML
+    private ComboBox<Course> cb_Courses; // Asegúrate de que el tipo genérico coincida con el objeto manejado
 
     @FXML
     public void initialize() {
         courseOperations = new CourseOperations();
         courseOperations.loadCoursesFromFile("cursos.txt");
 
-        idField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.isEmpty()) {
-                try {
-                    int courseId = Integer.parseInt(newValue);
-                    Course course = findCourseById(courseId);
-                    if (course != null) {
-                        nameField.setText(course.getName());
-                        descriptionField.setText(course.getDescription());
-                        lengthField.setText(course.getCourseLength());
-                        levelField.setText(course.getLevel());
-                        instructorIdField.setText(String.valueOf(course.getInstructorId()));
-                    }
-                } catch (NumberFormatException e) {
-                    UtilityFX.alert("Error", "ID del curso no es un número válido.");
-                }
+        // Llenar el ComboBox con cursos
+        cb_Courses.getItems().setAll(courseOperations.listCourse());
+        cb_Courses.setCellFactory(lv -> new ListCell<Course>() {
+            @Override
+            protected void updateItem(Course item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? "" : item.getId() + " - " + item.getName());
             }
         });
 
-        Platform.runLater(() -> {
-            idField.setFocusTraversable(true);
-            nameField.setFocusTraversable(true);
-            descriptionField.setFocusTraversable(true);
-            lengthField.setFocusTraversable(true);
-            levelField.setFocusTraversable(true);
-            instructorIdField.setFocusTraversable(true);
-        });
-    }
-
-    private Course findCourseById(int courseId) {
-        List<Course> courses = courseOperations.listCourse();
-        for (Course course : courses) {
-            if (course.getId() == courseId) {
-                return course;
+        cb_Courses.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                nameField.setText(newSelection.getName());
+                descriptionField.setText(newSelection.getDescription());
+                lengthField.setText(newSelection.getCourseLength());
+                levelField.setText(newSelection.getLevel());
+                instructorIdField.setText(String.valueOf(newSelection.getInstructorId()));
             }
-        }
-        return null;
+        });
     }
 
     @FXML
     public void deleteOnAction(ActionEvent actionEvent) {
-        try {
-            int courseId = Integer.parseInt(idField.getText());
-            boolean deleted = courseOperations.deleteCourse(courseId);
+        Course selectedCourse = cb_Courses.getSelectionModel().getSelectedItem();
+        if (selectedCourse != null) {
+            boolean deleted = courseOperations.deleteCourse(selectedCourse.getId());
             if (deleted) {
                 UtilityFX.alert("Éxito", "El curso ha sido eliminado correctamente.");
-                bp.getChildren().clear();
-                loadPage("editCourses.fxml");
+                cb_Courses.getItems().remove(selectedCourse);  // Eliminar de la lista visual
             } else {
                 UtilityFX.alert("Error", "No se encontró ningún curso con el ID proporcionado.");
             }
-        } catch (NumberFormatException e) {
-            UtilityFX.alert("Error", "ID del curso no es un número válido.");
+        } else {
+            UtilityFX.alert("Error", "Por favor seleccione un curso para eliminar.");
         }
     }
+
 
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {

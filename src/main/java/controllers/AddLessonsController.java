@@ -14,56 +14,57 @@ import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.util.StringConverter;
+
 public class AddLessonsController {
 
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_title;
-    @javafx.fxml.FXML
-    private TextField txf_Course;
-    @javafx.fxml.FXML
+    @FXML
     private TextField txf_id;
-    @javafx.fxml.FXML
+    @FXML
     private TextArea txa_Content;
-    @javafx.fxml.FXML
+    @FXML
     private BorderPane bp;
     @FXML
     private Button addButton;
+    @FXML
+    private ComboBox<Course> cb_Course;
 
     private final CourseOperations courses = new CourseOperations();
     private final LessonOperations lessons = new LessonOperations();
 
+    @FXML
     public void initialize() {
         txf_id.setDisable(true);
         txf_title.setDisable(true);
         txa_Content.setDisable(true);
         addButton.setDisable(true);
 
-        txf_title.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z ]*")) {
-                txf_title.setText(oldValue);
+        courses.loadCoursesFromFile("cursos.txt");
+        cb_Course.getItems().setAll(courses.listCourse());
+        cb_Course.setConverter(new StringConverter<Course>() {
+            @Override
+            public String toString(Course course) {
+                return course != null ? course.getId() + " - " + course.getName() : "";
+            }
+
+            @Override
+            public Course fromString(String string) {
+                return null; // No need to convert from string to Course
             }
         });
 
-        txf_id.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                txf_id.setText(oldValue);
+        cb_Course.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                txf_id.setDisable(false);
+                txf_title.setDisable(false);
+                txa_Content.setDisable(false);
+                addButton.setDisable(false);
             }
         });
-
-        txf_Course.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                txf_Course.setText(oldValue);
-            }
-        });
-    }
-
-    private void loadPage(String page) {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
-        try {
-            this.bp.setCenter(fxmlLoader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -75,48 +76,18 @@ public class AddLessonsController {
 
         try {
             int lessonId = Integer.parseInt(txf_id.getText());
-            try {
-                int courseId = Integer.parseInt(txf_Course.getText());
-
-                for (Lesson check : lessons.listLessons())
-                    if (check.getId() == lessonId) {
-                        util.UtilityFX.alert("Error al insertar", "Una lección con esta ID ya existe.");
-                        return;
-                    }
-
-                Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), courses.courseByName(courseId), courseId,false);
-                lessons.createLesson(addThis);
-                util.UtilityFX.alert("Éxito al insertar", "Se ha insertado la lección.");
-
-            } catch (NumberFormatException e) {
-                util.UtilityFX.alert("Error al insertar", "El campo de Curso debe contener solo números enteros.");
+            Course selectedCourse = cb_Course.getSelectionModel().getSelectedItem();
+            if (selectedCourse != null && !lessons.isLessonIdUnique(lessonId)) {
+                util.UtilityFX.alert("Error al insertar", "Una lección con esta ID ya existe.");
+                return;
             }
+
+            Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), selectedCourse.getName(), selectedCourse.getId(), false);
+            lessons.createLesson(addThis);
+            util.UtilityFX.alert("Éxito al insertar", "Se ha insertado la lección exitosamente.");
+
         } catch (NumberFormatException e) {
             util.UtilityFX.alert("Error al insertar", "El campo de ID debe contener solo números enteros.");
-        }
-    }
-
-    @FXML
-    public void searchOnAction(ActionEvent actionEvent) {
-        if (txf_Course.getText().isEmpty()) {
-            util.UtilityFX.alert("Error al buscar", "El campo de búsqueda para el curso está vacío o la ID insertada no existe.");
-            return;
-        }
-
-        try {
-            int courseId = Integer.parseInt(txf_Course.getText());
-            for (Course check : courses.listCourse())
-                if (check.getId() == courseId) {
-                    util.UtilityFX.alert("Éxito", "Se ha encontrado el curso.\nHabilitando campos...");
-                    txf_id.setDisable(false);
-                    txf_title.setDisable(false);
-                    txa_Content.setDisable(false);
-                    addButton.setDisable(false);
-                    return;
-                }
-            util.UtilityFX.alert("Error al buscar", "El curso con la ID especificada no existe.");
-        } catch (NumberFormatException e) {
-            util.UtilityFX.alert("Error al buscar", "El campo de Curso debe contener solo números enteros.");
         }
     }
 
@@ -137,4 +108,14 @@ public class AddLessonsController {
         bp.getChildren().clear();
         loadPage("userCourses.fxml");
     }
-}// End of class [AddLessonsController].
+
+    private void loadPage(String page) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        try {
+            this.bp.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+

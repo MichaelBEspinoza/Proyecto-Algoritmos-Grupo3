@@ -80,11 +80,8 @@ public class UserCoursesController implements Initializable {
         List<Course> coursesList = courseOperations.listCourse();
         ObservableList<Course> courses = FXCollections.observableArrayList(coursesList);
 
-        if (!courses.isEmpty()) {
+        if (!courses.isEmpty())
             tableView.setItems(courses);
-        } else {
-            System.out.println("La lista de cursos está vacía o no se pudo cargar.");
-        }
     }
 
     private void loadPage(String page) {

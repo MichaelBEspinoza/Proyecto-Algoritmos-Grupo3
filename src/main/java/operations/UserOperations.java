@@ -54,7 +54,6 @@ public class UserOperations implements UserMaintenance {
 
         users.add(user);
         saveUsersToFile("users.txt"); // Guarda los cursos en un archivo
-        System.out.println("El usuario fue agregado");
 
         String longMessage = "Dear " + user.getName() +",\n" +
                 "\n" +
@@ -127,7 +126,7 @@ public class UserOperations implements UserMaintenance {
             for (int i = 1; i <= users.size(); i++) {
                 User user = (User) users.getNode(i).data;
                 if (user.getId() == userId) { // Comparar el ID del usuario
-                    users.remove(i); // Eliminar el usuario en la posición actual
+                    users.remove(user); // Eliminar el usuario en la posición actual
                     return true; // Usuario borrado exitosamente.
                 }
             }
@@ -150,7 +149,6 @@ public class UserOperations implements UserMaintenance {
            @param user Usuario al que se le enviará la notificación, por medio de su correo electrónico.
            @param message Mensaje incluido en el correo enviado al usuario.*/
 
-        System.out.println("TLSEmail Start");
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
         props.put("mail.smtp.port", "587"); //TLS Port
@@ -168,7 +166,7 @@ public class UserOperations implements UserMaintenance {
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail(), true));
             mimeMessage.setSubject("MyOnlineLearning Authentication");
             mimeMessage.setText(message);
-            System.out.println("sending...");
+            System.out.println("Sending verification e-mail...");
             Transport.send(mimeMessage);
             System.out.println("Sent message successfully....");
         }catch (MessagingException me){logger.log(Level.SEVERE, "Error while sending e-mail.", me);
@@ -269,16 +267,6 @@ public class UserOperations implements UserMaintenance {
             }
         }
     }
-
-
-//    public User getUserByUsername(String username) throws ListException {
-//        for (int i = 0; i < users.size(); i++) {
-//            User user = (User) users.getNode(i).data;
-//            if (user.getName().equals(username))
-//                return user;
-//        }
-//        return null;
-//    }
 
     public void viewAllUsers(String filename) throws ListException {
         loadUsersFromFile(filename); // Cargar los cursos desde el archivo

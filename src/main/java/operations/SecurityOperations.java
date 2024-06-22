@@ -21,17 +21,12 @@ public class SecurityOperations implements SystemSecurity {
 
     @Override
     public boolean login(String username, String password) {
-        System.out.println("Intentando iniciar sesión con el usuario: " + username);
-
-        if (list.isEmpty()) {
-            System.out.println("La lista de usuarios está vacía.");
+        if (list.isEmpty())
             return false;
-        }
 
         try {
             Node aux = list.getNode(1);  // Obtener el primer nodo
             if (aux == null) {
-                System.out.println("El nodo inicial es null.");
                 return false;
             }
 
@@ -41,20 +36,13 @@ public class SecurityOperations implements SystemSecurity {
             do {
                 User user = (User) aux.data;
                 if (user == null) {
-                    System.out.println("El usuario es null en la iteración " + index);
                     return false;
                 }
 
-                System.out.println("Verificando usuario en índice " + index + ": " + user.getName());
-
                 if (user.getName().equals(username)) {
                     String passwordDes = decryptPassword(user.getPassword());
-                    System.out.println("Contraseña para encriptar: " + user.getPassword());
-
-                    if (passwordDes.equals(password)) {
-                        System.out.println("Inicio de sesión exitoso para el usuario: " + username);
+                    if (passwordDes.equals(password))
                         return true;
-                    }
                 }
 
                 aux = aux.next;  // Ir al siguiente nodo
@@ -65,7 +53,6 @@ public class SecurityOperations implements SystemSecurity {
             return false;
         }
 
-        System.out.println("Nombre de usuario o contraseña incorrectos para el usuario: " + username);
         return false;
     }
 
@@ -122,7 +109,6 @@ public class SecurityOperations implements SystemSecurity {
         do {
             User user = (User) aux.data;
             if (user == null) {
-                System.out.println("Usuario es null en el índice " + index);
                 return null;
             }
 
@@ -174,9 +160,8 @@ public class SecurityOperations implements SystemSecurity {
                     User user = new User(id, username, password, email, role, country, city, place);
 
                     list.add(user);  // Agregar el usuario a la lista
-                    System.out.println("Usuario añadido: " + line);
                 } else {
-                    System.out.println("Formato de línea incorrecto: " + line);
+                    System.err.println("Formato de línea incorrecto: " + line);
                 }
             }
         } catch (IOException e) {

@@ -82,7 +82,6 @@ public class LessonOperations implements LessonMaintenance {
         }
 
         if (lessonToRemove != null) {
-            System.out.println("Eliminando lección: " + lessonToString(lessonToRemove)); // Debug
             lessons.remove(lessonToRemove);
             saveLessonsToFile("lessons.txt");
             return true;
@@ -105,15 +104,15 @@ public class LessonOperations implements LessonMaintenance {
         return list;
     }
 
-    public String listToString() throws TreeException {
-
-        String listResult = "Contenidos de la lista: \n";
-
-        for (Lesson check : listLessons())
-            listResult += check.getTitle() + ", " + check.getId() + ", " + check.getCourse() + "\n";
-
-        return listResult;
-    }
+//    public String listToString() throws TreeException {
+//
+//        String listResult = "Contenidos de la lista: \n";
+//
+//        for (Lesson check : listLessons())
+//            listResult += check.getTitle() + ", " + check.getId() + ", " + check.getCourse() + "\n";
+//
+//        return listResult;
+//    }
 
     public void saveLessonsToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
@@ -137,7 +136,6 @@ public class LessonOperations implements LessonMaintenance {
                         Lesson lesson = stringToLesson(line);
                         lessons.add(lesson);
                     } catch (IllegalArgumentException e) {
-                        System.err.println("Error parsing line: " + line);
                         e.printStackTrace();
                     }
             }
@@ -191,6 +189,14 @@ public class LessonOperations implements LessonMaintenance {
 
     public boolean isEmpty() {
         return lessons.isEmpty();
+    }
+
+    public boolean isLessonIdUnique(int lessonId) throws TreeException {
+        if (!lessons.isEmpty())
+            for (Lesson lesson : lessons.inOrderUsage())
+                if (lesson.getId() == lessonId)
+                    return false; // ID no es único, ya existe
+        return true; // ID es único
     }
 }
 
