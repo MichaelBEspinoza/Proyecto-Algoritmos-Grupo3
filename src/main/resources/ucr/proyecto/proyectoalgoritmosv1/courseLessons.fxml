@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserCoursesController">
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.courseLessonsController">
     <center>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="719.0" style="-fx-background-color: #457d97;">
             <children>
@@ -65,20 +65,23 @@
                         </Pane>
                         <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
                             <children>
-                                <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                                <Text layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Curso">
                                     <font>
                                         <Font name="Bell MT" size="18.0" />
                                     </font>
                                 </Text>
-                                <Text layoutX="14.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecciones del curso:" />
-                                <Button layoutX="509.0" layoutY="332.0" mnemonicParsing="false" onAction="#editCoursesOnAction" style="-fx-background-color: transparent;" text="Edición de Cursos" />
+                                <Text layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lecciones del curso:">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
+                                <Button layoutX="509.0" layoutY="332.0" mnemonicParsing="false" onAction="#editLessonsOnAction" style="-fx-background-color: transparent;" text="Edición de lecciones" />
                                 <TableView fx:id="tableView" layoutX="14.0" layoutY="86.0" prefHeight="224.0" prefWidth="605.0">
                                     <columns>
                                         <TableColumn fx:id="tc_id" prefWidth="109.0" text="ID:" />
                                         <TableColumn fx:id="tc_name" prefWidth="122.0" text="Nombre:" />
-                                        <TableColumn fx:id="tc_description" prefWidth="106.0" text="Descripción:" />
-                                        <TableColumn fx:id="tc_duration" prefWidth="121.0" text="Duración:" />
-                                        <TableColumn fx:id="tc_dificultyLevel" prefWidth="128.0" text="Nivel de Dificultad:" />
+                                        <TableColumn fx:id="tc_contenido" prefWidth="106.0" text="Contenido:" />
+                                        <TableColumn fx:id="tc_curso" prefWidth="121.0" text="Curso:" />
+                                        <TableColumn fx:id="tc_estado" prefWidth="128.0" text="Nivel de Dificultad:" />
                                         <TableColumn fx:id="tc_instructorId" prefWidth="128.0" text="ID de Instructor:" />
                                     </columns>
                                 </TableView>
