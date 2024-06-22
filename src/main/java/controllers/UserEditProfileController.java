@@ -54,13 +54,13 @@ public class UserEditProfileController {
         textFieldSetUp();
 
         txf_name.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z ]*")) {
+            if (!newValue.matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
                 txf_name.setText(oldValue);
             }
         });
 
         txf_city.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z ]*")) {
+            if (!newValue.matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
                 txf_name.setText(oldValue);
             }
         });

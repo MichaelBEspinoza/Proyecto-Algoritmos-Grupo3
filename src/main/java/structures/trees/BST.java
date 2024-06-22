@@ -1,6 +1,5 @@
 package structures.trees;
 
-import domain.Course;
 import domain.Lesson;
 
 import java.util.ArrayList;

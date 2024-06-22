@@ -59,14 +59,14 @@ public class RegisterScreenController {
         clearAllFields();
 
         txf_user.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[a-zA-Z ]*")) {
+            if (change.getControlNewText().matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
                 return change;
             }
             return null;
         }));
 
         txf_city.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[a-zA-Z ]*")) {
+            if (change.getControlNewText().matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
                 return change;
             }
             return null;

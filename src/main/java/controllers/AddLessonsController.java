@@ -39,7 +39,7 @@ public class AddLessonsController {
         addButton.setDisable(true);
 
         txf_title.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z ]*")) {
+            if (!newValue.matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
                 txf_title.setText(oldValue);
             }
         });
@@ -66,7 +66,6 @@ public class AddLessonsController {
         }
     }
 
-    @FXML
     public void addOnAction(ActionEvent actionEvent) throws TreeException {
         if (txf_title.getText().isEmpty() || txf_id.getText().isEmpty() || txa_Content.getText().isEmpty()) {
             util.UtilityFX.alert("Error al insertar", "Todos los campos deben estar llenos. Inténtelo de nuevo.");
@@ -75,14 +74,14 @@ public class AddLessonsController {
 
         try {
             int lessonId = Integer.parseInt(txf_id.getText());
+
+            if (!isLessonIdUnique(lessonId)) {
+                util.UtilityFX.alert("Error al insertar", "Una lección con esta ID ya existe.");
+                return;
+            }
+
             try {
                 int courseId = Integer.parseInt(txf_Course.getText());
-
-                for (Lesson check : lessons.listLessons())
-                    if (check.getId() == lessonId) {
-                        util.UtilityFX.alert("Error al insertar", "Una lección con esta ID ya existe.");
-                        return;
-                    }
 
                 Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), courses.courseByName(courseId), courseId);
                 lessons.createLesson(addThis);
@@ -95,6 +94,7 @@ public class AddLessonsController {
             util.UtilityFX.alert("Error al insertar", "El campo de ID debe contener solo números enteros.");
         }
     }
+
 
     @FXML
     public void searchOnAction(ActionEvent actionEvent) {
@@ -137,4 +137,18 @@ public class AddLessonsController {
         bp.getChildren().clear();
         loadPage("userCourses.fxml");
     }
+
+    public boolean isLessonIdUnique(int lessonId) throws TreeException {
+        try {
+            lessons.loadLessonsFromFile("lessons.txt");
+            for (Lesson check : lessons.listLessons())
+                if (check.getId() == lessonId)
+                    return false;
+            return true;
+        } catch (TreeException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }// End of class [AddLessonsController].

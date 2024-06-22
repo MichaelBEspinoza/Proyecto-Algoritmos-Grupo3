@@ -55,7 +55,7 @@ public class EditLessonsController {
         editButton.setDisable(true);
 
         txf_title.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-Z ]*")) {
+            if (!newValue.matches("[a-zA-ZáéíóúÁÉÍÓÚ ]*")) {
                 txf_title.setText(oldValue);
             }
         });
