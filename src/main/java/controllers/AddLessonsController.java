@@ -19,8 +19,6 @@ public class AddLessonsController {
     @javafx.fxml.FXML
     private TextField txf_title;
     @javafx.fxml.FXML
-    private TextField txf_Course;
-    @javafx.fxml.FXML
     private TextField txf_id;
     @javafx.fxml.FXML
     private TextArea txa_Content;
@@ -31,6 +29,18 @@ public class AddLessonsController {
 
     private final CourseOperations courses = new CourseOperations();
     private final LessonOperations lessons = new LessonOperations();
+    @FXML
+    private Menu menuPaginaPrincipal;
+    @FXML
+    private Menu menuAyuda;
+    @FXML
+    private MenuItem mn_mainPage;
+    @FXML
+    private ComboBox<Course> cb_Course;
+    @FXML
+    private Menu menuCursos;
+    @FXML
+    private MenuItem mn_courses;
 
     public void initialize() {
         txf_id.setDisable(true);
@@ -50,9 +60,13 @@ public class AddLessonsController {
             }
         });
 
-        txf_Course.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                txf_Course.setText(oldValue);
+        loadCoursesIntoComboBox();
+
+        cb_Course.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                enableLessonFields();
+            } else {
+                disableLessonFields();
             }
         });
     }
@@ -66,6 +80,7 @@ public class AddLessonsController {
         }
     }
 
+    @FXML
     public void addOnAction(ActionEvent actionEvent) throws TreeException {
         if (txf_title.getText().isEmpty() || txf_id.getText().isEmpty() || txa_Content.getText().isEmpty()) {
             util.UtilityFX.alert("Error al insertar", "Todos los campos deben estar llenos. Inténtelo de nuevo.");
@@ -81,12 +96,17 @@ public class AddLessonsController {
             }
 
             try {
-                int courseId = Integer.parseInt(txf_Course.getText());
+                Course selectedCourse = cb_Course.getValue();
+                if (selectedCourse == null) {
+                    util.UtilityFX.alert("Error al insertar", "Debe seleccionar un curso válido.");
+                    return;
+                }
 
-                Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), courses.courseByName(courseId), courseId);
+                int courseId = selectedCourse.getId();
+
+                Lesson addThis = new Lesson(lessonId, txf_title.getText(), txa_Content.getText(), selectedCourse.getName(), courseId);
                 lessons.createLesson(addThis);
                 util.UtilityFX.alert("Éxito al insertar", "Se ha insertado la lección.");
-
             } catch (NumberFormatException e) {
                 util.UtilityFX.alert("Error al insertar", "El campo de Curso debe contener solo números enteros.");
             }
@@ -95,29 +115,43 @@ public class AddLessonsController {
         }
     }
 
+//    // Método para buscar cursos y habilitar campos para agregar una lección
+//    @FXML
+//    public void searchOnAction(ActionEvent actionEvent) {
+//        Course selectedCourse = cb_Course.getValue();
+//        if (selectedCourse == null) {
+//            util.UtilityFX.alert("Error al buscar", "Debe seleccionar un curso.");
+//            return;
+//        }
+//
+//        util.UtilityFX.alert("Éxito", "Se ha encontrado el curso.\nHabilitando campos...");
+//        txf_id.setDisable(false);
+//        txf_title.setDisable(false);
+//        txa_Content.setDisable(false);
+//        addButton.setDisable(false);
+//    }
 
-    @FXML
-    public void searchOnAction(ActionEvent actionEvent) {
-        if (txf_Course.getText().isEmpty()) {
-            util.UtilityFX.alert("Error al buscar", "El campo de búsqueda para el curso está vacío o la ID insertada no existe.");
-            return;
-        }
 
-        try {
-            int courseId = Integer.parseInt(txf_Course.getText());
-            for (Course check : courses.listCourse())
-                if (check.getId() == courseId) {
-                    util.UtilityFX.alert("Éxito", "Se ha encontrado el curso.\nHabilitando campos...");
-                    txf_id.setDisable(false);
-                    txf_title.setDisable(false);
-                    txa_Content.setDisable(false);
-                    addButton.setDisable(false);
-                    return;
-                }
-            util.UtilityFX.alert("Error al buscar", "El curso con la ID especificada no existe.");
-        } catch (NumberFormatException e) {
-            util.UtilityFX.alert("Error al buscar", "El campo de Curso debe contener solo números enteros.");
+    private void loadCoursesIntoComboBox() {
+        for (Course course : courses.listCourse()) {
+            cb_Course.getItems().add(course);
         }
+        // Establecer un cell factory para mostrar el ID y el nombre del curso
+        cb_Course.setCellFactory(lv -> new ListCell<Course>() {
+            @Override
+            protected void updateItem(Course course, boolean empty) {
+                super.updateItem(course, empty);
+                setText(empty ? null : course.getId() + " - " + course.getName());
+            }
+        });
+        // Mostrar el ID y el nombre del curso seleccionado en el ComboBox
+        cb_Course.setButtonCell(new ListCell<Course>() {
+            @Override
+            protected void updateItem(Course course, boolean empty) {
+                super.updateItem(course, empty);
+                setText(empty ? null : course.getId() + " - " + course.getName());
+            }
+        });
     }
 
     @FXML
@@ -149,6 +183,22 @@ public class AddLessonsController {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private void enableLessonFields() {
+        util.UtilityFX.alert("Éxito", "Se ha encontrado el curso.\nHabilitando campos...");
+        txf_id.setDisable(false);
+        txf_title.setDisable(false);
+        txa_Content.setDisable(false);
+        addButton.setDisable(false);
+    }
+
+    // Método para deshabilitar los campos de lección
+    private void disableLessonFields() {
+        txf_id.setDisable(true);
+        txf_title.setDisable(true);
+        txa_Content.setDisable(true);
+        addButton.setDisable(true);
     }
 
 }// End of class [AddLessonsController].
