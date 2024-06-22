@@ -5,11 +5,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Circle;
 import operations.UserOperations;
+import structures.lists.CircularDoublyLinkedList;
+import structures.lists.ListException;
+import structures.lists.SinglyLinkedList;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
@@ -32,8 +36,6 @@ public class AdminEditProfilesController {
     @javafx.fxml.FXML
     private BorderPane bp;
     @javafx.fxml.FXML
-    private TextField editThisTXF;
-    @javafx.fxml.FXML
     private Button changePasswordText;
     @javafx.fxml.FXML
     private Button saveChangesButton;
@@ -46,8 +48,11 @@ public class AdminEditProfilesController {
     private ComboBox<String> cb_Place;
     @javafx.fxml.FXML
     private ComboBox<String> cb_Country;
+    @javafx.fxml.FXML
+    private ComboBox<User> cb_Users;
 
-    public void initialize() {
+    public void initialize() throws ListException {
+        fillUserComboBox();
         cb_Place.getItems().addAll("Ciudad Rodrigo Facio", "San Ramón", "Grecia",
                 "Turrialba", "Paraíso", "Guápiles",
                 "Liberia", "Santa Cruz", "Puerto Limón",
@@ -82,6 +87,38 @@ public class AdminEditProfilesController {
                     util.UtilityFX.alert("Email inválido", "Por favor, ingrese una dirección de correo electrónico de Gmail válida.");
                     txf_email.requestFocus();
                 }
+        });
+    }
+
+    private void fillUserComboBox() throws ListException {
+        UO.loadUsersFromFile("users.txt");
+        CircularDoublyLinkedList users = UO.listUsers();
+        for (int i = 1; i < users.size(); i++) {
+            User user = (User) users.getNode(i).data;
+            cb_Users.getItems().add(user);
+        }
+
+        cb_Users.setCellFactory(lv -> new ListCell<User>() {
+            @Override
+            protected void updateItem(User user, boolean empty) {
+                super.updateItem(user, empty);
+                setText(empty ? null : user.getId() + " - " + user.getName());
+            }
+        });
+
+        cb_Users.setButtonCell(new ListCell<User>() {
+            @Override
+            protected void updateItem(User user, boolean empty) {
+                super.updateItem(user, empty);
+                setText(empty ? null : user.getId() + " - " + user.getName());
+            }
+        });
+
+        cb_Users.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                foundUser = newVal;
+                updateFields(foundUser);
+            }
         });
     }
 
@@ -151,9 +188,9 @@ public class AdminEditProfilesController {
             util.UtilityFX.alert("Usuario no encontrado", "El usuario no pudo ser encontrado por su ID.\nInténtelo de nuevo.");
     }
 
-    @javafx.fxml.FXML
+    @Deprecated
     public void searchUserOnAction(ActionEvent actionEvent) {
-        foundUser = UO.readUser(Integer.parseInt(editThisTXF.getText()));
+        foundUser = cb_Users.getValue();
         if (foundUser != null && UO.userExists(foundUser)) {
             util.UtilityFX.alert("Modificar", "Usuario encontrado con éxito.\nHabilitando campos...");
             txf_name.setDisable(false);
@@ -180,6 +217,26 @@ public class AdminEditProfilesController {
 
     private boolean isValidEmail(String email) {
         return email != null && email.endsWith("@gmail.com");
+    }
+
+    private void updateFields(User user) {
+        txf_name.setText(user.getName());
+        txf_id.setText(String.valueOf(user.getId()));
+        txf_email.setText(user.getEmail());
+        cb_role.getSelectionModel().select(user.roleToString());
+        cb_Country.getSelectionModel().select(user.getCountry());
+        txf_city.setText(user.getCity());
+        cb_Place.getSelectionModel().select(user.getPlace());
+        txf_name.setDisable(false);
+        txf_id.setDisable(false);
+        txf_email.setDisable(false);
+        cb_role.setDisable(false);
+        cb_Country.setDisable(false);
+        txf_city.setDisable(false);
+        cb_Place.setDisable(false);
+        saveChangesButton.setDisable(false);
+        deleteButton.setDisable(false);
+        changePasswordText.setDisable(false);
     }
 }
 
