@@ -1,9 +1,5 @@
 package domain;
 
-import controllers.LoginScreenController;
-import operations.UserOperations;
-import structures.lists.ListException;
-
 public class UserSession {
     private static UserSession instance;
     private User loggedUser;

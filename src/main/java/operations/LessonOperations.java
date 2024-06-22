@@ -55,33 +55,41 @@ public class LessonOperations implements LessonMaintenance {
 
         if (lessons.isEmpty()) return false;
 
-        for (int i = 0; i < lessons.size(); i++) {
-            Lesson check = (Lesson) lessons.get(i);
-            if (lesson.getId() == check.getId()) {
-                check.setTitle(lesson.getTitle());
-                check.setContent(lesson.getContent());
-                check.setCourseId(lesson.getCourseId());
-                saveLessonsToFile("lessons.txt");
-                return true;
+        if (lesson != null)
+            for (int i = 0; i < lessons.size(); i++) {
+                Lesson check = (Lesson) lessons.get(i);
+                if (lesson.getId() == check.getId()) {
+                    check.setTitle(lesson.getTitle());
+                    check.setContent(lesson.getContent());
+                    check.setCourseId(lesson.getCourseId());
+                    saveLessonsToFile("lessons.txt");
+                    return true;
+                }
             }
-        }
         return false;
     }
 
     @Override
     public boolean deleteLesson(int lessonId) throws TreeException {
         loadLessonsFromFile("lessons.txt");
+        Lesson lessonToRemove = null;
 
-        for (Lesson check : lessons.inOrderUsage())
+        for (Lesson check : listLessons()) {
             if (check.getId() == lessonId) {
-                lessons.remove(check);
-                saveLessonsToFile("lessons.txt");
-                return true;
+                lessonToRemove = check;
+                break;
             }
+        }
+
+        if (lessonToRemove != null) {
+            System.out.println("Eliminando lección: " + lessonToString(lessonToRemove)); // Debug
+            lessons.remove(lessonToRemove);
+            saveLessonsToFile("lessons.txt");
+            return true;
+        }
 
         return false;
     }
-
 
     @Override
     public List<Lesson> listLessons() throws TreeException {
@@ -95,6 +103,16 @@ public class LessonOperations implements LessonMaintenance {
             }
 
         return list;
+    }
+
+    public String listToString() throws TreeException {
+
+        String listResult = "Contenidos de la lista: \n";
+
+        for (Lesson check : listLessons())
+            listResult += check.getTitle() + ", " + check.getId() + ", " + check.getCourse() + "\n";
+
+        return listResult;
     }
 
     public void saveLessonsToFile(String filename) {
@@ -114,7 +132,7 @@ public class LessonOperations implements LessonMaintenance {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
+                if (!line.trim().isEmpty())
                     try {
                         Lesson lesson = stringToLesson(line);
                         lessons.add(lesson);
@@ -122,7 +140,6 @@ public class LessonOperations implements LessonMaintenance {
                         System.err.println("Error parsing line: " + line);
                         e.printStackTrace();
                     }
-                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -136,9 +153,9 @@ public class LessonOperations implements LessonMaintenance {
     private Lesson stringToLesson(String str) {
         try {
             String[] parts = str.split("<>");
-            if (parts.length != 5) {
+            if (parts.length != 5)
                 throw new IllegalArgumentException("Invalid data format: " + str);
-            }
+
             int id = Integer.parseInt(parts[0].trim());
             String title = parts[1].trim();
             String content = parts[2].trim();
@@ -158,6 +175,7 @@ public class LessonOperations implements LessonMaintenance {
         }
         return false;
     }
+
     public List<Lesson> listLessonsByCourse(int courseId) throws TreeException {
         loadLessonsFromFile("lessons.txt");
 
@@ -169,6 +187,10 @@ public class LessonOperations implements LessonMaintenance {
             }
         }
         return list;
+    }
+
+    public boolean isEmpty() {
+        return lessons.isEmpty();
     }
 }
 

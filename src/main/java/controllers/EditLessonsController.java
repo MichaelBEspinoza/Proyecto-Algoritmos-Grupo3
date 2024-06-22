@@ -43,8 +43,11 @@ public class EditLessonsController {
 
     LessonOperations lessons = new LessonOperations();
     CourseOperations courses = new CourseOperations();
+    Lesson foundLesson;
 
     public void initialize() {
+        foundLesson = new Lesson();
+        lessons.loadLessonsFromFile("lessons.txt");
         txf_id.setDisable(true);
         txf_title.setDisable(true);
         txa_Content.setDisable(true);
@@ -114,18 +117,18 @@ public class EditLessonsController {
         try {
             int lessonId = Integer.parseInt(txf_id.getText());
             int courseId = Integer.parseInt(txf_idcourse.getText());
-            int searchId = Integer.parseInt(txf_SearchID.getText());
 
-            if (Objects.equals(courses.readCourse(courseId), "The course doesn’t exist")) {
+            if (Objects.equals(courses.readCourse(courseId), "El curso no existe")) {
                 util.UtilityFX.alert("Error al editar", "El curso con la ID " + courseId + " no existe.");
                 return;
             }
 
-            Lesson editThis = lessons.readLesson(searchId);
-            editThis.setId(lessonId);
-            editThis.setTitle(txf_title.getText());
-            editThis.setContent(txa_Content.getText());
-            editThis.setCourseId(courseId);
+            foundLesson.setId(lessonId);
+            foundLesson.setTitle(txf_title.getText());
+            foundLesson.setContent(txa_Content.getText());
+            foundLesson.setCourseId(courseId);
+            lessons.updateLesson(foundLesson);
+            lessons.saveLessonsToFile("lessons.txt");
             util.UtilityFX.alert("Éxito al editar", "Se ha editado la lección exitosamente.");
 
         } catch (NumberFormatException e) {
@@ -148,7 +151,8 @@ public class EditLessonsController {
 
         try {
             int searchId = Integer.parseInt(txf_SearchID.getText());
-            if (lessons.checkIfExistsById(searchId)) {
+            foundLesson = lessons.readLesson(searchId);
+            if (foundLesson != null) {
                 txf_id.setDisable(false);
                 txf_title.setDisable(false);
                 txa_Content.setDisable(false);
@@ -159,10 +163,8 @@ public class EditLessonsController {
                 txf_title.setText(lessons.readLesson(searchId).getTitle());
                 txa_Content.setText(lessons.readLesson(searchId).getContent());
                 txf_idcourse.setText(String.valueOf(lessons.readLesson(searchId).getCourseId()));
-            } else {
+            } else
                 util.UtilityFX.alert("Error al buscar", "La ID no está asociada a una lección existente.");
-            }
-
         } catch (NumberFormatException e) {
             util.UtilityFX.alert("Error al buscar", "El campo de ID debe contener solo números enteros.");
         } catch (TreeException e) {

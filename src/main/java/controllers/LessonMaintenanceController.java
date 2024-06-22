@@ -15,25 +15,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import operations.LessonOperations;
 import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
-import util.UtilityFX;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public class LessonMaintenanceController {
-
-    @FXML
+    @javafx.fxml.FXML
     private Menu menuPaginaPrincipal;
-    @FXML
+    @javafx.fxml.FXML
     private Menu menuAyuda;
-    @FXML
+    @javafx.fxml.FXML
     private Pane pane1;
-    @FXML
+    @javafx.fxml.FXML
     private TableView<Lesson> tv_Lessons;
-    @FXML
+    @javafx.fxml.FXML
     private Menu menuCursos;
-    @FXML
+    @javafx.fxml.FXML
     private BorderPane bp;
     @FXML
     private TableColumn<Lesson, String> tc_Content;
@@ -65,32 +62,19 @@ public class LessonMaintenanceController {
         }
     }
 
-    @FXML
+    @javafx.fxml.FXML
     public void editOnAction(ActionEvent actionEvent) {
-        loadPage("lessonMaintenance.fxml");
+        loadPage("editLessons.fxml");
     }
 
-    @FXML
+    @javafx.fxml.FXML
     public void addOnAction(ActionEvent actionEvent) {
         loadPage("addLessons.fxml");
     }
 
-    @FXML
+    @javafx.fxml.FXML
     public void deleteOnAction(ActionEvent actionEvent) throws TreeException {
-        lessonOperations.loadLessonsFromFile("lessons.txt");
-        String deleteThis = UtilityFX.dialog("Eliminar lección", "Digite la lección a eliminar.");
-        Optional<String> value = deleteThis.describeConstable();
-
-        if (value.isPresent()) {
-            String id = value.get();
-            if (!lessonOperations.checkIfExistsById(Integer.parseInt(id))) {
-                lessonOperations.deleteLesson(Integer.parseInt(id));
-                lessonOperations.saveLessonsToFile("lessons.txt");
-                UtilityFX.alert("Éxito al eliminar", "La lección ha sido suprimida exitosamente.");
-            } else {
-                UtilityFX.alert("Error al eliminar", "La lección con ID " + id + " no existe o no fue encontrada.");
-            }
-        }
+        loadPage("deleteLesson.fxml");
     }
 
     @FXML
@@ -112,16 +96,16 @@ public class LessonMaintenanceController {
     }
 
     private void loadLessonsIntoTableView() {
+        this.tv_Lessons.getItems().clear();
         ObservableList<Lesson> list = FXCollections.observableArrayList();
 
         try {
-            List<Lesson> lessons = lessonOperations.listLessons();
-            for (Lesson lesson : lessons) {
-                list.add(lesson);
-            }
-            tv_Lessons.setItems(list);
+            List<Lesson> lessonsList = lessonOperations.listLessons();
+            list.addAll(lessonsList);
         } catch (TreeException e) {
             throw new RuntimeException(e);
         }
+
+        tv_Lessons.setItems(list);
     }
 }

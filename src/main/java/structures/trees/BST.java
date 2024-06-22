@@ -74,32 +74,39 @@ public class BST implements Tree {
 
     @Override
     public void remove(Object element) throws TreeException {
-        if (isEmpty())
+        if (isEmpty()) {
             throw new TreeException("Binary Search Tree is empty.");
+        }
         root = remove(root, element);
     }
 
     private BTreeNode remove(BTreeNode node, Object element) {
-        if (node != null)
-            if (util.Utility.compare(element,node.data) <0)
-                node.left = remove(node.left, element);
-            else if (util.Utility.compare(element,node.data) > 0)
-                node.right = remove(node.right, element);
-            else if (util.Utility.compare(node.data, element) == 0)
-                // Caso 1. Si es una hoja (nodo sin hijos)
-                if (node.left == null && node.right == null)
-                    return null;
-                // Caso 2. El nodo solo tiene un hijo
-                else if (node.left == null && node.right != null)
-                    return node.right;
-                else if (node.left != null && node.right == null)
-                    return node.left;
-                // Caso 3. El nodo tiene dos hijos
-                else if (node.left != null && node.right != null) {
-                    Object value = min(node.right);
-                    node.data = value;
-                    node.right = remove(node.right, value);
-                }
+        if (node == null) {
+            return null;
+        }
+
+        int comparison = util.Utility.compare(element, node.data);
+
+        if (comparison < 0) {
+            node.left = remove(node.left, element);
+        } else if (comparison > 0) {
+            node.right = remove(node.right, element);
+        } else {
+            // Nodo encontrado: proceder a eliminarlo
+            System.out.println("Nodo encontrado: " + node.data); // Debug
+            if (node.left == null && node.right == null) {
+                return null; // Caso 1: Nodo sin hijos
+            } else if (node.left == null) {
+                return node.right; // Caso 2: Nodo con un hijo (derecho)
+            } else if (node.right == null) {
+                return node.left; // Caso 2: Nodo con un hijo (izquierdo)
+            } else {
+                // Caso 3: Nodo con dos hijos
+                Object successorValue = min(node.right);
+                node.data = successorValue;
+                node.right = remove(node.right, successorValue);
+            }
+        }
         return node;
     }
 
@@ -136,10 +143,10 @@ public class BST implements Tree {
     }
 
     private Object min(BTreeNode node) {
-        // Método interno.
-        if (node.left != null) return min(node.left);
-        return node.data;
+        if (node.left != null)
+            return min(node.left);
 
+        return node.data;
     }
 
     @Override
@@ -238,7 +245,7 @@ public class BST implements Tree {
         if (isEmpty()) {
             throw new TreeException("Binary Search Tree is empty.");
         }
-        return get(root, new int[]{index}); // Usamos un array para mantener el estado del índice
+        return get(root, new int[]{index});
     }
 
     private Object get(BTreeNode node, int[] index) {
@@ -262,7 +269,7 @@ public class BST implements Tree {
     }
 
     public List<Lesson> inOrderUsage() throws TreeException {
-        if (isEmpty()) throw new TreeException("AVL Binary Search Tree is empty.");
+        if (isEmpty()) throw new TreeException("Binary Search Tree is empty.");
         List<Lesson> lessons = new ArrayList<>();
         inOrder(root, lessons);
         return lessons;
@@ -275,5 +282,4 @@ public class BST implements Tree {
             inOrder(node.right, lessons);
         }
     }
-
 }

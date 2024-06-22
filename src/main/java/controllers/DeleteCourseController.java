@@ -9,7 +9,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import operations.CourseOperations;
-import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import util.UtilityFX;
 import java.io.IOException;
@@ -60,8 +59,6 @@ public class DeleteCourseController {
                         lengthField.setText(course.getCourseLength());
                         levelField.setText(course.getLevel());
                         instructorIdField.setText(String.valueOf(course.getInstructorId()));
-                    } else {
-
                     }
                 } catch (NumberFormatException e) {
                     UtilityFX.alert("Error", "ID del curso no es un número válido.");
@@ -76,14 +73,6 @@ public class DeleteCourseController {
             lengthField.setFocusTraversable(true);
             levelField.setFocusTraversable(true);
             instructorIdField.setFocusTraversable(true);
-
-//            System.out.println("idField editable: " + idField.isEditable());
-//            System.out.println("nameField editable: " + nameField.isEditable());
-//            System.out.println("descriptionField editable: " + descriptionField.isEditable());
-//            System.out.println("lengthField editable: " + lengthField.isEditable());
-//            System.out.println("levelField editable: " + levelField.isEditable());
-//            System.out.println("instructorIdField editable: " + instructorIdField.isEditable());
-//            System.out.println("Focused element: " + idField.getScene().getFocusOwner());
         });
     }
 
@@ -96,8 +85,6 @@ public class DeleteCourseController {
         }
         return null;
     }
-
-
 
     @FXML
     public void deleteOnAction(ActionEvent actionEvent) {

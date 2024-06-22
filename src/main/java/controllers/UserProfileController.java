@@ -72,7 +72,6 @@ public class UserProfileController {
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }
@@ -98,7 +97,6 @@ public class UserProfileController {
     }
 
     @FXML
-    public void cursosOnAction(ActionEvent actionEvent) {
-        // Implementación del manejo de la acción de cursos
+    public void cursosOnAction(ActionEvent actionEvent) {loadPage("userCourses.fxml");
     }
 }

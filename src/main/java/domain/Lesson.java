@@ -2,6 +2,8 @@ package domain;
 
 import operations.CourseOperations;
 
+import java.util.Objects;
+
 public class Lesson {
     private int id; /**Identificador unico de la leccion**/
 
@@ -62,5 +64,18 @@ public class Lesson {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return id == lesson.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
