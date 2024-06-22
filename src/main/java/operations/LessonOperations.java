@@ -158,5 +158,17 @@ public class LessonOperations implements LessonMaintenance {
         }
         return false;
     }
+    public List<Lesson> listLessonsByCourse(int courseId) throws TreeException {
+        loadLessonsFromFile("lessons.txt");
+
+        List<Lesson> list = new ArrayList<>();
+        for (Object obj : lessons.inOrderUsage()) {
+            Lesson lesson = (Lesson) obj;
+            if (lesson.getCourseId() == courseId) {
+                list.add(lesson);
+            }
+        }
+        return list;
+    }
 }
 

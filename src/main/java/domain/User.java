@@ -18,6 +18,8 @@ public class User implements Serializable {
     private String place;
     private SinglyLinkedList courses;
     private SinglyLinkedList lessons;
+    private SinglyLinkedList completedLessons;
+    private SinglyLinkedList grades;
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -35,6 +37,10 @@ public class User implements Serializable {
         this.country = country;
         this.city = city;
         this.place = place;
+        this.courses = new SinglyLinkedList();
+        this.lessons = new SinglyLinkedList();
+        this.completedLessons = new SinglyLinkedList();
+        this.grades = new SinglyLinkedList();
     }
 
     // Getters y Setters
@@ -110,6 +116,30 @@ public class User implements Serializable {
         this.courses = courses;
     }
 
+    public SinglyLinkedList getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(SinglyLinkedList lessons) {
+        this.lessons = lessons;
+    }
+
+    public SinglyLinkedList getCompletedLessons() {
+        return completedLessons;
+    }
+
+    public void setCompletedLessons(SinglyLinkedList completedLessons) {
+        this.completedLessons = completedLessons;
+    }
+
+    public SinglyLinkedList getGrades() {
+        return grades;
+    }
+
+    public void setGrades(SinglyLinkedList grades) {
+        this.grades = grades;
+    }
+
     public StringBuilder coursesToString() throws ListException {
         StringBuilder list = new StringBuilder();
         for (int i = 1; i <= courses.size(); i++) { // Cambiado a 1-based index
@@ -135,7 +165,6 @@ public class User implements Serializable {
         return roleStr;
     }
 
-
     @Override
     public String toString() {
         return id + "," + name + "," + password + "," + email + "," + role + "," + country + "," + city + "," + place;
@@ -158,7 +187,6 @@ public class User implements Serializable {
         }
     }
 
-
     public Role stringToRole(String useThis) {
         if (useThis.trim().equalsIgnoreCase("Usuario")) return Role.USER;
         else if (useThis.trim().equalsIgnoreCase("Administrador")) return Role.ADMINISTRATOR;
@@ -169,5 +197,35 @@ public class User implements Serializable {
     public void addCourse(Course course) {
         if (courses == null) courses = new SinglyLinkedList();
         courses.add(course);
+    }
+
+    public boolean hasCompletedLesson(int lessonId) throws ListException {
+        for (int i = 1; i <= completedLessons.size(); i++) {
+            Node node = completedLessons.getNode(i);
+            if (node != null && (int) node.data == lessonId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public double getGrade(int lessonId) throws ListException {
+        for (int i = 1; i <= grades.size(); i++) {
+            Node node = grades.getNode(i);
+            if (node != null && node.data instanceof Grade) {
+                Grade grade = (Grade) node.data;
+                if (grade.getLessonId() == lessonId) {
+                    return grade.getGrade();
+                }
+            }
+        }
+        return 0.0;
+    }
+
+    public void addCompletedLesson(int lessonId, double grade) throws ListException {
+        if (!hasCompletedLesson(lessonId)) {
+            completedLessons.add(lessonId);
+            grades.add(new Grade(lessonId, grade));
+        }
     }
 }
