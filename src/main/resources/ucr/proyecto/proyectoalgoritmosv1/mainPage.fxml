@@ -95,9 +95,9 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <Button fx:id="p_course1" layoutX="16.0" layoutY="272.0" onAction="#showOnAction" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
-                        <Button fx:id="p_course2" layoutX="258.0" layoutY="272.0" onAction="#showOnAction2" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
-                        <Button fx:id="p_course3" layoutX="498.0" layoutY="272.0" onAction="#showOnAction3" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
+                        <Button fx:id="p_course1" layoutX="16.0" layoutY="272.0" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
+                        <Button fx:id="p_course2" layoutX="258.0" layoutY="272.0" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
+                        <Button fx:id="p_course3" layoutX="498.0" layoutY="272.0" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #dee8be;" />
                         <Pane fx:id="p_anunciosInteres" layoutX="16.0" layoutY="72.0" prefHeight="167.0" prefWidth="704.0" style="-fx-background-color: #efeba9;" />
                     </children>
                 </Pane>

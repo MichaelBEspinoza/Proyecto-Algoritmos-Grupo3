@@ -90,8 +90,9 @@ public class MainPageController {
     private void displayCourse(Button courseButton, Course course, int index) {
         courseButton.setText("ID: " + course.getId() + "\nName: " + course.getName() + "\nDescription: " + course.getDescription());
         courseButton.setOnAction(event -> {
+            // Acción al hacer clic en el botón del curso
         });
-        displayedCourses[index] = course;
+        displayedCourses[index] = course; // Store course in the array
     }
 
     private void displayNoCoursesMessage() {
@@ -166,28 +167,5 @@ public class MainPageController {
     public void courseLessons(ActionEvent actionEvent) {
         loadPage("courseLessons.fxml");
     }
-
-    @FXML
-    public void showOnAction(ActionEvent actionEvent) {
-        if (displayedCourses[0] != null) {
-            System.out.println("hi");
-            loadPage("courseLessons.fxml");
-        }
-    }
-
-    @FXML
-    public void showOnAction2(ActionEvent actionEvent) {
-        if (displayedCourses[1] != null) {
-            System.out.println("hi");
-            loadPage("courseLessons.fxml");
-        }
-    }
-
-    @FXML
-    public void showOnAction3(ActionEvent actionEvent) {
-        if (displayedCourses[2] != null) {
-            System.out.println("hi");
-            loadPage("courseLessons.fxml");
-        }
-    }
 }
+
