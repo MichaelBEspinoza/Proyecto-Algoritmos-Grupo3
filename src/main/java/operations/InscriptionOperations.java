@@ -8,7 +8,6 @@ import structures.trees.TreeException;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class InscriptionOperations implements InscriptionMaintenance {
     CourseOperations courseOperations = new CourseOperations();  // Suponiendo que maneja operaciones relacionadas a cursos
     BTree enrollments = new BTree();
