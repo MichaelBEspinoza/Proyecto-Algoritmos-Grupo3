@@ -140,6 +140,14 @@ public class UsersMaintenanceController {
 
     @FXML
     public void evaluationOnAction(ActionEvent actionEvent) {
+        String userType = String.valueOf(UserSession.getInstance().getLoggedUser().getRole()); // Obtén el tipo de usuario actual
+        if ("INSTRUCTOR".equals(userType) || "ADMINISTRATOR".equals(userType)) {
+            bp.getChildren().clear();
+            loadPage("studentCourseEvaluation.fxml");
+        } else
+            UtilityFX.alert("Permiso denegado", "No tiene los permisos necesarios para acceder a reportes.");
+
+
     }
 
     @FXML
