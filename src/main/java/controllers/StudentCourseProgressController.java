@@ -35,7 +35,6 @@ public class StudentCourseProgressController {
     private CourseOperations courseOperations;
     private ReportsOperations reportsOperations;
     private Map<String, String> courseNameMap;
-
     private UserOperations userOperations = new UserOperations();
 
     public StudentCourseProgressController() {
@@ -76,11 +75,7 @@ public class StudentCourseProgressController {
         if (selectedCourseName != null) {
             String name = courseNameMap.get(selectedCourseName);
             reportsOperations.generateStudentProgressReport(name);
-            // Mostrar mensaje de éxito o manejar el resultado según sea necesario
-        } else {
-            // Mostrar mensaje de error o advertencia
         }
-
     }
 
     @FXML

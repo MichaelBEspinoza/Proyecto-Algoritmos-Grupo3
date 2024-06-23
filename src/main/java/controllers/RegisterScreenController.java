@@ -50,6 +50,8 @@ public class RegisterScreenController {
         UO.loadUsersFromFile("users.txt");
 
         cb_role.getItems().addAll("Usuario", "Instructor", "Administrador");
+        cb_role.getSelectionModel().selectFirst();
+        cb_role.setDisable(true);
         cb_Place.getItems().addAll("Ciudad Rodrigo Facio", "San Ramón", "Grecia",
                                          "Turrialba", "Paraíso", "Guápiles",
                                          "Liberia", "Santa Cruz", "Puerto Limón",
