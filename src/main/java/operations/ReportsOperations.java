@@ -23,6 +23,7 @@ public class ReportsOperations implements Reports {
         }
     }
 
+
     @Override
     public PdfDocument generateEnrollmentReport(int courseId) {
         ensureDirectoryExists();
