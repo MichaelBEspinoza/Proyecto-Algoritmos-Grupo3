@@ -1,55 +1,43 @@
 package domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Enrollment {
-    private int id; /**Identificador del curso**/
+    private int userId;
+    private int courseId;
 
-    private int userId; /**Identificador del usuario escrito**/
-
-    private int courseId; /**identificador del curso al que escribe**/
-
-    private LocalDate registrationDate; /**Fecha de inscipcion**/
-
-    public Enrollment() {
-    }
-
-    public Enrollment(int id, int userId, int courseId, LocalDate registrationDate) {
-        this.id = id;
+    public Enrollment(int userId, int courseId) {
         this.userId = userId;
         this.courseId = courseId;
-        this.registrationDate = registrationDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public int getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Enrollment that = (Enrollment) obj;
+        return userId == that.userId && courseId == that.courseId;
     }
 
-    public LocalDate getRegistrationDate() {
-        return registrationDate;
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, courseId);
     }
 
-    public void setRegistrationDate(LocalDate registrationDate) {
-        this.registrationDate = registrationDate;
+    @Override
+    public String toString() {
+        return "Enrollment{" +
+                "userId=" + userId +
+                ", courseId=" + courseId +
+                '}';
     }
 }

@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import operations.CourseOperations;
+import operations.InscriptionOperations;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
@@ -35,13 +36,13 @@ public class InscriptionCourseController {
 
     CourseOperations CO = new CourseOperations();
     User loggedUser = UserSession.getInstance().getLoggedUser();
+    InscriptionOperations IO = new InscriptionOperations();
 
     private void loadPage(String page) {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
         try {
             this.bp.setCenter(fxmlLoader.load());
         } catch (IOException e) {
-            //util.UtilityFX.alert("Error", "No se pudo cargar la página: " + page);
             e.printStackTrace();
         }
     }

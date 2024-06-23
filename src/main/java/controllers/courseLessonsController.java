@@ -81,18 +81,17 @@ public class courseLessonsController {
             }
             @Override
             public Course fromString(String string) {
-                return null; // No necesita conversión en este sentido
+                return null;
             }
         });
     }
-
 
     private void setupTableView() {
         tc_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         tc_name.setCellValueFactory(new PropertyValueFactory<>("title"));
         tc_contenido.setCellValueFactory(new PropertyValueFactory<>("content"));
         tc_curso.setCellValueFactory(new PropertyValueFactory<>("course"));
-        tc_estado.setCellValueFactory(new PropertyValueFactory<>("estado")); // Asumiendo que Lesson tiene un atributo estado
+        tc_estado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         tc_instructorId.setCellValueFactory(new PropertyValueFactory<>("instructorId"));
 
         tableView.setRowFactory(tv -> {
