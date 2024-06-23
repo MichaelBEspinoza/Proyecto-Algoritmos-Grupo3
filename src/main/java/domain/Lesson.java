@@ -67,5 +67,11 @@ public class Lesson {
         this.course = course;
     }
 
+    public boolean isStateCompleted() {
+        return stateCompleted;
+    }
 
+    public void setStateCompleted(boolean stateCompleted) {
+        this.stateCompleted = stateCompleted;
+    }
 }

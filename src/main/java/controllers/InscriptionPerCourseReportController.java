@@ -1,15 +1,20 @@
 package controllers;
 
 import domain.Course;
+import domain.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import operations.CourseOperations;
 import operations.ReportsOperations;
+import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
+import util.UtilityFX;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +45,15 @@ public class InscriptionPerCourseReportController {
         courseNameToIdMap = new HashMap<>();
     }
 
+    private void loadPage(String page) {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(page));
+        try {
+            this.bp.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @FXML
     public void initialize() {
         loadCourses();
@@ -55,28 +69,32 @@ public class InscriptionPerCourseReportController {
 
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
-        // Implementar acción de ayuda
+        bp.getChildren().clear();
+        loadPage("usersupport.fxml");
     }
 
     @FXML
     public void pagePrincipalOnAction(ActionEvent actionEvent) {
-        // Implementar acción para ir a la página principal
+        bp.getChildren().clear();
+        loadPage("mainPage.fxml");
     }
 
     @FXML
     public void addOnAction(ActionEvent actionEvent) {
+        String userType = String.valueOf(UserSession.getInstance().getLoggedUser().getRole());
         String selectedCourseName = (String) cb_courseName.getSelectionModel().getSelectedItem();
-        if (selectedCourseName != null) {
+        if (selectedCourseName != null || "INSTRUCTOR".equals(userType) || "ADMINISTRATOR".equals(userType)) {
             int courseId = courseNameToIdMap.get(selectedCourseName);
             reportsOperations.generateEnrollmentReport(courseId);
-            // Mostrar mensaje de éxito o manejar el resultado según sea necesario
+            UtilityFX.alert("Permiso concedido", "Tienes acceso para editar cursos.");
         } else {
-            // Mostrar mensaje de error o advertencia
+            UtilityFX.alert("Permiso denegado", "No tienes permiso para editar cursos.");
         }
     }
 
     @FXML
     public void cursosOnAction(ActionEvent actionEvent) {
-        // Implementar acción para ir a la sección de cursos
+        bp.getChildren().clear();
+        loadPage("userCourses.fxml");
     }
 }

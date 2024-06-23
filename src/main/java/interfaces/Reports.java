@@ -26,4 +26,12 @@ public interface Reports {
      **/
 
     public PdfDocument createPDF(String title, List<String> content);
+
+    /**
+     * Registra un evento en la bitácora del sistema.
+     * @param timestamp Fecha y hora del evento
+     * @param userId ID del usuario que realizó el evento
+     * @param description Descripción del evento
+     */
+    public void logEvent(String timestamp, int userId, String description);
 }

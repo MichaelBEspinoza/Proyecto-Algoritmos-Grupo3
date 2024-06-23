@@ -187,4 +187,44 @@ public class LessonOperations implements LessonMaintenance {
                     return false; // ID no es único, ya existe
         return true; // ID es único
     }
+
+    public boolean markLessonCompleted(int lessonId) throws TreeException {
+        loadLessonsFromFile("lessons.txt");
+
+        for (int i = 0; i < lessons.size(); i++) {
+            Lesson lesson = (Lesson) lessons.get(i);
+            if (lesson.getId() == lessonId) {
+                lesson.setStateCompleted(true);
+                saveLessonsToFile("lessons.txt");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int countCompletedLessonsByCourse(int courseId) throws TreeException {
+        loadLessonsFromFile("lessons.txt");
+
+        int completedCount = 0;
+        for (int i = 0; i < lessons.size(); i++) {
+            Lesson lesson = (Lesson) lessons.get(i);
+            if (lesson.getCourseId() == courseId && lesson.isStateCompleted()) {
+                completedCount++;
+            }
+        }
+        return completedCount;
+    }
+
+    public int countLessonsByCourse(int courseId) throws TreeException {
+        loadLessonsFromFile("lessons.txt");
+
+        int totalCount = 0;
+        for (int i = 0; i < lessons.size(); i++) {
+            Lesson lesson = (Lesson) lessons.get(i);
+            if (lesson.getCourseId() == courseId) {
+                totalCount++;
+            }
+        }
+        return totalCount;
+    }
 }
