@@ -41,6 +41,7 @@ public class MainPageController {
     private BorderPane bp;
 
     private CourseOperations courseOperations;
+    private Course[] displayedCourses = new Course[3]; // Array to store courses displayed in buttons
     User loggedUser = UserSession.getInstance().getLoggedUser();
 
     private void loadPage(String page) {
@@ -75,21 +76,23 @@ public class MainPageController {
             displayNoCoursesMessage();
         } else {
             if (courses.size() > 0) {
-                displayCourse(p_course1, courses.get(0));
+                displayCourse(p_course1, courses.get(0), 0);
             }
             if (courses.size() > 1) {
-                displayCourse(p_course2, courses.get(1));
+                displayCourse(p_course2, courses.get(1), 1);
             }
             if (courses.size() > 2) {
-                displayCourse(p_course3, courses.get(2));
+                displayCourse(p_course3, courses.get(2), 2);
             }
         }
     }
 
-    private void displayCourse(Button courseButton, Course course) {
+    private void displayCourse(Button courseButton, Course course, int index) {
         courseButton.setText("ID: " + course.getId() + "\nName: " + course.getName() + "\nDescription: " + course.getDescription());
         courseButton.setOnAction(event -> {
+            // Acción al hacer clic en el botón del curso
         });
+        displayedCourses[index] = course; // Store course in the array
     }
 
     private void displayNoCoursesMessage() {
@@ -102,7 +105,9 @@ public class MainPageController {
     }
 
     @FXML
-    public void perfilOnAction(ActionEvent actionEvent) {loadPage("userProfile.fxml");}
+    public void perfilOnAction(ActionEvent actionEvent) {
+        loadPage("userProfile.fxml");
+    }
 
     @FXML
     public void ayudaOnAction(ActionEvent actionEvent) {
@@ -126,19 +131,27 @@ public class MainPageController {
 
     @FXML
     public void userMaintenenceOnAction(ActionEvent actionEvent) {
-        if (loggedUser.getRole() == Role.USER)
+        if (loggedUser.getRole() == Role.USER) {
             loadPage("userEditProfile.fxml");
-        else loadPage("usersMaintenance.fxml");
+        } else {
+            loadPage("usersMaintenance.fxml");
+        }
     }
 
     @FXML
-    public void menuHelpOnAction(ActionEvent actionEvent) {loadPage("usersupport.fxml");}
+    public void menuHelpOnAction(ActionEvent actionEvent) {
+        loadPage("usersupport.fxml");
+    }
 
     @FXML
-    public void menuCursosOnAction(ActionEvent actionEvent) {loadPage("userCourses.fxml");}
+    public void menuCursosOnAction(ActionEvent actionEvent) {
+        loadPage("userCourses.fxml");
+    }
 
     @FXML
-    public void menuMainPage(ActionEvent actionEvent) {loadPage("mainPage.fxml");}
+    public void menuMainPage(ActionEvent actionEvent) {
+        loadPage("mainPage.fxml");
+    }
 
     @FXML
     public void inscripcionOnAction(ActionEvent actionEvent) {
@@ -146,22 +159,13 @@ public class MainPageController {
     }
 
     @FXML
-    public void menuLessons(ActionEvent actionEvent) {loadPage("lessonMaintenance.fxml");
+    public void menuLessons(ActionEvent actionEvent) {
+        loadPage("lessonMaintenance.fxml");
     }
 
     @FXML
-    public void courseLessons(ActionEvent actionEvent) {loadPage("courseLessons.fxml");
-    }
-
-    @FXML
-    public void showOnAction2(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void showOnAction3(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void showOnAction(ActionEvent actionEvent) {
+    public void courseLessons(ActionEvent actionEvent) {
+        loadPage("courseLessons.fxml");
     }
 }
+
