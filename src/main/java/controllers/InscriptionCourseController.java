@@ -11,7 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import operations.CourseOperations;
 import operations.InscriptionOperations;
+import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
+import util.UtilityFX;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -54,25 +56,41 @@ public class InscriptionCourseController {
     }
 
     @javafx.fxml.FXML
-    public void pagePrincipalOnAction(ActionEvent actionEvent) {loadPage("mainPage.fxml");
+    public void pagePrincipalOnAction(ActionEvent actionEvent) {
+        loadPage("mainPage.fxml");
     }
 
     @javafx.fxml.FXML
-    public void cursosOnAction(ActionEvent actionEvent) {loadPage("userCourses.fxml");
+    public void cursosOnAction(ActionEvent actionEvent) {
+        loadPage("userCourses.fxml");
     }
 
     @javafx.fxml.FXML
     public void addOnAction(ActionEvent actionEvent) {
         if (txf_name.getText().isEmpty() || txf_courseID.getText().isEmpty()) {
-            util.UtilityFX.alert("Error en inscripción", "Ambos campos deben estar llenos antes de la inscripción.");
+            UtilityFX.alert("Error en inscripción", "Ambos campos deben estar llenos antes de la inscripción.");
             return;
         }
-        for (Course checkThis : CO.listCourse())
-            if (Objects.equals(checkThis.getName(), txf_name.getText()) && checkThis.getId() == Integer.parseInt(txf_courseID.getText())) {
-                loggedUser.addCourse(checkThis);
-                util.UtilityFX.alert("¡Éxitos!", "Su inscripción se ha procesado con éxito.");
-                return;
+
+        try {
+            int courseId = Integer.parseInt(txf_courseID.getText());
+            Course course = CO.getCourseByIdAndName(courseId, txf_name.getText());
+
+            if (course != null) {
+                boolean enrolled = IO.enrollStudent(loggedUser.getId(), courseId);
+                if (enrolled) {
+                    UtilityFX.alert("¡Éxito!", "Su inscripción se ha procesado con éxito.");
+                } else {
+                    UtilityFX.alert("Error en inscripción", "Ya está inscrito en este curso o hubo un problema al procesar su inscripción.");
+                }
+            } else {
+                UtilityFX.alert("Error en inscripción", "No se encontró el curso ingresado. Inténtelo de nuevo.");
             }
-        util.UtilityFX.alert("Error en inscripción", "No se encontró el curso ingresado. Inténtelo de nuevo.");
+        } catch (NumberFormatException e) {
+            UtilityFX.alert("Error en inscripción", "El ID del curso debe ser un número.");
+        } catch (TreeException e) {
+            UtilityFX.alert("Error en inscripción", "Ocurrió un error al procesar su inscripción.");
+            e.printStackTrace();
+        }
     }
 }
