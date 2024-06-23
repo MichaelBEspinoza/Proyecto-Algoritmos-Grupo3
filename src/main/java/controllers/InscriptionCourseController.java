@@ -78,6 +78,7 @@ public class InscriptionCourseController {
 
             if (course != null) {
                 boolean enrolled = IO.enrollStudent(loggedUser.getId(), courseId);
+                loggedUser.addCourse(course);
                 if (enrolled) {
                     UtilityFX.alert("¡Éxito!", "Su inscripción se ha procesado con éxito.");
                 } else {
