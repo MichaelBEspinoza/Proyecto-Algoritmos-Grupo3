@@ -3,6 +3,7 @@ package domain;
 import structures.lists.ListException;
 import structures.lists.Node;
 import structures.lists.SinglyLinkedList;
+import structures.trees.BTree;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class User implements Serializable {
     private SinglyLinkedList lessons;
     private SinglyLinkedList completedLessons;
     private SinglyLinkedList grades;
+    private BTree enrollments;
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -138,6 +140,14 @@ public class User implements Serializable {
 
     public void setGrades(SinglyLinkedList grades) {
         this.grades = grades;
+    }
+
+    public BTree getEnrollments() {
+        return enrollments;
+    }
+
+    public void setEnrollments(BTree enrollments) {
+        this.enrollments = enrollments;
     }
 
     public StringBuilder coursesToString() throws ListException {

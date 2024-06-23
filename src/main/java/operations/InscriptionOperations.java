@@ -1,6 +1,8 @@
 package operations;
 
 import domain.Enrollment;
+import domain.User;
+import domain.UserSession;
 import interfaces.InscriptionMaintenance;
 import structures.trees.BTree;
 import structures.trees.BTreeNode;
@@ -15,16 +17,24 @@ public class InscriptionOperations implements InscriptionMaintenance {
     BTree btree = new BTree();
     UserOperations UO = new UserOperations();
     CourseOperations CO = new CourseOperations();
+    User loggedUser = UserSession.getInstance().getLoggedUser();
 
     @Override
     public boolean enrollStudent(int userId, int courseId) throws TreeException {
-        if (UO.readUser(userId) != null && !Objects.equals(CO.readCourse(courseId), "The course doesn’t exist")) {
-            Enrollment enrollment = new Enrollment(userId, courseId);
+
+        Enrollment enrollment = new Enrollment(userId, courseId);
+        if (btree.isEmpty()) {
+            btree.add(enrollment);
+            loggedUser.getEnrollments().add(enrollment);
+            return true;
+        }
+
+        if (UO.readUser(userId) != null && !Objects.equals(CO.readCourse(courseId), "The course doesn’t exist"))
             if (!btree.contains(enrollment)) {
                 btree.add(enrollment);
+                loggedUser.getEnrollments().add(enrollment);
                 return true;
             }
-        }
         return false;
     }
 
