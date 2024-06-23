@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import operations.CourseOperations;
 import operations.InscriptionOperations;
+import operations.UserOperations;
 import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 import util.UtilityFX;
@@ -37,6 +38,7 @@ public class InscriptionCourseController {
     private BorderPane bp;
 
     CourseOperations CO = new CourseOperations();
+    UserOperations UO = new UserOperations();
     User loggedUser = UserSession.getInstance().getLoggedUser();
     InscriptionOperations IO = new InscriptionOperations();
 
@@ -78,8 +80,9 @@ public class InscriptionCourseController {
 
             if (course != null) {
                 boolean enrolled = IO.enrollStudent(loggedUser.getId(), courseId);
-                loggedUser.addCourse(course);
                 if (enrolled) {
+                    loggedUser.addCourse(course);
+                    UO.updateUser(loggedUser);
                     UtilityFX.alert("¡Éxito!", "Su inscripción se ha procesado con éxito.");
                 } else {
                     UtilityFX.alert("Error en inscripción", "Ya está inscrito en este curso o hubo un problema al procesar su inscripción.");

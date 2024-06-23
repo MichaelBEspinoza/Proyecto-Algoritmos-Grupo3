@@ -7,6 +7,9 @@ import structures.trees.BTree;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class User implements Serializable {
     private int id;
@@ -17,7 +20,7 @@ public class User implements Serializable {
     private String country;
     private String city;
     private String place;
-    private SinglyLinkedList courses;
+    private List<Course> courses;
     private SinglyLinkedList lessons;
     private SinglyLinkedList completedLessons;
     private SinglyLinkedList grades;
@@ -39,7 +42,7 @@ public class User implements Serializable {
         this.country = country;
         this.city = city;
         this.place = place;
-        this.courses = new SinglyLinkedList();
+        this.courses = new ArrayList<>();
         this.lessons = new SinglyLinkedList();
         this.completedLessons = new SinglyLinkedList();
         this.grades = new SinglyLinkedList();
@@ -110,11 +113,11 @@ public class User implements Serializable {
         this.place = place;
     }
 
-    public SinglyLinkedList getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(SinglyLinkedList courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 
@@ -150,15 +153,11 @@ public class User implements Serializable {
         this.enrollments = enrollments;
     }
 
-    public StringBuilder coursesToString() throws ListException {
+    public StringBuilder coursesToString() {
         StringBuilder list = new StringBuilder();
-        for (int i = 1; i <= courses.size(); i++) { // Cambiado a 1-based index
-            Node node = courses.getNode(i);
-            if (node != null) {
-                Course check = (Course) node.data;
-                if (check != null) {
-                    list.append(check.getId()).append(" - ").append(check.getName()).append("\n");
-                }
+        for (Course course : courses) {
+            if (course != null) {
+                list.append(course.getId()).append(" - ").append(course.getName()).append("\n");
             }
         }
         return list;
@@ -177,7 +176,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return id + "," + name + "," + password + "," + email + "," + role + "," + country + "," + city + "," + place;
+        return id + "," + name + "," + password + "," + email + "," + role + "," + country + "," + city + "," + place + "," + coursesToString();
     }
 
     public static User fromString(String userString) {
@@ -191,7 +190,16 @@ public class User implements Serializable {
             String country = parts[5];
             String city = parts[6];
             String place = parts[7];
-            return new User(id, name, password, email, role, country, city, place);
+            User user = new User(id, name, password, email, role, country, city, place);
+            for (int i = 8; i < parts.length; i++) {
+                String[] courseParts = parts[i].split("-");
+                if (courseParts.length == 2) {
+                    int courseId = Integer.parseInt(courseParts[0].trim());
+                    String courseName = courseParts[1].trim();
+                    user.addCourse(new Course(courseId, courseName, "", "", "", 0));
+                }
+            }
+            return user;
         } else {
             throw new IllegalArgumentException("Formato de cadena incorrecto para crear un usuario: " + userString);
         }
@@ -205,7 +213,7 @@ public class User implements Serializable {
     }
 
     public void addCourse(Course course) {
-        if (courses == null) courses = new SinglyLinkedList();
+        if (courses == null) courses = new ArrayList<>();
         courses.add(course);
     }
 
