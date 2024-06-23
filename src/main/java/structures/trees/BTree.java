@@ -1,10 +1,44 @@
 package structures.trees;
 
+import domain.Enrollment;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BTree implements Tree {
     private BTreeNode root; // única entrada al árbol
 
     public BTree() {
         this.root = null;
+    }
+
+    public Object find(Object element) throws TreeException {
+        if (isEmpty()) {
+            throw new TreeException("Binary Tree is empty");
+        }
+        return find(root, element);
+    }
+
+    public List<Enrollment> inOrderUsage() throws TreeException {
+        if (isEmpty()) throw new TreeException("Binary Search Tree is empty.");
+        List<Enrollment> enrollments = new ArrayList<>();
+        inOrder(root, enrollments);
+        return enrollments;
+    }
+
+    private void inOrder(BTreeNode node, List<Enrollment> enrollments) {
+        if (node != null) {
+            inOrder(node.left, enrollments);
+            enrollments.add((Enrollment) node.data);
+            inOrder(node.right, enrollments);
+        }
+    }
+
+    private Object find(BTreeNode node, Object element) {
+        if (node == null) return null;
+        if (util.Utility.compare(node.data, element) == 0) return node.data;
+        Object leftResult = find(node.left, element);
+        return leftResult != null ? leftResult : find(node.right, element);
     }
 
     @Override

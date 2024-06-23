@@ -11,17 +11,11 @@ public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int id; /**Identificador del curso**/
-
     private String name; /**Nombre del curso**/
-
     private String description; /**Descripcion del curso**/
-
     private String courseLength; /**Duracion del curso**/
-
     private String level; /**Nivel de dificultad (Low, Medium, High)**/
-
     private int instructorId; /**Identificador del instructor que imparte el curso**/
-
     private SinglyLinkedList lessons;
 
     public Course() {

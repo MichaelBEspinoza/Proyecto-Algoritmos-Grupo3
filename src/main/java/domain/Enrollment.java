@@ -6,6 +6,10 @@ import java.util.Objects;
 public class Enrollment {
     private int userId;
     private int courseId;
+    private int enrolledCount;
+
+    public Enrollment() {
+    }
 
     public Enrollment(int userId, int courseId) {
         this.userId = userId;
@@ -18,6 +22,18 @@ public class Enrollment {
 
     public int getCourseId() {
         return courseId;
+    }
+
+    public void incrementEnrollment() {
+        this.enrolledCount++;
+    }
+
+    public int getEnrolledCount() {
+        return enrolledCount;
+    }
+
+    public void setEnrolledCount(int enrolledCount) {
+        this.enrolledCount = enrolledCount;
     }
 
     @Override
