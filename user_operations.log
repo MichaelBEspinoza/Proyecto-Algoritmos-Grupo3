@@ -822,3 +822,7 @@ jun 22, 2024 6:55:22 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
 jun 22, 2024 8:02:39 P. M. operations.UserOperations loadUsersFromFile
 INFO: Users loaded from file successfully.
+jun 22, 2024 9:17:06 P. M. operations.UserOperations saveUsersToFile
+INFO: Users saved to file successfully.
+jun 22, 2024 9:41:45 P. M. operations.UserOperations loadUsersFromFile
+INFO: Users loaded from file successfully.
