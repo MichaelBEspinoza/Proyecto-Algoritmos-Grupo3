@@ -122,4 +122,5 @@ public class UserCoursesController implements Initializable {
         bp.getChildren().clear();
         loadPage("userCourses.fxml");
     }
+
 }
