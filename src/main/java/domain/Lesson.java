@@ -15,6 +15,9 @@ public class Lesson {
 
     private boolean stateCompleted;
 
+    private int grade;
+
+
     public Lesson() {
     }
 
@@ -73,5 +76,13 @@ public class Lesson {
 
     public void setStateCompleted(boolean stateCompleted) {
         this.stateCompleted = stateCompleted;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 }

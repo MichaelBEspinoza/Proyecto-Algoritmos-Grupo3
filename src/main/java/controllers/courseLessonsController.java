@@ -99,7 +99,11 @@ public class courseLessonsController {
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getClickCount() == 1) {
                     Lesson clickedRow = row.getItem();
-                    showCompletionDialog(clickedRow);
+                    try {
+                        showCompletionDialog(clickedRow);
+                    } catch (TreeException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
             return row;
@@ -115,7 +119,7 @@ public class courseLessonsController {
         }
     }
 
-    private void showCompletionDialog(Lesson lesson) {
+    private void showCompletionDialog(Lesson lesson) throws TreeException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmación de completitud");
         alert.setHeaderText("¿Lección completada?");
@@ -123,14 +127,31 @@ public class courseLessonsController {
 
         ButtonType buttonTypeYes = new ButtonType("Sí");
         ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonTypeYes) {
-            System.out.println("¡Completado!");
+            boolean validInput = false;
+            int grade = 0;
+            while (!validInput) {
+                String gradeStr = util.UtilityFX.dialog("Asignar nota", "Califique al estudiante según su rendimiento en la lección. (1-100)");
+                try {
+                    grade = Integer.parseInt(gradeStr);
+                    if (grade >= 1 && grade <= 100) {
+                        lesson.setGrade(grade);
+                        validInput = true;
+                    } else {
+                        util.UtilityFX.alert("Error en la calificación", "La calificación debe estar entre 1 y 100.");
+                    }
+                } catch (NumberFormatException e) {
+                    util.UtilityFX.alert("Entrada Inválida", "Por favor, introduzca un número válido para la calificación.");
+                }
+            }
+            lesson.setGrade(grade);
+            lessonsOperations.updateLesson(lesson);
+            lessonsOperations.saveLessonsToFile("lessons.txt");
         } else {
-            System.out.println("No completado...");
+            util.UtilityFX.alert("No completada", "La lección no ha sido completada.");
         }
     }
 
