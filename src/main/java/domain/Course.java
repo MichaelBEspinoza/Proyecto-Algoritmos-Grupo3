@@ -150,4 +150,7 @@ public class Course implements Serializable {
         if (lessons == null) lessons = new SinglyLinkedList();
         lessons.add(lesson);
     }
+
+
+
 }
