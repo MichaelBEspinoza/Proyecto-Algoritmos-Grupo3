@@ -7,11 +7,11 @@ import structures.trees.TreeException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 public class CourseOperations implements CourseMaintenance {
-
 
     AVL avlTree = new AVL();
 
@@ -93,6 +93,18 @@ public class CourseOperations implements CourseMaintenance {
         }
     }
 
+    public Course getCourseByName(String name) {
+        loadCoursesFromFile("cursos.txt");
+        try {
+            for (Course course : avlTree.inOrderUsage())
+                if (course.getName().equals(name))
+                    return course;
+        } catch (TreeException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void saveCoursesToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (Course course : avlTree.inOrderUsage()) {
@@ -164,18 +176,4 @@ public class CourseOperations implements CourseMaintenance {
         }
         return "The course doesn’t exist";
     }
-    public Course getCourseByIdAndName(int courseId, String courseName) {
-        loadCoursesFromFile("cursos.txt");
-        try {
-            for (Course c : avlTree.inOrderUsage()) {
-                if (c.getId() == courseId && Objects.equals(c.getName(), courseName)) {
-                    return c;
-                }
-            }
-        } catch (TreeException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 }

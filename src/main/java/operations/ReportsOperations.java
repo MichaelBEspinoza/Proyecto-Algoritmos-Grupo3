@@ -22,14 +22,15 @@ public class ReportsOperations implements Reports {
             directory.mkdirs();
         }
     }
+
     @Override
-    public PdfDocument generateEnrollmentReport() {
-        // Implementación de ejemplo para crear un informe de inscripciones
+    public PdfDocument generateEnrollmentReport(int courseId) {
+        ensureDirectoryExists();
         try {
-            String filename = DEST + "enrollmentReport.pdf";
+            String filename = DEST + "enrollmentReport_" + courseId + ".pdf";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(filename));
             Document doc = new Document(pdfDoc);
-            doc.add(new Paragraph("Informe de Inscripciones"));
+            doc.add(new Paragraph("Informe de Inscripciones para el Curso ID: " + courseId));
             // Aquí agregarías el contenido real del informe
             doc.close();
             return pdfDoc;
@@ -41,7 +42,7 @@ public class ReportsOperations implements Reports {
 
     @Override
     public PdfDocument generateStudentProgressReport(int userId) {
-        // Implementación de ejemplo para crear un informe del progreso del estudiante
+        ensureDirectoryExists();
         try {
             String filename = DEST + "studentProgressReport_" + userId + ".pdf";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(filename));
@@ -58,7 +59,7 @@ public class ReportsOperations implements Reports {
 
     @Override
     public PdfDocument generateEvaluationReport(int courseId) {
-        // Implementación de ejemplo para crear un informe de evaluaciones y calificaciones
+        ensureDirectoryExists();
         try {
             String filename = DEST + "evaluationReport_" + courseId + ".pdf";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(filename));
@@ -75,6 +76,7 @@ public class ReportsOperations implements Reports {
 
     @Override
     public PdfDocument createPDF(String title, List<String> content) {
+        ensureDirectoryExists();
         try {
             String filename = DEST + "customReport.pdf";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(filename));

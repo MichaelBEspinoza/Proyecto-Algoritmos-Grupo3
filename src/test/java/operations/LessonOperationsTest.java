@@ -47,8 +47,8 @@ public class LessonOperationsTest {
         LessonOperations operations = new LessonOperations();
 
         // Crea algunas lecciones y agrégalas al archivo
-        Lesson lesson1 = new Lesson(1, "Lesson 1", "Content 1", "Course 1", 101);
-        Lesson lesson2 = new Lesson(2, "Lesson 2", "Content 2", "Course 2", 102);
+        Lesson lesson1 = new Lesson(1, "Lesson 1", "Content 1", "Course 1", 101, false);
+        Lesson lesson2 = new Lesson(2, "Lesson 2", "Content 2", "Course 2", 102, false);
 
         operations.createLesson(lesson1);
         operations.createLesson(lesson2);

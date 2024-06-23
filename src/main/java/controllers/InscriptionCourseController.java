@@ -74,7 +74,7 @@ public class InscriptionCourseController {
 
         try {
             int courseId = Integer.parseInt(txf_courseID.getText());
-            Course course = CO.getCourseByIdAndName(courseId, txf_name.getText());
+            Course course = CO.getCourseByName(txf_name.getText());
 
             if (course != null) {
                 boolean enrolled = IO.enrollStudent(loggedUser.getId(), courseId);

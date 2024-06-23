@@ -11,7 +11,7 @@ public interface Reports {
      - *Generación de reportes en PDF:*
      - generateEnrollmentReport(): PDFDocument: Crea un informe de inscripciones por curso y devuelve el documento PDF generado.
      **/
-    public PdfDocument generateEnrollmentReport();
+    public PdfDocument generateEnrollmentReport(int courseID);
 
     /**- generateStudentProgressReport(int userId): PDFDocument: Crea un informe del progreso del estudiante y devuelve el documento PDF generado.
     **/

@@ -6,3 +6,4 @@
 112233445,David Teacher,YmnxSj|&678,davidcalvogam@gmail.com,ADMINISTRATOR,Costa Rica,Cartago,Ciudad Rodrigo Facio
 112121212,Nuevo Test,YmnxYjxy&678,davidcalvogam@gmail.com,ADMINISTRATOR,Costa Rica,Cartago,Ciudad Rodrigo Facio
 119260667,Bobby,StyNrutwyfsy&678,davidcalvogam@gmail.com,USER,Costa Rica,Cartago,Ciudad Rodrigo Facio
+305530425,Kath,KntwjqqE69,kfbrenes14@gmail.com,ADMINISTRATOR,Costa Rica,Cartago,Paraíso
