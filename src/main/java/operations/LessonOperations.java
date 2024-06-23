@@ -104,16 +104,6 @@ public class LessonOperations implements LessonMaintenance {
         return list;
     }
 
-//    public String listToString() throws TreeException {
-//
-//        String listResult = "Contenidos de la lista: \n";
-//
-//        for (Lesson check : listLessons())
-//            listResult += check.getTitle() + ", " + check.getId() + ", " + check.getCourse() + "\n";
-//
-//        return listResult;
-//    }
-
     public void saveLessonsToFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (int i = 0; i < lessons.size(); i++) {
@@ -159,7 +149,7 @@ public class LessonOperations implements LessonMaintenance {
             String content = parts[2].trim();
             String course = parts[3].trim();
             int courseId = Integer.parseInt(parts[4].trim());
-            return new Lesson(id, title, content, course,courseId,false);
+            return new Lesson(id, title, content, course, courseId, false);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid course data: " + str, e);
         }
@@ -198,4 +188,3 @@ public class LessonOperations implements LessonMaintenance {
         return true; // ID es único
     }
 }
-

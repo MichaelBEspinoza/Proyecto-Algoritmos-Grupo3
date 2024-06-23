@@ -3,3 +3,4 @@
 3<>Arboles<>¡Árboles!<>Algoritmos<>1122
 4<>Grafos<>¡Árboles!<>Algoritmos<>1122
 8<>Recursividad<>Hello!<>Algoritmos<>1234
+12<>Metodos<>uwu<>Algoritmos<>1

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class InscriptionCourseController {
-    @javafx.fxml.FXML
+   /* @javafx.fxml.FXML
     private Menu menuPaginaPrincipal;
     @javafx.fxml.FXML
     private Menu menuAyuda;
@@ -74,7 +74,7 @@ public class InscriptionCourseController {
 
         try {
             int courseId = Integer.parseInt(txf_courseID.getText());
-            Course course = CO.getCourseByName(txf_name.getText());
+            Course course = CO.courseByName(txf_name.getText());
 
             if (course != null) {
                 boolean enrolled = IO.enrollStudent(loggedUser.getId(), courseId);
@@ -92,5 +92,5 @@ public class InscriptionCourseController {
             UtilityFX.alert("Error en inscripción", "Ocurrió un error al procesar su inscripción.");
             e.printStackTrace();
         }
-    }
+    }*/
 }
