@@ -6,6 +6,7 @@ import domain.User;
 import interfaces.UserMaintenance;
 import structures.lists.CircularDoublyLinkedList;
 import structures.lists.ListException;
+import structures.lists.Node;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -253,6 +254,9 @@ public class UserOperations implements UserMaintenance {
         }
         sb.append("}");
 
+        // Depuración: Verificar cadena de usuario antes de guardar
+        System.out.println("Saving user to string: " + sb.toString());
+
         return sb.toString();
     }
 
@@ -285,6 +289,9 @@ public class UserOperations implements UserMaintenance {
                 }
             }
         }
+
+        // Depuración: Verificar usuario cargado desde el archivo
+        System.out.println("Loaded user from string: " + user.toString());
 
         return user;
     }

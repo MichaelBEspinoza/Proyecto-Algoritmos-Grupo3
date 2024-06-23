@@ -1,25 +1,21 @@
 package controllers;
 
+import domain.Course;
 import domain.User;
 import domain.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Menu;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import storage.UserCourseStorage;
 import structures.lists.ListException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
 
 public class UserProfileController {
-    @FXML
-    private ImageView imageView;
-    @FXML
-    private Circle circleImage;
     @FXML
     private BorderPane bp;
     @FXML
@@ -61,8 +57,16 @@ public class UserProfileController {
             city.setText(loggedUser.getCity());
             place.setText(loggedUser.getPlace());
 
-            if (loggedUser.getCourses() == null) courses.setText("Sin cursos que mostrar.");
-            else courses.setText(String.valueOf(loggedUser.coursesToString()));
+            var userCourses = UserCourseStorage.getCoursesForUser(loggedUser.getName());
+            if (userCourses.isEmpty()) {
+                courses.setText("Sin cursos que mostrar.");
+            } else {
+                StringBuilder courseList = new StringBuilder();
+                for (Course course : userCourses) {
+                    courseList.append(course.getId()).append(" - ").append(course.getName()).append("\n");
+                }
+                courses.setText(courseList.toString());
+            }
         }
     }
 
