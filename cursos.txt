@@ -1,2 +1,4 @@
+5,Math,Math Course,3 meses,Hard,43
+15,Math,Math Course,5 months,Hard,43
 1,Algoritmos,¡Algoritmos!,Semestral,Difícil,1
 2,Cálculo Integral y Diferencial,¡Cálculo!,Semestral,Medio,2

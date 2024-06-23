@@ -7,10 +7,11 @@ import structures.trees.TreeException;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CourseOperations implements CourseMaintenance {
-
 
     AVL avlTree = new AVL();
 
@@ -90,6 +91,18 @@ public class CourseOperations implements CourseMaintenance {
             e.printStackTrace();
             return new ArrayList<>();
         }
+    }
+
+    public Course getCourseByName(String name) {
+        loadCoursesFromFile("cursos.txt");
+        try {
+            for (Course course : avlTree.inOrderUsage())
+                if (course.getName().equals(name))
+                    return course;
+        } catch (TreeException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void saveCoursesToFile(String filename) {
