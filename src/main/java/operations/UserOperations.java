@@ -11,6 +11,8 @@ import javax.mail.internet.MimeMessage;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -275,6 +277,19 @@ public class UserOperations implements UserMaintenance {
             System.out.println(user); // Imprimir cada curso
         }
     }
+    public List<User> listUsersArray() {
+        List<User> userList = new ArrayList<>();
+        try {
+            for (int i = 1; i <= users.size(); i++) {
+                User user = (User) users.getNode(i).data;
+                userList.add(user);
+            }
+        } catch (ListException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
 
 //    public boolean assignCourseToUser(int userId, Course course) {
 //        try {
