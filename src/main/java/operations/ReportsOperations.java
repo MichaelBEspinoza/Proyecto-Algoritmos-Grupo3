@@ -40,8 +40,7 @@ public class ReportsOperations implements Reports {
         return null;
     }
 
-    @Override
-    public PdfDocument generateStudentProgressReport(int userId) {
+    public PdfDocument generateStudentProgressReport(String userId) {
         ensureDirectoryExists();
         try {
             String filename = DEST + "studentProgressReport_" + userId + ".pdf";

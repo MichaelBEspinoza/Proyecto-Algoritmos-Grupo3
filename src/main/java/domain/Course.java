@@ -5,8 +5,6 @@ import structures.lists.Node;
 import structures.lists.SinglyLinkedList;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Course implements Serializable {
@@ -18,17 +16,14 @@ public class Course implements Serializable {
     private String courseLength; /**Duracion del curso**/
     private String level; /**Nivel de dificultad (Low, Medium, High)**/
     private int instructorId; /**Identificador del instructor que imparte el curso**/
-    private List<Lesson> lessons;
+    private SinglyLinkedList lessons;
+    private int enrollmentCount;
 
     public Course() {
-        lessons = new ArrayList<>();
     }
-
     public Course(int id) {
         this.id = id;
-        lessons = new ArrayList<>();
     }
-
     public Course(int id, String name, String description, String courseLength, String level, int instructorId) {
         this.id = id;
         this.name = name;
@@ -36,7 +31,6 @@ public class Course implements Serializable {
         this.courseLength = courseLength;
         this.level = level;
         this.instructorId = instructorId;
-        this.lessons = new ArrayList<>();
     }
 
     public int getId() {
@@ -87,6 +81,31 @@ public class Course implements Serializable {
         this.instructorId = instructorId;
     }
 
+    public SinglyLinkedList getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(SinglyLinkedList lessons) {
+        this.lessons = lessons;
+    }
+
+    public void incrementEnrollment() {
+        this.enrollmentCount++;
+    }
+
+    public void decrementEnrollment() {
+        if (this.enrollmentCount > 0) {
+            this.enrollmentCount--;
+        }
+    }
+
+    public int getEnrollmentCount() {
+        return this.enrollmentCount;
+    }
+
+    public void setEnrollmentCount(int count) {
+        this.enrollmentCount = count;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -113,25 +132,22 @@ public class Course implements Serializable {
                 '}';
     }
 
-    public void addLesson(Lesson lesson) {
-        if (lesson != null && lesson.getCourseId() == this.id) {
-            lessons.add(lesson);
-        }
-    }
-
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
-    }
-
-    public StringBuilder lessonsToString() {
+    public StringBuilder lessonsToString() throws ListException {
         StringBuilder list = new StringBuilder();
-        for (Lesson lesson : lessons) {
-            list.append(lesson.getId()).append(" - ").append(lesson.getTitle()).append("\n").append(lesson.getContent());
+        for (int i = 1; i <= lessons.size(); i++) { // Cambiado a 1-based index
+            Node node = lessons.getNode(i);
+            if (node != null) {
+                Lesson check = (Lesson) node.data;
+                if (check != null) {
+                    list.append(check.getId()).append(" - ").append(check.getTitle()).append("\n").append(check.getContent());
+                }
+            }
         }
         return list;
+    }
+
+    public void addLessons(Lesson lesson) {
+        if (lessons == null) lessons = new SinglyLinkedList();
+        lessons.add(lesson);
     }
 }

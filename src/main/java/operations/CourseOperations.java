@@ -172,4 +172,19 @@ public class CourseOperations implements CourseMaintenance {
         }
         return "The course doesn’t exist";
     }
+
+    public Course getCourseById(int id) {
+        loadCoursesFromFile("cursos.txt");  // Asegura que los datos están actualizados
+        try {
+            for (Course course : avlTree.inOrderUsage()) {  // Busca en el árbol AVL
+                if (course.getId() == id) {
+                    return course;  // Retorna el curso si el ID coincide
+                }
+            }
+        } catch (TreeException e) {
+            e.printStackTrace();
+        }
+        return null;  // Retorna null si no se encuentra el curso
+    }
+
 }

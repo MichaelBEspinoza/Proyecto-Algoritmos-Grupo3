@@ -250,7 +250,7 @@ public class UserOperations implements UserMaintenance {
                 logger.log(Level.SEVERE, "Error while creating the file.", e);
             }
         } else {
-            if (file.length() == 0) { // Si el archivo está vacío
+            if (file.length() == 0) {
                 logger.log(Level.INFO, "File is empty. Starting with an empty user list.");
                 users = new CircularDoublyLinkedList();
                 return;
@@ -290,45 +290,18 @@ public class UserOperations implements UserMaintenance {
         return userList;
     }
 
+    public List<String> getUserNames() {
+        List<String> userNames = new ArrayList<>();
+        try {
+            for (int i = 1; i <= users.size(); i++) {
+                User user = (User) users.getNode(i).data;
+                userNames.add(user.getName());
+            }
+        } catch (ListException e) {
+            logger.log(Level.SEVERE, "Error while getting user names.", e);
+        }
+        return userNames;
+    }
 
-//    public boolean assignCourseToUser(int userId, Course course) {
-//        try {
-//            for (int i = 1; i <= users.size(); i++) {
-//                User user = (User) users.getNode(i).data;
-//                if (user.getId() == userId) {
-//                    user.addCourse(course);
-//                    return true;
-//                }
-//            }
-//        } catch (ListException e) {
-//            logger.log(Level.SEVERE, "Error while assigning course to user.", e);
-//        }
-//        return false;
-//    }
-//
-//    public CircularDoublyLinkedList listAllCourses() {
-//        CircularDoublyLinkedList allCourses = new CircularDoublyLinkedList();
-//        try {
-//            System.out.println("Iniciando el listado de todos los cursos...");
-//            for (int i = 1; i <= users.size(); i++) {
-//                User user = (User) users.getNode(i).data;
-//                System.out.println("Usuario encontrado: " + user.getName());
-//                SinglyLinkedList userCourses = user.getCourses();
-//                if (userCourses != null) {
-//                    System.out.println("Cursos del usuario " + user.getName() + ": " + userCourses.size());
-//                    for (int j = 1; j <= userCourses.size(); j++) {
-//                        Course course = (Course) userCourses.getNode(j).data;
-//                        System.out.println("Curso encontrado: " + course.getName());
-//                        allCourses.add(course);
-//                    }
-//                } else {
-//                    System.out.println("El usuario " + user.getName() + " no tiene cursos.");
-//                }
-//            }
-//        } catch (ListException e) {
-//            logger.log(Level.SEVERE, "Error while listing all courses.", e);
-//        }
-//        System.out.println("Listado de cursos completado. Total de cursos: " + allCourses.size());
-//        return allCourses;
-//    }
+
 }// End of class [UserOperations].
