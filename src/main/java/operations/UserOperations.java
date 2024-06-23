@@ -248,11 +248,9 @@ public class UserOperations implements UserMaintenance {
                 .append(user.getRole()).append(",").append(user.getCountry()).append(",")
                 .append(user.getCity()).append(",").append(user.getPlace());
 
-        sb.append(",{");
         for (Course course : user.getCourses()) {
             sb.append(course.getId()).append(":").append(course.getName()).append(";");
         }
-        sb.append("}");
 
         // Depuración: Verificar cadena de usuario antes de guardar
         System.out.println("Saving user to string: " + sb.toString());
