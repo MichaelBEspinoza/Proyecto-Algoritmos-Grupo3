@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.courseLessonsController">
+<BorderPane fx:id="bp" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.courseLessonsController">
     <center>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="719.0" style="-fx-background-color: #457d97;">
             <children>
@@ -74,7 +65,7 @@
                         </Pane>
                         <Pane layoutX="16.0" layoutY="72.0" prefHeight="371.0" prefWidth="633.0" style="-fx-background-color: #efeba9;">
                             <children>
-                                <Text layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Curso">
+                                <Text layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Curso:">
                                     <font>
                                         <Font name="Bell MT" size="18.0" />
                                     </font>
@@ -94,6 +85,7 @@
                                         <TableColumn fx:id="tc_instructorId" prefWidth="103.0" text="ID de Instructor:" />
                                     </columns>
                                 </TableView>
+                        <ComboBox fx:id="cb_Course" layoutX="73.0" layoutY="42.0" prefHeight="25.0" prefWidth="225.0" />
                             </children>
                         </Pane>
                     </children>

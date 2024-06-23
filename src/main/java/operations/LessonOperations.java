@@ -178,10 +178,9 @@ public class LessonOperations implements LessonMaintenance {
         loadLessonsFromFile("lessons.txt");
 
         List<Lesson> list = new ArrayList<>();
-        for (Object obj : lessons.inOrderUsage()) {
-            Lesson lesson = (Lesson) obj;
-            if (lesson.getCourseId() == courseId) {
-                list.add(lesson);
+        for (Lesson obj : lessons.inOrderUsage()) {
+            if (obj.getCourseId() == courseId) {
+                list.add(obj);
             }
         }
         return list;

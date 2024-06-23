@@ -89,7 +89,6 @@ public class MainPageController {
     private void displayCourse(Button courseButton, Course course) {
         courseButton.setText("ID: " + course.getId() + "\nName: " + course.getName() + "\nDescription: " + course.getDescription());
         courseButton.setOnAction(event -> {
-            // Acción al hacer clic en el botón del curso
         });
     }
 
@@ -152,5 +151,17 @@ public class MainPageController {
 
     @FXML
     public void courseLessons(ActionEvent actionEvent) {loadPage("courseLessons.fxml");
+    }
+
+    @FXML
+    public void showOnAction2(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void showOnAction3(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    public void showOnAction(ActionEvent actionEvent) {
     }
 }

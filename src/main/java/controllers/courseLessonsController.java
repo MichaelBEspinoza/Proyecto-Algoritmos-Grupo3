@@ -1,5 +1,6 @@
 package controllers;
 
+import domain.Course;
 import domain.Lesson;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -8,11 +9,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
+import operations.CourseOperations;
 import operations.LessonOperations;
 import structures.trees.TreeException;
 import ucr.proyecto.proyectoalgoritmosv1.HelloApplication;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class courseLessonsController {
@@ -42,11 +46,46 @@ public class courseLessonsController {
     private TableColumn<Lesson, Integer> tc_instructorId;
 
     private final LessonOperations lessonsOperations = new LessonOperations();
+    @javafx.fxml.FXML
+    private ComboBox<Course> cb_Course;
+    private CourseOperations CO = new CourseOperations();
 
     public void initialize() {
+        loadCoursesIntoComboBox();
         setupTableView();
-        fillTableView();
+        cb_Course.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                fillTableViewWithCourseLessons(newSelection);
+            }
+        });
+
+        if (!cb_Course.getItems().isEmpty()) {
+            cb_Course.getSelectionModel().selectFirst();
+        }
     }
+
+    private void loadCoursesIntoComboBox() {
+        List<Course> courses = CO.listCourse();
+        cb_Course.setItems(FXCollections.observableArrayList(courses));
+        cb_Course.setCellFactory(lv -> new ListCell<Course>() {
+            @Override
+            protected void updateItem(Course item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? "" : item.getId() + " - " + item.getName());
+            }
+        });
+        cb_Course.setConverter(new StringConverter<Course>() {
+            @Override
+            public String toString(Course object) {
+                return object == null ? "" : object.getId() + " - " + object.getName();
+            }
+            @Override
+            public Course fromString(String string) {
+                return null; // No necesita conversión en este sentido
+            }
+        });
+    }
+
 
     private void setupTableView() {
         tc_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -66,6 +105,7 @@ public class courseLessonsController {
             });
             return row;
         });
+        fillTableView();
     }
 
     private void fillTableView() {
@@ -125,4 +165,15 @@ public class courseLessonsController {
             e.printStackTrace();
         }
     }
+
+    private void fillTableViewWithCourseLessons(Course course) {
+        try {
+            List<Lesson> lessons = lessonsOperations.listLessonsByCourse(course.getId());
+            tableView.setItems(FXCollections.observableArrayList(lessons));
+        } catch (TreeException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

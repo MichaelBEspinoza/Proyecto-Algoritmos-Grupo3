@@ -1,0 +1,2 @@
+1,Algoritmos,¡Algoritmos!,Semestral,Difícil,1
+2,Cálculo Integral y Diferencial,¡Cálculo!,Semestral,Medio,2
