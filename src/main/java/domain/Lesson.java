@@ -28,6 +28,7 @@ public class Lesson {
         this.course = course;
         this.courseId = courseId;
         this.stateCompleted = stateCompleted;
+        this.grade = util.Utility.getRandom(99);
     }
 
     public int getId() {

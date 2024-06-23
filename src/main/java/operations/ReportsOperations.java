@@ -40,7 +40,15 @@ public class ReportsOperations implements Reports {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(filename));
             Document doc = new Document(pdfDoc);
             doc.add(new Paragraph("Informe de Inscripciones para el Curso ID: " + courseId));
-            // Aquí agregarías el contenido real del informe
+
+            if(util.Utility.getRandom(100)>70){
+                doc.add(new Paragraph("\nEl curso es popular "+ "\n"));
+
+            }else if(util.Utility.getRandom(100)>50){
+                doc.add(new Paragraph("\nEl curso no es popular "+ "\n"));
+
+            }
+
             doc.close();
             return pdfDoc;
         } catch (FileNotFoundException e) {
@@ -56,7 +64,15 @@ public class ReportsOperations implements Reports {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(filename));
             Document doc = new Document(pdfDoc);
             doc.add(new Paragraph("Informe de Progreso del Estudiante"));
-            // Aquí agregarías el contenido real del informe
+
+            for (int i = 0; i < 10; i++) {
+                if(util.Utility.getRandom(100)>70){
+                    doc.add(new Paragraph("\nLeccion aprobada "+ "\n"));
+                }else{
+                    doc.add(new Paragraph("\nLeccion reprobado "+ "\n"));
+                }
+            }
+
             doc.close();
             return pdfDoc;
         } catch (FileNotFoundException e) {
@@ -73,7 +89,9 @@ public class ReportsOperations implements Reports {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(filename));
             Document doc = new Document(pdfDoc);
             doc.add(new Paragraph("Informe de Evaluaciones y Calificaciones"));
-            // Aquí agregarías el contenido real del informe
+            for (int i = 0; i < 10; i++) {
+                doc.add(new Paragraph("\nNota ponderada de leccion: " + i + " " + util.Utility.getRandom(100) + "\n"));
+            }
             doc.close();
             return pdfDoc;
         } catch (FileNotFoundException e) {
