@@ -15,7 +15,7 @@ public interface Reports {
 
     /**- generateStudentProgressReport(int userId): PDFDocument: Crea un informe del progreso del estudiante y devuelve el documento PDF generado.
     **/
-    public PdfDocument generateStudentProgressReport(int userID);
+    public PdfDocument generateStudentProgressReport(String username);
 
     /** - generateEvaluationReport(int courseId): PDFDocument: Crea un informe de evaluaciones y calificaciones y devuelve el documento PDF generado.
     **/
