@@ -17,6 +17,7 @@ public class Course implements Serializable {
     private String level; /**Nivel de dificultad (Low, Medium, High)**/
     private int instructorId; /**Identificador del instructor que imparte el curso**/
     private SinglyLinkedList lessons;
+    private int enrollmentCount;
 
     public Course() {
     }
@@ -86,6 +87,24 @@ public class Course implements Serializable {
 
     public void setLessons(SinglyLinkedList lessons) {
         this.lessons = lessons;
+    }
+
+    public void incrementEnrollment() {
+        this.enrollmentCount++;
+    }
+
+    public void decrementEnrollment() {
+        if (this.enrollmentCount > 0) {
+            this.enrollmentCount--;
+        }
+    }
+
+    public int getEnrollmentCount() {
+        return this.enrollmentCount;
+    }
+
+    public void setEnrollmentCount(int count) {
+        this.enrollmentCount = count;
     }
 
     @Override

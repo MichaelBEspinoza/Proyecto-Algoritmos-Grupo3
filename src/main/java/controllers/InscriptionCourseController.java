@@ -88,9 +88,6 @@ public class InscriptionCourseController {
             }
         } catch (NumberFormatException e) {
             UtilityFX.alert("Error en inscripción", "El ID del curso debe ser un número.");
-        } catch (TreeException e) {
-            UtilityFX.alert("Error en inscripción", "Ocurrió un error al procesar su inscripción.");
-            e.printStackTrace();
         }
     }
 }
